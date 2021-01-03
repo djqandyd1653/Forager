@@ -1,0 +1,135 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="소스 파일">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="헤더 파일">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="리소스 파일">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Manager">
+      <UniqueIdentifier>{0d3dd8ca-cd64-4197-8fea-8fee9c2aca72}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Image">
+      <UniqueIdentifier>{01c1afaf-77c5-4e58-a579-ef001facd1cf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MainGame">
+      <UniqueIdentifier>{758a94af-880d-42f1-9bb3-16257f152bb3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameNode">
+      <UniqueIdentifier>{a16c893a-6709-4f7f-bb3b-8ce80300e8d1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene">
+      <UniqueIdentifier>{b8bd03b3-4213-4cb0-9eaa-783df5bce520}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Camera">
+      <UniqueIdentifier>{059c21f3-fb97-45cc-97ad-741600cbe5f8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="TileMap">
+      <UniqueIdentifier>{3d4cbd16-3de6-4e78-a8e3-748b17e6fd06}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="WinMain.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Image.cpp">
+      <Filter>Image</Filter>
+    </ClCompile>
+    <ClCompile Include="KeyManager.cpp">
+      <Filter>Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="GameNode.cpp">
+      <Filter>GameNode</Filter>
+    </ClCompile>
+    <ClCompile Include="MainGame.cpp">
+      <Filter>MainGame</Filter>
+    </ClCompile>
+    <ClCompile Include="TimeManager.cpp">
+      <Filter>Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneManager.cpp">
+      <Filter>Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="TestScene.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="TileMapToolScene.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="ImageManager.cpp">
+      <Filter>Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayScene.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="TileMap.cpp">
+      <Filter>TileMap</Filter>
+    </ClCompile>
+    <ClCompile Include="Animation.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="pch.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Image.h">
+      <Filter>Image</Filter>
+    </ClInclude>
+    <ClInclude Include="Singleton.h">
+      <Filter>Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="KeyManager.h">
+      <Filter>Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="GameNode.h">
+      <Filter>GameNode</Filter>
+    </ClInclude>
+    <ClInclude Include="MainGame.h">
+      <Filter>MainGame</Filter>
+    </ClInclude>
+    <ClInclude Include="TimeManager.h">
+      <Filter>Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneManager.h">
+      <Filter>Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="TestScene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="TileMapToolScene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="ImageManager.h">
+      <Filter>Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayScene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="TileMap.h">
+      <Filter>TileMap</Filter>
+    </ClInclude>
+    <ClInclude Include="Animation.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
