@@ -1,12 +1,18 @@
 #include "Camera.h"
 #include "TileMapToolScene.h"
+#include "Player.h"
 
-HRESULT Camera::Init()
+HRESULT Camera::Init(Player* player)
 {
-	startNumX = 0;
-	startNumY = 0;
-	endNumX = WINSIZE_X;
-	endNumY = WINSIZE_Y;
+	startNumX = -480;
+	startNumY = -750;
+	endNumX = startNumX + WINSIZE_X;
+	endNumY = startNumY + WINSIZE_Y;
+
+	mousePosX = WINSIZE_X / 2;
+	mousePosY = WINSIZE_Y / 2;
+
+	this->player = player;
 
 	return S_OK;
 }
@@ -17,57 +23,77 @@ void Camera::Release()
 
 void Camera::Update()
 {
-	if (KeyManager::GetSingleton()->IsStayKeyDown(VK_LEFT))
+	int x = WINSIZE_X / 2 - player->GetPos().x;
+	int y = WINSIZE_Y / 2 - player->GetPos().y;
+
+	startNumX += x;
+	startNumY += y;
+	endNumX += x;
+	endNumY += y;
+
+	if (startNumX < 0 && endNumX > 2 * WINSIZE_X - MAP_SIZE * TILE_SIZE)
 	{
-		if (startNumX < 0)
-		{
-			startNumX += static_cast<int>(TimeManager::GetSingleton()->GetElapsedTime() * 500);
-			endNumX += static_cast<int>(TimeManager::GetSingleton()->GetElapsedTime() * 500);
-		}
-		if(startNumX >= 0)
-		{
-			startNumX = 0;
-			endNumX = WINSIZE_X;
-		}
+		player->SetPosX(player->GetPos().x + x);
 	}
-	if (KeyManager::GetSingleton()->IsStayKeyDown(VK_UP))
+	if (startNumY < 0 && endNumY > 2 * WINSIZE_Y - MAP_SIZE * TILE_SIZE)
 	{
-		if (startNumY < 0)
-		{
-			startNumY += static_cast<int>(TimeManager::GetSingleton()->GetElapsedTime() * 500);
-			endNumY += static_cast<int>(TimeManager::GetSingleton()->GetElapsedTime() * 500);
-		}
-		if(startNumY >= 0)
-		{
-			startNumY = 0;
-			endNumY = WINSIZE_Y;
-		}
+		player->SetPosY(player->GetPos().y + y);
 	}
-	if (KeyManager::GetSingleton()->IsStayKeyDown(VK_RIGHT))
+
+	if (g_ptMouse.x - mousePosX > 100)
 	{
-		if (endNumX > 2 * WINSIZE_X - MAP_SIZE * TILE_SIZE)
-		{
-			startNumX -= static_cast<int>(TimeManager::GetSingleton()->GetElapsedTime() * 500);
-			endNumX -= static_cast<int>(TimeManager::GetSingleton()->GetElapsedTime() * 500);
-		}
-		if(endNumX <= 2 * WINSIZE_X - MAP_SIZE * TILE_SIZE)
-		{
-			startNumX = WINSIZE_X - MAP_SIZE * TILE_SIZE;
-			endNumX = 2 * WINSIZE_X - MAP_SIZE * TILE_SIZE;
-		}
+		startNumX += 100;
+		endNumX += 100;
+		//player->SetPosX(player->GetPos().x + 100);
+		mousePosX = g_ptMouse.x;
 	}
-	if (KeyManager::GetSingleton()->IsStayKeyDown(VK_DOWN))
+
+	if (g_ptMouse.x - mousePosX < -100)
 	{
-		if (endNumY > 2 * WINSIZE_Y - MAP_SIZE * TILE_SIZE)
-		{
-			startNumY -= static_cast<int>(TimeManager::GetSingleton()->GetElapsedTime() * 500);
-			endNumY -= static_cast<int>(TimeManager::GetSingleton()->GetElapsedTime() * 500);
-		}
-		if(endNumY <= 2 * WINSIZE_Y - MAP_SIZE * TILE_SIZE)
-		{
-			startNumY = WINSIZE_Y - MAP_SIZE * TILE_SIZE;
-			endNumY = 2 * WINSIZE_Y - MAP_SIZE * TILE_SIZE;
-		}
+		startNumX -= 100;
+		endNumX -= 100;
+		//player->SetPosX(player->GetPos().x - 100);
+		mousePosX = g_ptMouse.x;
+	}
+
+	if (g_ptMouse.y - mousePosY > 100)
+	{
+		startNumY += 100;
+		endNumY += 100;
+		//player->SetPosY(player->GetPos().y + 100);
+		mousePosY = g_ptMouse.y;
+	}
+
+	if (g_ptMouse.y - mousePosY < -100)
+	{
+		startNumY -= 100;
+		endNumY -= 100;
+		//player->SetPosY(player->GetPos().y - 100);
+		mousePosY = g_ptMouse.y;
+	}
+
+	if (startNumX >= 0)
+	{
+		startNumX = 0;
+		endNumX = WINSIZE_X;
+	}
+
+	if (startNumY >= 0)
+	{
+		startNumY = 0;
+		endNumY = WINSIZE_Y;
+	}
+
+	if (endNumX <= 2 * WINSIZE_X - MAP_SIZE * TILE_SIZE)
+	{
+		startNumX = WINSIZE_X - MAP_SIZE * TILE_SIZE;
+		endNumX = 2 * WINSIZE_X - MAP_SIZE * TILE_SIZE;
+	}
+
+	if (endNumY <= 2 * WINSIZE_Y - MAP_SIZE * TILE_SIZE)
+	{
+		startNumY = WINSIZE_Y - MAP_SIZE * TILE_SIZE;
+		endNumY = 2 * WINSIZE_Y - MAP_SIZE * TILE_SIZE;
 	}
 }
 

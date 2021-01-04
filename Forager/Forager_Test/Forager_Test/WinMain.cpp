@@ -63,9 +63,11 @@ int APIENTRY WinMain(HINSTANCE _hInstance, HINSTANCE _hPrevInstance, LPSTR _lpsz
 		}
 		else
 		{
-			TimeManager::GetSingleton()->Update();
-			g_mainGame->Update();
-			g_mainGame->Render();
+			if (TimeManager::GetSingleton()->Update())
+			{
+				g_mainGame->Update();
+				g_mainGame->Render();
+			}
 		}
 	}
 

@@ -31,11 +31,12 @@ HRESULT TimeManager::Init()
 	currTime = 0;
 	fpsFrameCount = 0;
 	fpsTimeElapsed = 0.0f;
+	targetFps = 120.0f;
 
 	return S_OK;
 }
 
-void TimeManager::Update()
+bool TimeManager::Update()
 {
 	if (isHardware)
 	{
@@ -51,20 +52,25 @@ void TimeManager::Update()
 	//한프레임 간격의 초 계산
 	timeElapsed = (currTime - lastTime) * timeScale;
 
-	fpsFrameCount++;
-	//프레임 초 누적
-	fpsTimeElapsed += timeElapsed;
-
-	//프레임 초기화를 1초마다 진행하기
-	if (fpsTimeElapsed >= 1.0f)
+	if (targetFps == 0 || timeElapsed > 1.0f / targetFps)
 	{
-		fps = fpsFrameCount;
-		fpsFrameCount = 0;
-		fpsTimeElapsed = 0.0f;
-	}
+		fpsFrameCount++;
+		//프레임 초 누적
+		fpsTimeElapsed += timeElapsed;
 
-	//지난 시간 갱신
-	lastTime = currTime;
+		//프레임 초기화를 1초마다 진행하기
+		if (fpsTimeElapsed >= 1.0f)
+		{
+			fps = fpsFrameCount;
+			fpsFrameCount = 0;
+			fpsTimeElapsed = 0.0f;
+		}
+
+		//지난 시간 갱신
+		lastTime = currTime;
+		return true;
+	}
+	return false;
 }
 
 void TimeManager::Render(HDC hdc)
@@ -76,5 +82,5 @@ void TimeManager::Render(HDC hdc)
 
 float TimeManager::GetElapsedTime()
 {
-	return timeElapsed;
+	return max(timeElapsed, 0.002f);
 }

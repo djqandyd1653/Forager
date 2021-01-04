@@ -24,6 +24,8 @@ HRESULT TileMap::Init()
 
 	img = ImageManager::GetSingleton()->FindImage("Sample_Tile");
 
+	LoadMap(1, 5);
+
 	return S_OK;
 }
 
@@ -43,14 +45,14 @@ void TileMap::Update()
 		LoadMap(1, 3);
 	if (KeyManager::GetSingleton()->IsOnceKeyDown(VK_NUMPAD4))
 		LoadMap(1, 4);
-	if (KeyManager::GetSingleton()->IsOnceKeyDown(VK_NUMPAD5))
-		LoadMap(1, 5);
 	if (KeyManager::GetSingleton()->IsOnceKeyDown(VK_NUMPAD6))
 		LoadMap(1, 6);
 	if (KeyManager::GetSingleton()->IsOnceKeyDown(VK_NUMPAD7))
 		LoadMap(1, 7);
 	if (KeyManager::GetSingleton()->IsOnceKeyDown(VK_NUMPAD8))
 		LoadMap(1, 8);
+	if (KeyManager::GetSingleton()->IsOnceKeyDown(VK_NUMPAD9))
+		LoadMap(1, 9);
 }
 
 void TileMap::Render(HDC hdc, int x, int y)
@@ -111,18 +113,22 @@ void TileMap::LoadMap(int mapNum, int posNum)
 		posY = 14;
 		break;
 	case 5:
-		posX = 26;
+		posX = 14;
 		posY = 14;
 		break;
 	case 6:
+		posX = 26;
+		posY = 14;
+		break;
+	case 7:
 		posX = 2;
 		posY = 26;
 		break;
-	case 7:
+	case 8:
 		posX = 14;
 		posY = 26;
 		break;
-	case 8:
+	case 9:
 		posX = 26;
 		posY = 26;
 		break;

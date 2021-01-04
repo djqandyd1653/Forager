@@ -34,6 +34,15 @@
     <Filter Include="TileMap">
       <UniqueIdentifier>{3d4cbd16-3de6-4e78-a8e3-748b17e6fd06}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Animation">
+      <UniqueIdentifier>{21443e11-3625-4b2a-bccd-928548be2311}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Forager">
+      <UniqueIdentifier>{1a44fd29-4c2e-4382-b078-c601dc362ade}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Forager\Player">
+      <UniqueIdentifier>{1cc0214e-b45c-475f-b577-36ce0cd0dd26}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinMain.cpp">
@@ -69,9 +78,6 @@
     <ClCompile Include="PlayScene.cpp">
       <Filter>Scene</Filter>
     </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="Camera.cpp">
       <Filter>Camera</Filter>
     </ClCompile>
@@ -79,7 +85,10 @@
       <Filter>TileMap</Filter>
     </ClCompile>
     <ClCompile Include="Animation.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Forager\Player</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -119,9 +128,6 @@
     <ClInclude Include="PlayScene.h">
       <Filter>Scene</Filter>
     </ClInclude>
-    <ClInclude Include="Player.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="Camera.h">
       <Filter>Camera</Filter>
     </ClInclude>
@@ -129,7 +135,10 @@
       <Filter>TileMap</Filter>
     </ClInclude>
     <ClInclude Include="Animation.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Forager\Player</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -24,6 +24,10 @@ using namespace std;
 #define SAFE_DELETE(p)			{if(p) {delete (p); (p) = NULL;}}
 #define SAFE_DELETE_ARRAY(p)	{if(p) {delete[] (p); (p) = NULL;}}
 
+// 각도 라디안 변환
+#define DEGREE_TO_RADIAN(p)		p * 3.14f / 180.0f
+#define RADIAN_TO_DEGREE(p)		p * 180.0f / 3.14f
+
 extern HINSTANCE	g_hInstance;
 extern HWND			g_hWnd;
 extern POINT		g_ptMouse;

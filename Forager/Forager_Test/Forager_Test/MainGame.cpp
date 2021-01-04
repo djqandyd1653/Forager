@@ -16,8 +16,8 @@ HRESULT MainGame::Init()
 	ImageManager::GetSingleton()->AddImage("Tile_Border", "Image/Tile_Border.bmp", 224, 224, 4, 4);
 
 	// player
-	ImageManager::GetSingleton()->AddImage("Player_Idle", "Image/Player/Player_Idle.bmp", 800, 112, 10, 2);
-	ImageManager::GetSingleton()->AddImage("Player_Run", "Image/Player/Player_Run.bmp", 640, 112, 8, 2);
+	ImageManager::GetSingleton()->AddImage("Player_Idle", "Image/Player/Player_Idle.bmp", 640, 112, 10, 2);
+	ImageManager::GetSingleton()->AddImage("Player_Run", "Image/Player/Player_Run.bmp", 512, 112, 8, 2);
 	ImageManager::GetSingleton()->AddImage("Player_Roll", "Image/Player/Player_Roll.bmp", 1000, 200, 10, 2);
 
 	TimeManager::GetSingleton()->Init();
@@ -53,7 +53,6 @@ void MainGame::Render()
 	// 1. 이미지를 출력할 핸들 / 2. 이미지를 출력할 x, y / 3. 원본 이미지의 너비와 높이 
 	// 4. 이미지의 핸들 / 5. 가져올 이미지의 시작점 x, y
 	backBuffer->Render(hdc, 0, 0);
-
 }
 
 LPARAM MainGame::wndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)

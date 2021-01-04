@@ -88,6 +88,8 @@ public:
 	int GetHeight() { return imageInfo->height; }
 	int GetFrameWidth() { return imageInfo->frameWidth; }
 	int GetFrameHeight() { return imageInfo->frameHeight; }
+	int GetMaxFrameX() { return imageInfo->maxFrameX; }
+	int GetMaxFrame() { return imageInfo->maxFrameX * imageInfo->maxFrameY; }
 
 	Image();
 	~Image();

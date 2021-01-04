@@ -9,14 +9,14 @@ HRESULT PlayScene::Init()
 	blueBrush = (HBRUSH)CreateSolidBrush(RGB(48, 149, 252));
 	transparentBrush = (HBRUSH)GetStockObject(NULL_BRUSH);
 
+	player = new Player;
+	player->Init();
+
 	camera = new Camera;
-	camera->Init();
+	camera->Init(player);
 
 	tileMap = new TileMap;
 	tileMap->Init();
-
-	player = new Player;
-	player->Init();
 
 	return S_OK;
 }
@@ -30,9 +30,9 @@ void PlayScene::Release()
 
 void PlayScene::Update()
 {
+	player->Update();
 	camera->Update();
 	tileMap->Update();
-	player->Update();
 }
 
 void PlayScene::Render(HDC hdc)

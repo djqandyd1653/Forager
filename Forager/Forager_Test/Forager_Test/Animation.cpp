@@ -58,6 +58,38 @@ void Animation::SetPlayFrame(bool isLoop, bool isReverse)
 	}
 }
 
+void Animation::SetPlayFrame(bool isLoop, bool isReverse, bool isLeft)
+{
+	// 루프 여부 결정
+	this->isLoop = isLoop;
+
+	// 리버스 여부 결정
+
+	vecPlayList.clear();
+
+	if (isReverse)
+	{
+		// 정방향
+		for (int i = 0; i < frameCount; i++)
+		{
+			vecPlayList.push_back(i);
+		}
+
+		// 역방향
+		for (int i = frameCount - 1; i > 0; i--)
+		{
+			vecPlayList.push_back(i);
+		}
+	}
+	else
+	{
+		for (int i = 0; i < frameCount; i++)
+		{
+			vecPlayList.push_back(i);
+		}
+	}
+}
+
 void Animation::SetPlayFrame(int startFrame, int endFrame, bool isLoop, bool isReverse)
 {
 	// 루프 여부 결정
