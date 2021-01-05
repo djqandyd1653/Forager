@@ -18,6 +18,8 @@ public:
 
 	void LoadMap(int mapNum, int posNum);
 
+	tagTile* GetTile() { return tile; }
+
 	TileMap();
 	~TileMap();
 };

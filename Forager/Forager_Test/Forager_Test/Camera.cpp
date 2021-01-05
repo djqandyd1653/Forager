@@ -9,6 +9,8 @@ HRESULT Camera::Init(Player* player)
 	endNumX = startNumX + WINSIZE_X;
 	endNumY = startNumY + WINSIZE_Y;
 
+	playerPosX = WINSIZE_X / 2;
+	playerPosY = WINSIZE_Y / 2;
 	mousePosX = WINSIZE_X / 2;
 	mousePosY = WINSIZE_Y / 2;
 
@@ -23,8 +25,44 @@ void Camera::Release()
 
 void Camera::Update()
 {
-	int x = WINSIZE_X / 2 - player->GetPos().x;
-	int y = WINSIZE_Y / 2 - player->GetPos().y;
+	if (g_ptMouse.x - mousePosX > 100)
+	{
+		startNumX -= 10;
+		endNumX -= 10;
+		playerPosX -= 10;
+		player->SetPosX(player->GetPos().x - 10);
+		mousePosX = g_ptMouse.x;
+	}
+
+	if (g_ptMouse.x - mousePosX < -100)
+	{
+		startNumX += 10;
+		endNumX += 10;
+		playerPosX += 10;
+		player->SetPosX(player->GetPos().x + 10);
+		mousePosX = g_ptMouse.x;
+	}
+
+	if (g_ptMouse.y - mousePosY > 100)
+	{
+		startNumY -= 10;
+		endNumY -= 10;
+		playerPosY -= 10;
+		player->SetPosY(player->GetPos().y - 10);
+		mousePosY = g_ptMouse.y;
+	}
+
+	if (g_ptMouse.y - mousePosY < -100)
+	{
+		startNumY += 10;
+		endNumY += 10;
+		playerPosY += 10;
+		player->SetPosY(player->GetPos().y + 10);
+		mousePosY = g_ptMouse.y;
+	}
+
+	int x = playerPosX - player->GetPos().x;
+	int y = playerPosY - player->GetPos().y;
 
 	startNumX += x;
 	startNumY += y;
@@ -38,38 +76,6 @@ void Camera::Update()
 	if (startNumY < 0 && endNumY > 2 * WINSIZE_Y - MAP_SIZE * TILE_SIZE)
 	{
 		player->SetPosY(player->GetPos().y + y);
-	}
-
-	if (g_ptMouse.x - mousePosX > 100)
-	{
-		startNumX += 100;
-		endNumX += 100;
-		//player->SetPosX(player->GetPos().x + 100);
-		mousePosX = g_ptMouse.x;
-	}
-
-	if (g_ptMouse.x - mousePosX < -100)
-	{
-		startNumX -= 100;
-		endNumX -= 100;
-		//player->SetPosX(player->GetPos().x - 100);
-		mousePosX = g_ptMouse.x;
-	}
-
-	if (g_ptMouse.y - mousePosY > 100)
-	{
-		startNumY += 100;
-		endNumY += 100;
-		//player->SetPosY(player->GetPos().y + 100);
-		mousePosY = g_ptMouse.y;
-	}
-
-	if (g_ptMouse.y - mousePosY < -100)
-	{
-		startNumY -= 100;
-		endNumY -= 100;
-		//player->SetPosY(player->GetPos().y - 100);
-		mousePosY = g_ptMouse.y;
 	}
 
 	if (startNumX >= 0)

@@ -12,6 +12,8 @@ enum class PLAYER_STATE
 class Image;
 class Animation;
 
+struct tagTile;
+
 class Player : public GameNode
 {
 private:
@@ -34,9 +36,10 @@ private:
 
 	Image* img[static_cast<int>(PLAYER_STATE::COUNT)];
 	Animation* anim[static_cast<int>(PLAYER_STATE::COUNT)];
+	tagTile* tile;
 
 public:
-	virtual HRESULT Init();
+	virtual HRESULT Init(tagTile* tile);
 	virtual void Release();
 	virtual void Update();
 	virtual void Render(HDC hdc);
@@ -46,7 +49,7 @@ public:
 	void DirUpdate();
 
 	POINT GetPos() { return pos; }
-	void SetPosX(float x) { pos.x = x; }
-	void SetPosY(float y) { pos.y = y; }
+	void SetPosX(int x) { pos.x = x; }
+	void SetPosY(int y) { pos.y = y; }
 };
 

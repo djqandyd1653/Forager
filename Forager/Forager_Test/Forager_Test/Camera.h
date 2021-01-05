@@ -11,6 +11,8 @@ private:
 	int endNumX;
 	int endNumY;
 
+	int playerPosX;		// 플레이어 기준좌표 X
+	int playerPosY;		// 플레이어 기준좌표 Y
 	int mousePosX;		// 마우스 기준좌표 X
 	int mousePosY;		// 마우스 기준좌표 Y
 

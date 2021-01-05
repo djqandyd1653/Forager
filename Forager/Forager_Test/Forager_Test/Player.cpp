@@ -1,8 +1,9 @@
 #include "Player.h"
 #include "Image.h"
 #include "Animation.h"
+#include "TileMapToolScene.h"
 
-HRESULT Player::Init()
+HRESULT Player::Init(tagTile* tile)
 {
 	pos.x = WINSIZE_X / 2;
 	pos.y = WINSIZE_Y / 2;
@@ -46,8 +47,9 @@ HRESULT Player::Init()
 		anim[i]->SetKeyFrameUpdateTime(0.1f);
 	}
 	
-	
 	//anim[static_cast<int>(state)]->Start();
+
+	this->tile = tile;
 
 	return S_OK;
 }
@@ -56,6 +58,7 @@ void Player::Release()
 {
 	ImageManager::GetSingleton()->DeleteImg("Player_Idle");
 	ImageManager::GetSingleton()->DeleteImg("Player_Run");
+	SAFE_DELETE(tile);
 }
 
 void Player::Update()
@@ -64,36 +67,23 @@ void Player::Update()
 	RectUpdate();
 	DirUpdate();
 
-	if (KeyManager::GetSingleton()->IsOnceKeyDown('K'))
+#pragma region 타일충돌
+
+	////POINT 
+	////(rc.right - rc.left) / 2;
+	////(rc.bottom - rc.top) / 2;
+
+	int b = pos.y / MAP_SIZE;
+	int c = tile[820].rc.top;
+
+	if (tile[rc.left / MAP_SIZE + (rc.top / MAP_SIZE) * MAP_SIZE].terrain == TERRAIN::GRASS)
 	{
-		if (state != PLAYER_STATE::IDLE)
-		{
-			anim[static_cast<int>(state)]->Stop();
-			state = PLAYER_STATE::IDLE;
-			anim[static_cast<int>(state)]->Start();
-		}
+		int a = 0;
 	}
 
-	if (KeyManager::GetSingleton()->IsOnceKeyDown('L'))
-	{
-		if (state != PLAYER_STATE::RUN)
-		{
-			anim[static_cast<int>(state)]->Stop();
-			state = PLAYER_STATE::RUN;
-			anim[static_cast<int>(state)]->Start();
-		}
-	}
+#pragma endregion
 
-	if (KeyManager::GetSingleton()->IsOnceKeyDown('J'))
-	{
-		if (state != PLAYER_STATE::ROLL)
-		{
-			anim[static_cast<int>(state)]->Stop();
-			state = PLAYER_STATE::ROLL;
-			anim[static_cast<int>(state)]->Start();
-		}
-	}
-
+	// 프레임 계산
 	frameTime += TimeManager::GetSingleton()->GetElapsedTime();
 
 	if (frameTime > 0.05f)
@@ -108,7 +98,6 @@ void Player::Update()
 		frameTime = 0.0f;
 	}
 
-
 	//anim[static_cast<int>(state)]->UpdateFrame();
 }
 
@@ -117,6 +106,9 @@ void Player::Render(HDC hdc)
 	//img[static_cast<int>(state)]->AnimationRender(hdc, pos.x, pos.y, anim[static_cast<int>(state)]);
 	img[static_cast<int>(state)]->FrameRender(hdc, pos.x, pos.y, currFrameX, isLeft);
 	Rectangle(hdc, rc.left, rc.top, rc.right, rc.bottom);
+
+	//tagTile t = tile[pos.x / MAP_SIZE + (pos.y / MAP_SIZE) * MAP_SIZE];
+	//Rectangle(hdc, t.rc.left, t.rc.top, t.rc.right, t.rc.bottom);
 }
 
 void Player::Move()
