@@ -1,7 +1,7 @@
 #pragma once
 #include "GameNode.h"
 
-struct tagTile;
+typedef struct tagTile TILE_INFO;
 class Image;
 
 class TileMap : public GameNode
@@ -14,7 +14,7 @@ public:
 	virtual HRESULT Init();
 	virtual void Release();
 	virtual void Update();
-	virtual void Render(HDC hdc, int x, int y);
+	virtual void Render(HDC hdc, FPOINT cameraPos);
 
 	void LoadMap(int mapNum, int posNum);
 

@@ -4,16 +4,6 @@
 
 HRESULT Camera::Init(Player* player)
 {
-	startNumX = -480;
-	startNumY = -750;
-	endNumX = startNumX + WINSIZE_X;
-	endNumY = startNumY + WINSIZE_Y;
-
-	playerPosX = WINSIZE_X / 2;
-	playerPosY = WINSIZE_Y / 2;
-	mousePosX = WINSIZE_X / 2;
-	mousePosY = WINSIZE_Y / 2;
-
 	this->player = player;
 
 	return S_OK;
@@ -25,85 +15,52 @@ void Camera::Release()
 
 void Camera::Update()
 {
-	if (g_ptMouse.x - mousePosX > 100)
+	float destPosX = (player->GetPos().x * 70 + (g_ptMouse.x + pos.x) * 30) / 100 - WINSIZE_X / 2;
+	float destPosY = (player->GetPos().y * 70 + (g_ptMouse.y + pos.y) * 30) / 100 - WINSIZE_Y / 2;
+
+	if(abs(pos.x - destPosX) > 5.0f)
+		pos.x = Lerp(pos.x, destPosX, TimeManager::GetSingleton()->GetElapsedTime() * 5);
+	if (abs(pos.y - destPosY) > 5.0f)
+		pos.y = Lerp(pos.y, destPosY, TimeManager::GetSingleton()->GetElapsedTime() * 5);
+	//pos.y = (player->GetPos().y * 4 + g_ptMouse.y + pos.y) / 5 - WINSIZE_Y / 2;
+
+	if (pos.x <= 0)
 	{
-		startNumX -= 10;
-		endNumX -= 10;
-		playerPosX -= 10;
-		player->SetPosX(player->GetPos().x - 10);
-		mousePosX = g_ptMouse.x;
+		pos.x = 0;
 	}
 
-	if (g_ptMouse.x - mousePosX < -100)
+	if (pos.y <= 0)
 	{
-		startNumX += 10;
-		endNumX += 10;
-		playerPosX += 10;
-		player->SetPosX(player->GetPos().x + 10);
-		mousePosX = g_ptMouse.x;
+		pos.y = 0;
 	}
 
-	if (g_ptMouse.y - mousePosY > 100)
+	if (pos.x >= MAP_SIZE * TILE_SIZE - WINSIZE_X)
 	{
-		startNumY -= 10;
-		endNumY -= 10;
-		playerPosY -= 10;
-		player->SetPosY(player->GetPos().y - 10);
-		mousePosY = g_ptMouse.y;
+		pos.x = MAP_SIZE * TILE_SIZE - WINSIZE_X;
 	}
 
-	if (g_ptMouse.y - mousePosY < -100)
+	if (pos.y >= MAP_SIZE * TILE_SIZE - WINSIZE_Y)
 	{
-		startNumY += 10;
-		endNumY += 10;
-		playerPosY += 10;
-		player->SetPosY(player->GetPos().y + 10);
-		mousePosY = g_ptMouse.y;
-	}
-
-	int x = playerPosX - player->GetPos().x;
-	int y = playerPosY - player->GetPos().y;
-
-	startNumX += x;
-	startNumY += y;
-	endNumX += x;
-	endNumY += y;
-
-	if (startNumX < 0 && endNumX > 2 * WINSIZE_X - MAP_SIZE * TILE_SIZE)
-	{
-		player->SetPosX(player->GetPos().x + x);
-	}
-	if (startNumY < 0 && endNumY > 2 * WINSIZE_Y - MAP_SIZE * TILE_SIZE)
-	{
-		player->SetPosY(player->GetPos().y + y);
-	}
-
-	if (startNumX >= 0)
-	{
-		startNumX = 0;
-		endNumX = WINSIZE_X;
-	}
-
-	if (startNumY >= 0)
-	{
-		startNumY = 0;
-		endNumY = WINSIZE_Y;
-	}
-
-	if (endNumX <= 2 * WINSIZE_X - MAP_SIZE * TILE_SIZE)
-	{
-		startNumX = WINSIZE_X - MAP_SIZE * TILE_SIZE;
-		endNumX = 2 * WINSIZE_X - MAP_SIZE * TILE_SIZE;
-	}
-
-	if (endNumY <= 2 * WINSIZE_Y - MAP_SIZE * TILE_SIZE)
-	{
-		startNumY = WINSIZE_Y - MAP_SIZE * TILE_SIZE;
-		endNumY = 2 * WINSIZE_Y - MAP_SIZE * TILE_SIZE;
+		pos.y = MAP_SIZE * TILE_SIZE - WINSIZE_Y;
 	}
 }
 
 void Camera::Render(HDC hdc)
 {
-	PatBlt(hdc, 0, 0, WINSIZE_X, WINSIZE_Y, PATCOPY);
+
+
+	char c[32];
+	wsprintf(c, "%d, %d", (int)g_ptMouse.x + (int)pos.x, (int)g_ptMouse.y + (int)pos.y);
+	TextOut(hdc, g_ptMouse.x, g_ptMouse.y, c, (int)strlen(c));
+
+	wsprintf(c, "%d, %d", 
+		(int)(player->GetPos().x + g_ptMouse.x + pos.x) / 2,
+		(int)(player->GetPos().y + g_ptMouse.y + pos.y) / 2);
+	TextOut(hdc, 
+		(int)(player->GetPos().x + g_ptMouse.x - pos.x) / 2,
+		(int)(player->GetPos().y + g_ptMouse.y - pos.y) / 2, c, (int)strlen(c));
+
+
+	wsprintf(c, "%d, %d", (int)player->GetPos().x, (int)player->GetPos().y);
+	TextOut(hdc, player->GetPos().x - GetPos().x, player->GetPos().y - GetPos().y, c, (int)strlen(c));
 }

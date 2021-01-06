@@ -5,14 +5,10 @@
 
 HRESULT Player::Init(tagTile* tile)
 {
-	pos.x = WINSIZE_X / 2;
-	pos.y = WINSIZE_Y / 2;
+	pos.x = 1090;
+	pos.y = 1090;
 	sizeX = 56;
 	sizeY = 56;
-	rc.left = pos.x;
-	rc.top = pos.y;
-	rc.right = pos.x + sizeX;
-	rc.bottom = pos.y + sizeY;
 	speed = 300.0f;
 	moveAngleX = 0.0f;
 	moveAngleY = 0.0f;
@@ -34,18 +30,18 @@ HRESULT Player::Init(tagTile* tile)
 	img[static_cast<int>(PLAYER_STATE::ROLL)] = ImageManager::GetSingleton()->FindImage("Player_Roll");
 
 
-	for (int i = 0; i < static_cast<int>(PLAYER_STATE::COUNT); i++)
-	{
-		anim[i] = new Animation;
-		anim[i]->Init(
-			img[i]->GetWidth(),
-			img[i]->GetHeight(),
-			img[i]->GetFrameWidth(),
-			img[i]->GetFrameHeight()
-		);
-		anim[i]->SetPlayFrame(isLeft * img[i]->GetMaxFrame() / 2, (isLeft + 1) * img[i]->GetMaxFrame() / 2, true, false);
-		anim[i]->SetKeyFrameUpdateTime(0.1f);
-	}
+	//for (int i = 0; i < static_cast<int>(PLAYER_STATE::COUNT); i++)
+	//{
+	//	anim[i] = new Animation;
+	//	anim[i]->Init(
+	//		img[i]->GetWidth(),
+	//		img[i]->GetHeight(),
+	//		img[i]->GetFrameWidth(),
+	//		img[i]->GetFrameHeight()
+	//	);
+	//	anim[i]->SetPlayFrame(isLeft * img[i]->GetMaxFrame() / 2, (isLeft + 1) * img[i]->GetMaxFrame() / 2, true, false);
+	//	anim[i]->SetKeyFrameUpdateTime(0.1f);
+	//}
 	
 	//anim[static_cast<int>(state)]->Start();
 
@@ -61,27 +57,11 @@ void Player::Release()
 	SAFE_DELETE(tile);
 }
 
-void Player::Update()
+void Player::Update(FPOINT cameraPos)
 {
 	Move();
 	RectUpdate();
-	DirUpdate();
-
-#pragma region 타일충돌
-
-	////POINT 
-	////(rc.right - rc.left) / 2;
-	////(rc.bottom - rc.top) / 2;
-
-	int b = pos.y / MAP_SIZE;
-	int c = tile[820].rc.top;
-
-	if (tile[rc.left / MAP_SIZE + (rc.top / MAP_SIZE) * MAP_SIZE].terrain == TERRAIN::GRASS)
-	{
-		int a = 0;
-	}
-
-#pragma endregion
+	DirUpdate(cameraPos);
 
 	// 프레임 계산
 	frameTime += TimeManager::GetSingleton()->GetElapsedTime();
@@ -101,14 +81,17 @@ void Player::Update()
 	//anim[static_cast<int>(state)]->UpdateFrame();
 }
 
-void Player::Render(HDC hdc)
+void Player::Render(HDC hdc, FPOINT cameraPos)
 {
 	//img[static_cast<int>(state)]->AnimationRender(hdc, pos.x, pos.y, anim[static_cast<int>(state)]);
-	img[static_cast<int>(state)]->FrameRender(hdc, pos.x, pos.y, currFrameX, isLeft);
-	Rectangle(hdc, rc.left, rc.top, rc.right, rc.bottom);
 
-	//tagTile t = tile[pos.x / MAP_SIZE + (pos.y / MAP_SIZE) * MAP_SIZE];
-	//Rectangle(hdc, t.rc.left, t.rc.top, t.rc.right, t.rc.bottom);
+	int cPosX = -cameraPos.x;
+	int cPosY = -cameraPos.y;
+
+	img[static_cast<int>(state)]->FrameRender(hdc, pos.x + cPosX, pos.y + cPosY, currFrameX, isLeft);
+	Rectangle(hdc, rc.left + cPosX, rc.top + cPosY, rc.right + cPosX, rc.bottom + cPosY);
+	Rectangle(hdc, pos.x + cPosX, pos.y + cPosY, pos.x + 56 + cPosX, pos.y + 56 + cPosY);
+
 }
 
 void Player::Move()
@@ -116,41 +99,58 @@ void Player::Move()
 	moveAngleX = 0.0f;
 	moveAngleY = 0.0f;
 
+	int tileNum;
 	if (KeyManager::GetSingleton()->IsStayKeyDown('W'))
 	{
-		if (state != PLAYER_STATE::RUN)
+		tileNum = rcCenter.x / TILE_SIZE + (rc.top / TILE_SIZE) * MAP_SIZE;
+		if (tile[tileNum].terrain == TERRAIN::GRASS)
 		{
-			state = PLAYER_STATE::RUN;
-			currFrameX = 0;
+			if (state != PLAYER_STATE::RUN)
+			{
+				state = PLAYER_STATE::RUN;
+				currFrameX = 0;
+			}
+			moveAngleY = 90.0f;
 		}
-		moveAngleY = 90.0f;
 	}
 	if (KeyManager::GetSingleton()->IsStayKeyDown('A'))
 	{
-		if (state != PLAYER_STATE::RUN)
+		tileNum = rc.left / TILE_SIZE + (rcCenter.y / TILE_SIZE) * MAP_SIZE;
+		if (tile[tileNum].terrain == TERRAIN::GRASS)
 		{
-			state = PLAYER_STATE::RUN;
-			currFrameX = 0;
+			if (state != PLAYER_STATE::RUN)
+			{
+				state = PLAYER_STATE::RUN;
+				currFrameX = 0;
+			}
+			moveAngleX = 180.0f;
 		}
-		moveAngleX = 180.0f;
 	}
 	if (KeyManager::GetSingleton()->IsStayKeyDown('S'))
 	{
-		if (state != PLAYER_STATE::RUN)
+		tileNum = rcCenter.x / TILE_SIZE + (rc.bottom / TILE_SIZE) * MAP_SIZE;
+		if (tile[tileNum].terrain == TERRAIN::GRASS)
 		{
-			state = PLAYER_STATE::RUN;
-			currFrameX = 0;
-		}
-		moveAngleY = 270.0f;
+			if (state != PLAYER_STATE::RUN)
+			{
+				state = PLAYER_STATE::RUN;
+				currFrameX = 0;
+			}
+			moveAngleY = 270.0f;
+		}	
 	}
 	if (KeyManager::GetSingleton()->IsStayKeyDown('D'))
 	{
-		if (state != PLAYER_STATE::RUN)
+		tileNum = rc.right / TILE_SIZE + (rcCenter.y / TILE_SIZE) * MAP_SIZE;
+		if (tile[tileNum].terrain == TERRAIN::GRASS)
 		{
-			state = PLAYER_STATE::RUN;
-			currFrameX = 0;
+			if (state != PLAYER_STATE::RUN)
+			{
+				state = PLAYER_STATE::RUN;
+				currFrameX = 0;
+			}
+			moveAngleX = 360.0f;
 		}
-		moveAngleX = 360.0f;
 	}
 
 	if (moveAngleX != 0.0f)
@@ -175,11 +175,16 @@ void Player::RectUpdate()
 	rc.top = pos.y + sizeY / 2 + 5;
 	rc.right = rc.left + sizeX / 2;
 	rc.bottom = pos.y + sizeY;
+
+	rcCenter = {
+		(rc.right + rc.left) / 2,
+		(rc.bottom + rc.top) / 2
+	};
 }
 
-void Player::DirUpdate()
+void Player::DirUpdate(FPOINT cameraPos)
 {
-	if (g_ptMouse.x < pos.x + sizeX / 2)
+	if (g_ptMouse.x + cameraPos.x < pos.x + sizeX / 2)
 	{
 		isLeft = true;
 	}

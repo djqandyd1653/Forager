@@ -1,7 +1,7 @@
 #pragma once
 #include "GameNode.h"
 
-struct tagTile;
+typedef struct tagTile TILE_INFO;
 
 class TestScene : public GameNode
 {

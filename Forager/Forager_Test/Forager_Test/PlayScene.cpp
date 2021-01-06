@@ -30,7 +30,7 @@ void PlayScene::Release()
 
 void PlayScene::Update()
 {
-	player->Update();
+	player->Update(camera->GetPos());
 	camera->Update();
 	tileMap->Update();
 }
@@ -39,15 +39,16 @@ void PlayScene::Render(HDC hdc)
 {
 	SelectObject(hdc, blueBrush);
 
-	camera->Render(hdc);
+	PatBlt(hdc, 0, 0, WINSIZE_X, WINSIZE_Y, PATCOPY);
 
 	SelectObject(hdc, transparentBrush);
 
-	tileMap->Render(hdc, camera->GetStartNumX(), camera->GetStartNumY());
-	player->Render(hdc);
+	tileMap->Render(hdc, camera->GetPos());
+	player->Render(hdc, camera->GetPos());
+	camera->Render(hdc);
 	
 	char s[32];
-	wsprintf(s, "%d, %d", camera->GetStartNumX(), camera->GetStartNumY());
+	wsprintf(s, "%d, %d", camera->GetPos().x, camera->GetPos().y);
 	TextOut(hdc, 50, 50, s, (int)strlen(s));
 }
 

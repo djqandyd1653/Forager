@@ -5,6 +5,7 @@
 #include <map>
 #include <vector>
 #include <cmath>
+#include <list>
 
 using namespace std;
 
@@ -32,6 +33,12 @@ extern HINSTANCE	g_hInstance;
 extern HWND			g_hWnd;
 extern POINT		g_ptMouse;
 
+struct FPOINT
+{
+	float x;
+	float y;
+};
+
 inline void SetWindowSize(int startX, int startY, int sizeX, int sizeY)
 {
 	// 윈도우 작업영역 지정
@@ -46,4 +53,10 @@ inline void SetWindowSize(int startX, int startY, int sizeX, int sizeY)
 
 	// 이동
 	MoveWindow(g_hWnd, startX, startY, rc.right - rc.left, rc.bottom - rc.top, true);
+}
+
+template <typename T>
+inline T Lerp(T a, T b, float t)
+{
+	return a + (b - a) * t;
 }
