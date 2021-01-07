@@ -77,7 +77,7 @@ void TimeManager::Render(HDC hdc)
 {
 	char str[512];
 	sprintf_s(str, "FPS : %d", fps);
-	TextOut(hdc, 10, 10, str, int(strlen(str)));
+	TextOut(hdc, 100, 50, str, int(strlen(str)));
 }
 
 float TimeManager::GetElapsedTime()

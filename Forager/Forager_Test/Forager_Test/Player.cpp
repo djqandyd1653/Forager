@@ -12,8 +12,12 @@ HRESULT Player::Init(tagTile* tile)
 	speed = 300.0f;
 	moveAngleX = 0.0f;
 	moveAngleY = 0.0f;
-	life = 3;
-	stamina = 100.0f;
+	maxLife = 3;
+	currLife = maxLife;
+	maxStamina = 100;
+	currStamina = 0;
+	maxEXP = 100;
+	currEXP = 0;
 	currFrameX = 0;
 	frameTime = 0.0f;
 	isLeft = false;
@@ -28,7 +32,6 @@ HRESULT Player::Init(tagTile* tile)
 	img[static_cast<int>(PLAYER_STATE::IDLE)] = ImageManager::GetSingleton()->FindImage("Player_Idle");
 	img[static_cast<int>(PLAYER_STATE::RUN)] = ImageManager::GetSingleton()->FindImage("Player_Run");
 	img[static_cast<int>(PLAYER_STATE::ROLL)] = ImageManager::GetSingleton()->FindImage("Player_Roll");
-
 
 	//for (int i = 0; i < static_cast<int>(PLAYER_STATE::COUNT); i++)
 	//{
@@ -63,6 +66,61 @@ void Player::Update(FPOINT cameraPos)
 	RectUpdate();
 	DirUpdate(cameraPos);
 
+	// 경험치 테스트
+	if (KeyManager::GetSingleton()->IsStayKeyDown('P'))
+	{
+		currEXP++;
+
+		if (currEXP >= maxEXP)
+		{
+			currEXP = maxEXP;
+		}
+	}
+
+	// 경험치 테스트
+	if (KeyManager::GetSingleton()->IsStayKeyDown('O'))
+	{
+		currStamina++;
+
+		if (currStamina >= maxStamina)
+		{
+			currStamina = maxStamina;
+		}
+	}
+
+	if (KeyManager::GetSingleton()->IsOnceKeyDown('H'))
+	{
+		currLife++;
+
+		if (currLife >= maxLife)
+		{
+			currLife = maxLife;
+		}
+	}
+	if (KeyManager::GetSingleton()->IsOnceKeyDown('J'))
+	{
+		currLife--;
+
+		if (currLife <= 0)
+		{
+			currLife = 0;
+		}
+	}
+	if (KeyManager::GetSingleton()->IsOnceKeyDown('K'))
+	{
+		maxLife++;
+		currLife = maxLife;
+	}
+	if (KeyManager::GetSingleton()->IsOnceKeyDown('L'))
+	{
+		maxLife--;
+		if (maxLife <= 0)
+		{
+			maxLife = 0;
+		}
+		currLife = maxLife;
+	}
+
 	// 프레임 계산
 	frameTime += TimeManager::GetSingleton()->GetElapsedTime();
 
@@ -77,21 +135,16 @@ void Player::Update(FPOINT cameraPos)
 
 		frameTime = 0.0f;
 	}
-
-	//anim[static_cast<int>(state)]->UpdateFrame();
 }
 
 void Player::Render(HDC hdc, FPOINT cameraPos)
 {
-	//img[static_cast<int>(state)]->AnimationRender(hdc, pos.x, pos.y, anim[static_cast<int>(state)]);
-
-	int cPosX = -cameraPos.x;
-	int cPosY = -cameraPos.y;
+	int cPosX = int(-cameraPos.x);
+	int cPosY = int(-cameraPos.y);
 
 	img[static_cast<int>(state)]->FrameRender(hdc, pos.x + cPosX, pos.y + cPosY, currFrameX, isLeft);
 	Rectangle(hdc, rc.left + cPosX, rc.top + cPosY, rc.right + cPosX, rc.bottom + cPosY);
-	Rectangle(hdc, pos.x + cPosX, pos.y + cPosY, pos.x + 56 + cPosX, pos.y + 56 + cPosY);
-
+	//Rectangle(hdc, pos.x + cPosX, pos.y + cPosY, pos.x + 56 + cPosX, pos.y + 56 + cPosY);
 }
 
 void Player::Move()

@@ -43,6 +43,12 @@
     <Filter Include="Forager\Player">
       <UniqueIdentifier>{1cc0214e-b45c-475f-b577-36ce0cd0dd26}</UniqueIdentifier>
     </Filter>
+    <Filter Include="UI">
+      <UniqueIdentifier>{82315740-400e-4996-a81f-6ccfdb3a833e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Forager\Object">
+      <UniqueIdentifier>{6c379f12-f3a5-4a81-ae29-ca56b9de688f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinMain.cpp">
@@ -89,6 +95,24 @@
     </ClCompile>
     <ClCompile Include="Player.cpp">
       <Filter>Forager\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayUI.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Object.cpp">
+      <Filter>Forager\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Fruit.cpp">
+      <Filter>Forager\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Rock.cpp">
+      <Filter>Forager\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Tree.cpp">
+      <Filter>Forager\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjectFactory.cpp">
+      <Filter>Forager\Object</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -139,6 +163,24 @@
     </ClInclude>
     <ClInclude Include="Player.h">
       <Filter>Forager\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayUI.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Object.h">
+      <Filter>Forager\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Fruit.h">
+      <Filter>Forager\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Rock.h">
+      <Filter>Forager\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Tree.h">
+      <Filter>Forager\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectFactory.h">
+      <Filter>Forager\Object</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

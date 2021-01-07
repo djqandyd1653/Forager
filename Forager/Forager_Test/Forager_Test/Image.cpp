@@ -188,8 +188,7 @@ void Image::Render(HDC hdc, int destX, int destY, int srcX, int srcY, int srcWid
 		GdiTransparentBlt(
 			hdc,						// 복사할 장소의 DC
 			destX, destY,				// 복사될 장소의 x, y 좌표
-			srcWidth,					// 복사될 이미지 가로크기
-			srcHeight,					// 복사될 이미지 세로크기
+			srcWidth, srcHeight,		// 복사될 이미지 가로, 세로크기
 			imageInfo->hMemDC,			// 복사될 대상 DC
 			srcX, srcY,					// 복사 시작지점
 			srcWidth, srcHeight,		// 복사 영역 가로크기, 세로크기

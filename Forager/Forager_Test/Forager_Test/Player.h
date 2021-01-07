@@ -26,9 +26,12 @@ private:
 	float speed;			// 속도
 	float moveAngleX;		// X축 움직임 각도
 	float moveAngleY;		// Y축 움직임 각도
-	int life;				// 목숨
-	float stamina;			// 체력
-	int exp;				// 경험치
+	int maxLife;			// 최대 목숨
+	int currLife;				// 현재 목숨
+	int maxStamina;			// 최대 체력
+	int currStamina;		// 현재 체력
+	int maxEXP;				// 최대 경험치
+	int currEXP;			// 현재 경험치
 	int currFrameX;			// x 프레임
 	float frameTime;		// 프레임 체크 타임
 	bool isLeft;			// 왼쪽을 바라보는가?
@@ -52,4 +55,13 @@ public:
 	POINT GetPos() { return pos; }
 	void SetPosX(int x) { pos.x = x; }
 	void SetPosY(int y) { pos.y = y; }
+
+	int GetMaxLife() { return maxLife; }
+	int GetCurrLife() { return currLife; }
+
+	int GetMaxStamina() { return maxStamina; }
+	int GetCurrStamina() { return currStamina; }
+
+	int GetCurrEXP() { return currEXP; }
+	int GetMaxEXP() { return maxEXP; }
 };

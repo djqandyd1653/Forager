@@ -6,6 +6,8 @@
 class Camera;
 class TileMap;
 class Player;
+class PlayUI;
+class Object;
 
 class PlayScene : public GameNode
 {
@@ -14,6 +16,10 @@ private:
 	Camera* camera;
 	TileMap* tileMap;
 	Player* player;
+	PlayUI* playUI;
+	Object* obj1;
+	Object* obj2;
+	Object* obj3;
 
 	HBRUSH blueBrush;
 	HBRUSH transparentBrush;

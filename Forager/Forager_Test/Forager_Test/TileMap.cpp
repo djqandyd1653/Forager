@@ -61,22 +61,25 @@ void TileMap::Render(HDC hdc, FPOINT cameraPos)
 	for (int i = 0; i < MAP_SIZE * MAP_SIZE; i++)
 	{
 		if (tile[i].terrain == TERRAIN::WATER)
-			;//continue;
+			continue;
 
 		// 화면 밖이면 렌더 안하기
 		if (tile[i].rc.left - cameraPos.x > WINSIZE_X || tile[i].rc.top - cameraPos.y > WINSIZE_Y || tile[i].rc.right - cameraPos.x < 0 || tile[i].rc.bottom - cameraPos.y < 0)
 			continue;
 
 		// 타일
-		img->FrameRender(hdc, tile[i].rc.left - cameraPos.x, tile[i].rc.top - cameraPos.y, tile[i].frameX, tile[i].frameY);
+		img->FrameRender(hdc, int(tile[i].rc.left - cameraPos.x), int(tile[i].rc.top - cameraPos.y), tile[i].frameX, tile[i].frameY);
 
 		// 타일 번호
 		char c[32];
 		wsprintf(c, "%d", tile[i].tileNum);
-		TextOut(hdc, tile[i].rc.left - cameraPos.x, tile[i].rc.top - cameraPos.y, c, (int)strlen(c));
+		TextOut(hdc, int(tile[i].rc.left - cameraPos.x), int(tile[i].rc.top - cameraPos.y), c, (int)strlen(c));
 
 		// 매인타일 격자선
-		Rectangle(hdc, tile[i].rc.left - cameraPos.x, tile[i].rc.top - cameraPos.y, tile[i].rc.right - cameraPos.x, tile[i].rc.bottom - cameraPos.y);
+		Rectangle(hdc, 
+			int(tile[i].rc.left - cameraPos.x), int(tile[i].rc.top - cameraPos.y), 
+			int(tile[i].rc.right - cameraPos.x), int(tile[i].rc.bottom - cameraPos.y)
+		);
 	}
 }
 

@@ -20,6 +20,19 @@ HRESULT MainGame::Init()
 	ImageManager::GetSingleton()->AddImage("Player_Run", "Image/Player/Player_Run.bmp", 512, 112, 8, 2);
 	ImageManager::GetSingleton()->AddImage("Player_Roll", "Image/Player/Player_Roll.bmp", 1000, 200, 10, 2);
 
+	// player UI
+	ImageManager::GetSingleton()->AddImage("EXP_Bar", "Image/GUI/Player_UI/EXP_Bar.bmp", 792, 22);
+	ImageManager::GetSingleton()->AddImage("EXP_Back", "Image/GUI/Player_UI/EXP_Bar_Back.bmp", 800, 30);
+	ImageManager::GetSingleton()->AddImage("Life", "Image/GUI/Player_UI/Life.bmp", 210, 38, 5, 1);
+	ImageManager::GetSingleton()->AddImage("Life_Back", "Image/GUI/Player_UI/Life_Back.bmp", 42, 38);
+	ImageManager::GetSingleton()->AddImage("Stamina", "Image/GUI/Player_UI/Stamina.bmp", 63, 16);
+	ImageManager::GetSingleton()->AddImage("Stamina_Back", "Image/GUI/Player_UI/Stamina_Back.bmp", 73, 26);
+
+	// object
+	ImageManager::GetSingleton()->AddImage("Tree", "Image/Object/Tree.bmp", 280, 168, 5, 1);
+	ImageManager::GetSingleton()->AddImage("Rock", "Image/Object/Rock.bmp", 112, 56, 2, 1);
+	ImageManager::GetSingleton()->AddImage("Fruit", "Image/Object/Fruit.bmp", 112, 56, 2, 1);
+
 	TimeManager::GetSingleton()->Init();
 
 	SceneManager::GetSingleton()->AddScene("Play", new PlayScene);

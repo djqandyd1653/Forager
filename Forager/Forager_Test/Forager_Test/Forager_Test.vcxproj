@@ -129,37 +129,49 @@
   <ItemGroup>
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="Fruit.cpp" />
     <ClCompile Include="GameNode.cpp" />
     <ClCompile Include="Image.cpp" />
     <ClCompile Include="ImageManager.cpp" />
     <ClCompile Include="KeyManager.cpp" />
     <ClCompile Include="MainGame.cpp" />
+    <ClCompile Include="Object.cpp" />
+    <ClCompile Include="ObjectFactory.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayScene.cpp" />
+    <ClCompile Include="PlayUI.cpp" />
+    <ClCompile Include="Rock.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="TestScene.cpp" />
     <ClCompile Include="TileMap.cpp" />
     <ClCompile Include="TileMapToolScene.cpp" />
     <ClCompile Include="TimeManager.cpp" />
+    <ClCompile Include="Tree.cpp" />
     <ClCompile Include="WinMain.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h" />
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="Fruit.h" />
     <ClInclude Include="GameNode.h" />
     <ClInclude Include="Image.h" />
     <ClInclude Include="ImageManager.h" />
     <ClInclude Include="KeyManager.h" />
     <ClInclude Include="MainGame.h" />
+    <ClInclude Include="Object.h" />
+    <ClInclude Include="ObjectFactory.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayScene.h" />
+    <ClInclude Include="PlayUI.h" />
+    <ClInclude Include="Rock.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="Singleton.h" />
     <ClInclude Include="TestScene.h" />
     <ClInclude Include="TileMap.h" />
     <ClInclude Include="TileMapToolScene.h" />
     <ClInclude Include="TimeManager.h" />
+    <ClInclude Include="Tree.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
