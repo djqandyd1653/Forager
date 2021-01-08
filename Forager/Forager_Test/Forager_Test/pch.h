@@ -1,6 +1,8 @@
 #pragma once
 
 #include "Windows.h"
+#include <cstdlib>
+#include <ctime>
 #include <string>
 #include <map>
 #include <vector>

@@ -4,9 +4,7 @@
 #include "TileMap.h"
 #include "Player.h"
 #include "PlayUI.h"
-#include "Tree.h"
-#include "Rock.h"
-#include "Fruit.h"
+#include "ObjectFactory.h"
 
 HRESULT PlayScene::Init()
 {
@@ -25,14 +23,11 @@ HRESULT PlayScene::Init()
 	playUI = new PlayUI;
 	playUI->Init(player);
 
-	obj1 = new Tree;
-	obj1->Init();
+	objFactory = new ObjectFactory;
+	objFactory->Init();
 
-	obj2 = new Rock;
-	obj2->Init();
-	   
-	obj3 = new Fruit;
-	obj3->Init();
+	currTime = 0.0f;
+	currCnt = 0;
 
 	return S_OK;
 }
@@ -43,6 +38,7 @@ void PlayScene::Release()
 	tileMap->Release();
 	player->Release();
 	playUI->Release();
+	objFactory->Release();
 }
 
 void PlayScene::Update()
@@ -51,6 +47,8 @@ void PlayScene::Update()
 	camera->Update();
 	tileMap->Update();
 	playUI->Update();
+	objFactory->Update();
+	objFactory->CreateAcObj(currTime, 1.0f, currCnt, 5);
 }
 
 void PlayScene::Render(HDC hdc)
@@ -64,11 +62,8 @@ void PlayScene::Render(HDC hdc)
 	tileMap->Render(hdc, camera->GetPos());
 	player->Render(hdc, camera->GetPos());
 	camera->Render(hdc);
-	obj1->Render(hdc, camera->GetPos());
-	obj2->Render(hdc, camera->GetPos());
-	obj3->Render(hdc, camera->GetPos());
-
 	playUI->Render(hdc);
+	objFactory->Render(hdc, camera->GetPos());
 }
 
 PlayScene::PlayScene()

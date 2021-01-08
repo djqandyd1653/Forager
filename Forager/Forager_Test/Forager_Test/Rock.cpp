@@ -1,10 +1,12 @@
 #include "Rock.h"
 #include "Image.h"
 
-HRESULT Rock::Init()
+HRESULT Rock::Init(int typeNum)
 {
 	img = ImageManager::GetSingleton()->FindImage("Rock");
-	return E_NOTIMPL;
+	this->typeNum = typeNum;
+
+	return S_OK;
 }
 
 void Rock::Release()

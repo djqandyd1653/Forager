@@ -1,7 +1,18 @@
 #pragma once
 #include "pch.h"
 
+enum class OBJ_TYPE
+{
+	TREE,
+	ROCK,
+	FRUIT,
+	COUNT
+};
+
 class Object;
+class TreeFactory;
+class RockFactory;
+class FruitFactory;
 //class Tree;
 //class Rock;
 //class Fruit;
@@ -9,35 +20,44 @@ class Object;
 class ObjectFactory
 {
 private:
-	list<Object*> objList;
-protected:
+	static TreeFactory	treeFactory;
+	static RockFactory	rockFactory;
+	static FruitFactory	fruitFactory;
 
+protected:
+	list<Object*> objList;			// 각각의 Object 저장 리스트
+	static list<Object*> acList;	// 실제 Update될 Object들 리스트
+	list<Object*>::iterator itOdj;	// iterator
 public:
 	HRESULT Init();
-	void newObj();
-	template <class T>
-	Object* CreateObj(T);
-	//virtual Object* CreateObj() = 0;
+	void Release();
+	void Update();
+	void Render(HDC hdc, FPOINT pos);
+
+	Object* newObj(OBJ_TYPE name);
+
+	virtual void CreateObjList(OBJ_TYPE name, int cnt);
+	//virtual void 
+	virtual Object* PopObj(Object* obj, int num);
+
+	void CreateAcObj(float& currTime, float createTime, int& currCnt, int maxCnt);
+	list<Object*>::iterator DeleteAcObj(list<Object*>::iterator it);
 };
 
 class TreeFactory : public ObjectFactory
 {
-private:
-	virtual Object* CreateObj();
+	//virtual void CreateObj(int cnt);
+	//virtual Object* PopObj(Object* obj);
 };
 
 class RockFactory : public ObjectFactory
 {
-	virtual Object* CreateObj();
+	//virtual void CreateObj(int cnt);
+	//virtual Object* PopObj(Object* obj);
 };
 
 class FruitFactory : public ObjectFactory
 {
-	virtual Object* CreateObj();
+	//virtual void CreateObj(int cnt);
+	//virtual Object* PopObj(Object* obj);
 };
-
-template<class T>
-inline Object * ObjectFactory::CreateObj(T)
-{
-	return NULL;
-}

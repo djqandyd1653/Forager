@@ -156,54 +156,54 @@ void Player::Move()
 	if (KeyManager::GetSingleton()->IsStayKeyDown('W'))
 	{
 		tileNum = rcCenter.x / TILE_SIZE + (rc.top / TILE_SIZE) * MAP_SIZE;
-		if (tile[tileNum].terrain == TERRAIN::GRASS)
-		{
+		//if (tile[tileNum].terrain == TERRAIN::GRASS)
+		//{
 			if (state != PLAYER_STATE::RUN)
 			{
 				state = PLAYER_STATE::RUN;
 				currFrameX = 0;
 			}
 			moveAngleY = 90.0f;
-		}
+		//}
 	}
 	if (KeyManager::GetSingleton()->IsStayKeyDown('A'))
 	{
 		tileNum = rc.left / TILE_SIZE + (rcCenter.y / TILE_SIZE) * MAP_SIZE;
-		if (tile[tileNum].terrain == TERRAIN::GRASS)
-		{
+		//if (tile[tileNum].terrain == TERRAIN::GRASS)
+		//{
 			if (state != PLAYER_STATE::RUN)
 			{
 				state = PLAYER_STATE::RUN;
 				currFrameX = 0;
 			}
 			moveAngleX = 180.0f;
-		}
+		//}
 	}
 	if (KeyManager::GetSingleton()->IsStayKeyDown('S'))
 	{
 		tileNum = rcCenter.x / TILE_SIZE + (rc.bottom / TILE_SIZE) * MAP_SIZE;
-		if (tile[tileNum].terrain == TERRAIN::GRASS)
-		{
+		//if (tile[tileNum].terrain == TERRAIN::GRASS)
+		//{
 			if (state != PLAYER_STATE::RUN)
 			{
 				state = PLAYER_STATE::RUN;
 				currFrameX = 0;
 			}
 			moveAngleY = 270.0f;
-		}	
+		//}	
 	}
 	if (KeyManager::GetSingleton()->IsStayKeyDown('D'))
 	{
 		tileNum = rc.right / TILE_SIZE + (rcCenter.y / TILE_SIZE) * MAP_SIZE;
-		if (tile[tileNum].terrain == TERRAIN::GRASS)
-		{
+		//if (tile[tileNum].terrain == TERRAIN::GRASS)
+		//{
 			if (state != PLAYER_STATE::RUN)
 			{
 				state = PLAYER_STATE::RUN;
 				currFrameX = 0;
 			}
 			moveAngleX = 360.0f;
-		}
+		//}
 	}
 
 	if (moveAngleX != 0.0f)

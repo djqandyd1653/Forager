@@ -1,10 +1,12 @@
 #include "Fruit.h"
 #include "Image.h"
 
-HRESULT Fruit::Init()
+HRESULT Fruit::Init(int typeNum)
 {
 	img = ImageManager::GetSingleton()->FindImage("Fruit");
-	return E_NOTIMPL;
+	this->typeNum = typeNum;
+
+	return S_OK;
 }
 
 void Fruit::Release()

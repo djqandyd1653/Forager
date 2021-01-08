@@ -7,7 +7,7 @@ class Camera;
 class TileMap;
 class Player;
 class PlayUI;
-class Object;
+class ObjectFactory;
 
 class PlayScene : public GameNode
 {
@@ -17,12 +17,13 @@ private:
 	TileMap* tileMap;
 	Player* player;
 	PlayUI* playUI;
-	Object* obj1;
-	Object* obj2;
-	Object* obj3;
+	ObjectFactory* objFactory;
 
 	HBRUSH blueBrush;
 	HBRUSH transparentBrush;
+
+	float currTime;
+	int currCnt;
 
 public:
 	virtual HRESULT Init();

@@ -6,6 +6,8 @@
 
 HRESULT MainGame::Init()
 {
+	srand(UINT(time(NULL)));
+
 	backBuffer = new Image();
 	backBuffer->Init(WINSIZE_X, WINSIZE_Y);
 	memDC = backBuffer->GetMemDC();

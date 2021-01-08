@@ -8,11 +8,11 @@ HRESULT TileMap::Init()
 	if (tile == nullptr)
 		tile = new tagTile[MAP_SIZE * MAP_SIZE];
 
-	for (int i = 0; i < MAP_SIZE * MAP_SIZE; i++)
-	{
-		tile[i].frameX = -1;
-		tile[i].frameY = -1;
-	}
+	//for (int i = 0; i < MAP_SIZE * MAP_SIZE; i++)
+	//{
+	//	tile[i].frameX = -1;
+	//	tile[i].frameY = -1;
+	//}
 
 	// ¸Ê ·Îµå
 	DWORD readByte;
@@ -25,6 +25,8 @@ HRESULT TileMap::Init()
 	img = ImageManager::GetSingleton()->FindImage("Sample_Tile");
 
 	LoadMap(1, 5);
+
+	vecGrassTile.reserve(1600);
 
 	return S_OK;
 }
@@ -147,6 +149,11 @@ void TileMap::LoadMap(int mapNum, int posNum)
 			tile[i + posX + (j + posY) * MAP_SIZE].frameX = loadTile[i + j * CAMERA_SIZE].frameX;
 			tile[i + posX + (j + posY) * MAP_SIZE].frameY = loadTile[i + j * CAMERA_SIZE].frameY;
 			tile[i + posX + (j + posY) * MAP_SIZE].terrain = loadTile[i + j * CAMERA_SIZE].terrain;
+
+			if (tile[i + posX + (j + posY) * MAP_SIZE].terrain == TERRAIN::GRASS)
+			{
+				vecGrassTile.push_back(&tile[i + posX + (j + posY) * MAP_SIZE]);
+			}
 		}
 	}
 }

@@ -1,10 +1,12 @@
 #include "Tree.h"
 #include "Image.h"
 
-HRESULT Tree::Init()
+HRESULT Tree::Init(int typeNum)
 {
 	img = ImageManager::GetSingleton()->FindImage("Tree");
-	return E_NOTIMPL;
+	this->typeNum = typeNum;
+
+	return S_OK;
 }
 
 void Tree::Release()

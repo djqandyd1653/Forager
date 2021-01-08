@@ -10,6 +10,8 @@ private:
 	tagTile* tile;
 	Image* img;
 
+	vector<tagTile*> vecGrassTile;
+
 public:
 	virtual HRESULT Init();
 	virtual void Release();
