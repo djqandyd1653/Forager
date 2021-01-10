@@ -17,7 +17,17 @@ void Rock::Update()
 {
 }
 
-void Rock::Render(HDC hdc, FPOINT pos)
+void Rock::Render(HDC hdc, FPOINT cameraPos)
 {
-	img->FrameRender(hdc, int(1200 - pos.x), int(1200 - pos.y), 0, 0);
+	Object::Render(hdc, cameraPos);
+	img->FrameRender(hdc, int(pos.x - cameraPos.x), int(pos.y - cameraPos.y), 0, 0);
+	//Rectangle(hdc, rc.left - cameraPos.x, rc.top - cameraPos.y, rc.right - cameraPos.x, rc.bottom - cameraPos.y);
+}
+
+void Rock::UpdateRect()
+{
+	rc.left = pos.x + 5;
+	rc.top = pos.y + 5;
+	rc.right = pos.x + 51;
+	rc.bottom = pos.y + 56;
 }

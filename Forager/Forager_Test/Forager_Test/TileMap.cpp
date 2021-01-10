@@ -8,12 +8,6 @@ HRESULT TileMap::Init()
 	if (tile == nullptr)
 		tile = new tagTile[MAP_SIZE * MAP_SIZE];
 
-	//for (int i = 0; i < MAP_SIZE * MAP_SIZE; i++)
-	//{
-	//	tile[i].frameX = -1;
-	//	tile[i].frameY = -1;
-	//}
-
 	// 맵 로드
 	DWORD readByte;
 	HANDLE hFile = CreateFile("Save/saveMapData.map", GENERIC_READ, 0, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
@@ -26,7 +20,7 @@ HRESULT TileMap::Init()
 
 	LoadMap(1, 5);
 
-	vecGrassTile.reserve(1600);
+	vecGrassTileNum.reserve(1600);
 
 	return S_OK;
 }
@@ -73,9 +67,16 @@ void TileMap::Render(HDC hdc, FPOINT cameraPos)
 		img->FrameRender(hdc, int(tile[i].rc.left - cameraPos.x), int(tile[i].rc.top - cameraPos.y), tile[i].frameX, tile[i].frameY);
 
 		// 타일 번호
+		//char c[32];
+		//wsprintf(c, "%d", tile[i].tileNum);
+		//TextOut(hdc, int(tile[i].rc.left - cameraPos.x), int(tile[i].rc.top - cameraPos.y), c, (int)strlen(c));
+
 		char c[32];
-		wsprintf(c, "%d", tile[i].tileNum);
-		TextOut(hdc, int(tile[i].rc.left - cameraPos.x), int(tile[i].rc.top - cameraPos.y), c, (int)strlen(c));
+		if (!tile[i].ableBuild)
+		{
+			wsprintf(c, "%d", 2);
+			TextOut(hdc, int(tile[i].rc.left - cameraPos.x), int(tile[i].rc.top - cameraPos.y), c, (int)strlen(c));
+		}
 
 		// 매인타일 격자선
 		Rectangle(hdc, 
@@ -149,13 +150,53 @@ void TileMap::LoadMap(int mapNum, int posNum)
 			tile[i + posX + (j + posY) * MAP_SIZE].frameX = loadTile[i + j * CAMERA_SIZE].frameX;
 			tile[i + posX + (j + posY) * MAP_SIZE].frameY = loadTile[i + j * CAMERA_SIZE].frameY;
 			tile[i + posX + (j + posY) * MAP_SIZE].terrain = loadTile[i + j * CAMERA_SIZE].terrain;
+			tile[i + posX + (j + posY) * MAP_SIZE].building = nullptr;
+			tile[i + posX + (j + posY) * MAP_SIZE].obj = nullptr;
 
 			if (tile[i + posX + (j + posY) * MAP_SIZE].terrain == TERRAIN::GRASS)
 			{
-				vecGrassTile.push_back(&tile[i + posX + (j + posY) * MAP_SIZE]);
+				tile[i + posX + (j + posY) * MAP_SIZE].ableBuild = true;
+				vecGrassTileNum.push_back(tile[i + posX + (j + posY) * MAP_SIZE].tileNum);
 			}
 		}
 	}
+}
+
+FPOINT TileMap::RandGrassPos()
+{
+	FPOINT randPos;
+
+	while (!vecGrassTileNum.empty())
+	{
+		randNum = vecGrassTileNum[rand() % vecGrassTileNum.size()];
+
+		if (tile[randNum].ableBuild)
+		{
+			randPos = { float(tile[randNum].rc.left), float(tile[randNum].rc.top) };
+			return randPos;
+		}
+	}
+
+	return { 0.0f, 0.0f };
+}
+
+void TileMap::SetObject(Object* obj)
+{
+	tile[randNum].obj = obj;
+	if(tile[randNum].obj != nullptr)
+		SetAbleBuild(false);
+}
+
+void TileMap::SetBuilding(Building* building)
+{
+	tile[randNum].building = building;
+	if (tile[randNum].building != nullptr)
+		SetAbleBuild(false);
+}
+
+void TileMap::SetAbleBuild(bool isBuild)
+{
+	tile[randNum].ableBuild = isBuild;
 }
 
 TileMap::TileMap() : tile(nullptr)

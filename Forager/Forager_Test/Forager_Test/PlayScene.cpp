@@ -26,8 +26,11 @@ HRESULT PlayScene::Init()
 	objFactory = new ObjectFactory;
 	objFactory->Init();
 
-	currTime = 0.0f;
-	currCnt = 0;
+	currObjCreateTime = 0.0f;
+	currObjCnt = 0;
+
+	//test
+	img = ImageManager::GetSingleton()->FindImage("Sewing_Machine");
 
 	return S_OK;
 }
@@ -48,7 +51,7 @@ void PlayScene::Update()
 	tileMap->Update();
 	playUI->Update();
 	objFactory->Update();
-	objFactory->CreateAcObj(currTime, 1.0f, currCnt, 5);
+	tileMap->SetObject(objFactory->CreateAcObj(currObjCreateTime, 1.0f, currObjCnt, 30, tileMap->RandGrassPos()));
 }
 
 void PlayScene::Render(HDC hdc)
@@ -62,8 +65,11 @@ void PlayScene::Render(HDC hdc)
 	tileMap->Render(hdc, camera->GetPos());
 	player->Render(hdc, camera->GetPos());
 	camera->Render(hdc);
-	playUI->Render(hdc);
 	objFactory->Render(hdc, camera->GetPos());
+	playUI->Render(hdc);
+
+	// test
+	//img->FrameRender(hdc, g_ptMouse.x, g_ptMouse.y, 0, 0);
 }
 
 PlayScene::PlayScene()

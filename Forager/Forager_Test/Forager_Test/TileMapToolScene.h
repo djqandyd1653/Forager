@@ -9,6 +9,9 @@
 
 enum class TERRAIN { GRASS, WATER, CLIFF };
 
+class Object;
+class Building;
+
 typedef struct tagTile
 {
 	TERRAIN terrain;
@@ -16,6 +19,10 @@ typedef struct tagTile
 	int tileNum;
 	int frameX;
 	int frameY;
+	bool ableBuild;
+
+	Object* obj;
+	Building* building;
 }TILE_INFO;
 
 typedef struct tagSampleTile

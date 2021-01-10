@@ -13,11 +13,9 @@ void Object::Update()
 {
 }
 
-void Object::Render(HDC hdc, FPOINT pos)
+void Object::Render(HDC hdc, FPOINT cameraPos)
 {
-}
-
-void Object::SetPos()
-{
-	//tile = TileMap::GetVecGrassTile();
+	// 화면 밖이면 렌더 안하기
+	if (pos.x - cameraPos.x > WINSIZE_X || pos.y - cameraPos.y > WINSIZE_Y || pos.x + 56 - cameraPos.x < 0 || pos.y + 56 - cameraPos.y < 0)
+		return;
 }

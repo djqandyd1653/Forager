@@ -17,7 +17,17 @@ void Tree::Update()
 {
 }
 
-void Tree::Render(HDC hdc, FPOINT pos)
+void Tree::Render(HDC hdc, FPOINT cameraPos)
 {
-	img->FrameRender(hdc, int(1000 - pos.x), int(1000 - pos.y), 0, 0);
+	Object::Render(hdc, cameraPos);
+	img->FrameRender(hdc, int(pos.x - cameraPos.x), int(pos.y - cameraPos.y) - 112, 0, 0);	// 112 = tile_size(56) * 2
+	//Rectangle(hdc, rc.left - cameraPos.x, rc.top - cameraPos.y, rc.right - cameraPos.x, rc.bottom - cameraPos.y);
+}
+
+void Tree::UpdateRect()
+{
+	rc.left = pos.x + 20;
+	rc.top = pos.y + 25;
+	rc.right = pos.x + 36;
+	rc.bottom = pos.y + 56;
 }

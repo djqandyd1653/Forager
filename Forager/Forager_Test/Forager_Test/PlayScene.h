@@ -8,11 +8,15 @@ class TileMap;
 class Player;
 class PlayUI;
 class ObjectFactory;
+class CollisionCheckor;
+
+// test
+class Image;
 
 class PlayScene : public GameNode
 {
 private:
-
+	
 	Camera* camera;
 	TileMap* tileMap;
 	Player* player;
@@ -22,8 +26,11 @@ private:
 	HBRUSH blueBrush;
 	HBRUSH transparentBrush;
 
-	float currTime;
-	int currCnt;
+	float currObjCreateTime;
+	int currObjCnt;
+
+	// test
+	Image* img;
 
 public:
 	virtual HRESULT Init();

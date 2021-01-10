@@ -5,7 +5,7 @@ HRESULT TileMapToolScene::Init()
 {
 	SetWindowSize(0, 0, WINSIZE_X, WINSIZE_Y);
 
-	sampleTile = ImageManager::GetSingleton()->FindImage("샘플타일");
+	sampleTile = ImageManager::GetSingleton()->FindImage("Sample_Tile");
 
 	// 세이브, 로드 버튼
 	SetRect(&rcSave, 800, WINSIZE_Y - 220, 950, WINSIZE_Y - 150);
@@ -61,6 +61,9 @@ HRESULT TileMapToolScene::Init()
 			tileInfo[i * MAP_SIZE + j].tileNum = i * MAP_SIZE + j;
 			tileInfo[i * MAP_SIZE + j].frameX = 0;
 			tileInfo[i * MAP_SIZE + j].frameY = 1;
+			tileInfo[i * MAP_SIZE + j].ableBuild = false;
+			tileInfo[i * MAP_SIZE + j].obj = nullptr;
+			tileInfo[i * MAP_SIZE + j].building = nullptr;
 		}
 	}
 
@@ -244,13 +247,22 @@ void TileMapToolScene::CheckRcMain()
 						continue;
 					}
 
-					tileInfo[(idX + j + startNumX) + (idY + i + startNumY) * MAP_SIZE].frameX = selectTileInfo.startFrameX + j;
-					tileInfo[(idX + j + startNumX) + (idY + i + startNumY) * MAP_SIZE].frameY = selectTileInfo.startFrameY + i;
+					int tempTileNum = (idX + j + startNumX) + (idY + i + startNumY) * MAP_SIZE;
 
-					if(selectTileInfo.startFrameY + i == 0)
-						tileInfo[(idX + j + startNumX) + (idY + i + startNumY) * MAP_SIZE].terrain = TERRAIN::GRASS;
+					tileInfo[tempTileNum].frameX = selectTileInfo.startFrameX + j;
+					tileInfo[tempTileNum].frameY = selectTileInfo.startFrameY + i;
+
+					if (selectTileInfo.startFrameY + i == 0)
+					{
+						tileInfo[tempTileNum].terrain = TERRAIN::GRASS;
+						tileInfo[tempTileNum].ableBuild = true;
+					}
 					else if(selectTileInfo.startFrameY + i == 1 && selectTileInfo.startFrameX + j == 2)
-						tileInfo[(idX + j + startNumX) + (idY + i + startNumY) * MAP_SIZE].terrain = TERRAIN::CLIFF;
+						tileInfo[tempTileNum].terrain = TERRAIN::CLIFF;
+					else if (selectTileInfo.startFrameY + i == 1)
+					{
+						tileInfo[tempTileNum].terrain = TERRAIN::WATER;
+					}
 				}
 			}
 		}

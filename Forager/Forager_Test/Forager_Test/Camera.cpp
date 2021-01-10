@@ -60,7 +60,6 @@ void Camera::Render(HDC hdc)
 		(int)(player->GetPos().x + g_ptMouse.x - pos.x) / 2,
 		(int)(player->GetPos().y + g_ptMouse.y - pos.y) / 2, c, (int)strlen(c));
 
-
 	wsprintf(c, "%d, %d", (int)player->GetPos().x, (int)player->GetPos().y);
 	TextOut(hdc, int(player->GetPos().x - GetPos().x), int(player->GetPos().y - GetPos().y), c, (int)strlen(c));
 }

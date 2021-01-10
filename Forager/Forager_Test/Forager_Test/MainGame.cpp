@@ -35,6 +35,13 @@ HRESULT MainGame::Init()
 	ImageManager::GetSingleton()->AddImage("Rock", "Image/Object/Rock.bmp", 112, 56, 2, 1);
 	ImageManager::GetSingleton()->AddImage("Fruit", "Image/Object/Fruit.bmp", 112, 56, 2, 1);
 
+	// building
+	ImageManager::GetSingleton()->AddImage("Blast_Furnace", "Image/Object/Blast_Furnace.bmp", 336, 168, 3, 1);
+	ImageManager::GetSingleton()->AddImage("Anvil", "Image/Object/Anvil.bmp", 285, 95, 3, 1);
+	ImageManager::GetSingleton()->AddImage("Sewing_Machine", "Image/Object/Sewing_Machine.bmp", 336, 115, 3, 1);
+	ImageManager::GetSingleton()->AddImage("Bridge", "Image/Object/Bridge.bmp", 224, 56, 4, 1);
+	ImageManager::GetSingleton()->AddImage("Fish_Trap", "Image/Object/Fish_Trap.bmp", 168, 56, 3, 1);
+
 	TimeManager::GetSingleton()->Init();
 
 	SceneManager::GetSingleton()->AddScene("Play", new PlayScene);

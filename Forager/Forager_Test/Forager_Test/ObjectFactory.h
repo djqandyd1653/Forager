@@ -37,27 +37,22 @@ public:
 	Object* newObj(OBJ_TYPE name);
 
 	virtual void CreateObjList(OBJ_TYPE name, int cnt);
-	//virtual void 
 	virtual Object* PopObj(Object* obj, int num);
 
-	void CreateAcObj(float& currTime, float createTime, int& currCnt, int maxCnt);
+	Object* CreateAcObj(float& currTime, float createTime, int& currCnt, int maxCnt, FPOINT tilePos);
 	list<Object*>::iterator DeleteAcObj(list<Object*>::iterator it);
+
+	list<Object*> GetAcList() { return acList; }
 };
 
 class TreeFactory : public ObjectFactory
 {
-	//virtual void CreateObj(int cnt);
-	//virtual Object* PopObj(Object* obj);
 };
 
 class RockFactory : public ObjectFactory
 {
-	//virtual void CreateObj(int cnt);
-	//virtual Object* PopObj(Object* obj);
 };
 
 class FruitFactory : public ObjectFactory
 {
-	//virtual void CreateObj(int cnt);
-	//virtual Object* PopObj(Object* obj);
 };

@@ -90,15 +90,15 @@ Object * ObjectFactory::PopObj(Object* obj, int num)
 	return tempObj;
 }
 
-void ObjectFactory::CreateAcObj(float& currTime, float createTime, int& currCnt, int maxCnt)
+Object* ObjectFactory::CreateAcObj(float& currTime, float createTime, int& currCnt, int maxCnt, FPOINT tilePos)
 {
 	if (currCnt >= maxCnt)
-		return;
+		return nullptr;
 
 	currTime += TimeManager::GetSingleton()->GetElapsedTime();
 
 	if (currTime < createTime)
-		return;
+		return nullptr;
 
 	currTime = 0;
 
@@ -120,10 +120,11 @@ void ObjectFactory::CreateAcObj(float& currTime, float createTime, int& currCnt,
 	}
 
 	acList.push_back(tempObj);
-	acList.back()->SetPos();
+	acList.back()->SetPos(tilePos);
+	acList.back()->UpdateRect();
 	currCnt++;
+	return acList.back();
 }
-
 
 list<Object*>::iterator ObjectFactory::DeleteAcObj(list<Object*>::iterator it)
 {
@@ -144,33 +145,3 @@ list<Object*>::iterator ObjectFactory::DeleteAcObj(list<Object*>::iterator it)
 
 	return it;
 }
-
-//void TreeFactory::CreateObj(int cnt)
-//{
-//	for (int i = 0; i < cnt; i++)
-//	{
-//		Object* tree = new Tree;
-//		tree->Init();
-//		objList.push_back(tree);
-//	}
-//}
-//
-//void RockFactory::CreateObj(int cnt)
-//{
-//	for (int i = 0; i < cnt; i++)
-//	{
-//		Object* rock = new Rock;
-//		rock->Init();
-//		objList.push_back(rock);
-//	}
-//}
-//
-//void FruitFactory::CreateObj(int cnt)
-//{
-//	for (int i = 0; i < cnt; i++)
-//	{
-//		Object* fruit = new Fruit;
-//		fruit->Init();
-//		objList.push_back(fruit);
-//	}
-//}
