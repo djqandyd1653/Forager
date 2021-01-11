@@ -27,7 +27,7 @@ private:
 	float moveAngleX;		// X축 움직임 각도
 	float moveAngleY;		// Y축 움직임 각도
 	int maxLife;			// 최대 목숨
-	int currLife;				// 현재 목숨
+	int currLife;			// 현재 목숨
 	int maxStamina;			// 최대 체력
 	int currStamina;		// 현재 체력
 	int maxEXP;				// 최대 경험치
@@ -35,6 +35,7 @@ private:
 	int currFrameX;			// x 프레임
 	float frameTime;		// 프레임 체크 타임
 	bool isLeft;			// 왼쪽을 바라보는가?
+	bool ableAttack;		// 공격 가능한가?
 
 	PLAYER_STATE state;		// 플레이어 상태
 
@@ -53,8 +54,11 @@ public:
 	void DirUpdate(FPOINT cameraPos);
 
 	POINT GetPos() { return pos; }
+	POINT GetRcCenter() { return rcCenter; }
 	void SetPosX(int x) { pos.x = x; }
 	void SetPosY(int y) { pos.y = y; }
+
+	RECT GetRect() { return rc; }
 
 	int GetMaxLife() { return maxLife; }
 	int GetCurrLife() { return currLife; }
@@ -64,4 +68,6 @@ public:
 
 	int GetCurrEXP() { return currEXP; }
 	int GetMaxEXP() { return maxEXP; }
+
+	bool AbleAttack() { return ableAttack; }
 };

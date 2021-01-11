@@ -5,6 +5,7 @@
 #include "Player.h"
 #include "PlayUI.h"
 #include "ObjectFactory.h"
+#include "CollisionCheckor.h"
 
 HRESULT PlayScene::Init()
 {
@@ -26,8 +27,10 @@ HRESULT PlayScene::Init()
 	objFactory = new ObjectFactory;
 	objFactory->Init();
 
+	collisionCheckor = new CollisionCheckor;
+	collisionCheckor->Init(player, tileMap, objFactory);
+
 	currObjCreateTime = 0.0f;
-	currObjCnt = 0;
 
 	//test
 	img = ImageManager::GetSingleton()->FindImage("Sewing_Machine");
@@ -51,7 +54,8 @@ void PlayScene::Update()
 	tileMap->Update();
 	playUI->Update();
 	objFactory->Update();
-	tileMap->SetObject(objFactory->CreateAcObj(currObjCreateTime, 1.0f, currObjCnt, 30, tileMap->RandGrassPos()));
+	tileMap->SetObject(objFactory->CreateAcObj(currObjCreateTime, 1.0f, 5, tileMap->RandGrassPos()));
+	collisionCheckor->Update(camera->GetPos());
 }
 
 void PlayScene::Render(HDC hdc)

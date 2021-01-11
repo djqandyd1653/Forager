@@ -39,8 +39,8 @@ public:
 	virtual void CreateObjList(OBJ_TYPE name, int cnt);
 	virtual Object* PopObj(Object* obj, int num);
 
-	Object* CreateAcObj(float& currTime, float createTime, int& currCnt, int maxCnt, FPOINT tilePos);
-	list<Object*>::iterator DeleteAcObj(list<Object*>::iterator it);
+	Object* CreateAcObj(float& currTime, float createTime, int maxCnt, FPOINT tilePos);
+	void DeleteAcObj(Object* obj);
 
 	list<Object*> GetAcList() { return acList; }
 };

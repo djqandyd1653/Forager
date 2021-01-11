@@ -49,6 +49,9 @@
     <Filter Include="Forager\Object">
       <UniqueIdentifier>{6c379f12-f3a5-4a81-ae29-ca56b9de688f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Forager\Weapon">
+      <UniqueIdentifier>{6e116202-1e8c-4eec-b627-250828e979d7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinMain.cpp">
@@ -113,6 +116,18 @@
     </ClCompile>
     <ClCompile Include="ObjectFactory.cpp">
       <Filter>Forager\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="CollisionCheckor.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="WeaponManager.cpp">
+      <Filter>Forager\Weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="Weapon.cpp">
+      <Filter>Forager\Weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="Pickaxe.cpp">
+      <Filter>Forager\Weapon</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -181,6 +196,18 @@
     </ClInclude>
     <ClInclude Include="ObjectFactory.h">
       <Filter>Forager\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionCheckor.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="WeaponManager.h">
+      <Filter>Forager\Weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="Weapon.h">
+      <Filter>Forager\Weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="Pickaxe.h">
+      <Filter>Forager\Weapon</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

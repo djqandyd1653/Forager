@@ -90,9 +90,9 @@ Object * ObjectFactory::PopObj(Object* obj, int num)
 	return tempObj;
 }
 
-Object* ObjectFactory::CreateAcObj(float& currTime, float createTime, int& currCnt, int maxCnt, FPOINT tilePos)
+Object* ObjectFactory::CreateAcObj(float& currTime, float createTime, int maxCnt, FPOINT tilePos)
 {
-	if (currCnt >= maxCnt)
+	if (acList.size() >= maxCnt)
 		return nullptr;
 
 	currTime += TimeManager::GetSingleton()->GetElapsedTime();
@@ -122,12 +122,23 @@ Object* ObjectFactory::CreateAcObj(float& currTime, float createTime, int& currC
 	acList.push_back(tempObj);
 	acList.back()->SetPos(tilePos);
 	acList.back()->UpdateRect();
-	currCnt++;
 	return acList.back();
 }
 
-list<Object*>::iterator ObjectFactory::DeleteAcObj(list<Object*>::iterator it)
+void ObjectFactory::DeleteAcObj(Object* obj)
 {
+	list<Object*>::iterator it = acList.begin();
+
+	while (it != acList.end())
+	{
+		if ((*it)->GetPos().x == obj->GetPos().x && (*it)->GetPos().y == obj->GetPos().y)
+		{
+			break;
+		}
+
+		it++;
+	}
+
 	switch (OBJ_TYPE((*it)->GetTypeNum()))
 	{
 	case OBJ_TYPE::TREE:
@@ -142,6 +153,4 @@ list<Object*>::iterator ObjectFactory::DeleteAcObj(list<Object*>::iterator it)
 	}
 
 	it = acList.erase(it);
-
-	return it;
 }

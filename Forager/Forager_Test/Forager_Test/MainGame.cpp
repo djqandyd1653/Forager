@@ -29,11 +29,13 @@ HRESULT MainGame::Init()
 	ImageManager::GetSingleton()->AddImage("Life_Back", "Image/GUI/Player_UI/Life_Back.bmp", 42, 38);
 	ImageManager::GetSingleton()->AddImage("Stamina", "Image/GUI/Player_UI/Stamina.bmp", 63, 16);
 	ImageManager::GetSingleton()->AddImage("Stamina_Back", "Image/GUI/Player_UI/Stamina_Back.bmp", 73, 26);
+	ImageManager::GetSingleton()->AddImage("Object_Hp", "Image/GUI/Player_UI/Object_Hp.bmp", 44, 7);
+	ImageManager::GetSingleton()->AddImage("Object_Hp_Back", "Image/GUI/Player_UI/Object_Hp_Back.bmp", 50, 13);
 
 	// object
 	ImageManager::GetSingleton()->AddImage("Tree", "Image/Object/Tree.bmp", 280, 168, 5, 1);
 	ImageManager::GetSingleton()->AddImage("Rock", "Image/Object/Rock.bmp", 112, 56, 2, 1);
-	ImageManager::GetSingleton()->AddImage("Fruit", "Image/Object/Fruit.bmp", 112, 56, 2, 1);
+	ImageManager::GetSingleton()->AddImage("Fruit", "Image/Object/Fruit.bmp", 168, 56, 3, 1);
 
 	// building
 	ImageManager::GetSingleton()->AddImage("Blast_Furnace", "Image/Object/Blast_Furnace.bmp", 336, 168, 3, 1);
@@ -41,6 +43,10 @@ HRESULT MainGame::Init()
 	ImageManager::GetSingleton()->AddImage("Sewing_Machine", "Image/Object/Sewing_Machine.bmp", 336, 115, 3, 1);
 	ImageManager::GetSingleton()->AddImage("Bridge", "Image/Object/Bridge.bmp", 224, 56, 4, 1);
 	ImageManager::GetSingleton()->AddImage("Fish_Trap", "Image/Object/Fish_Trap.bmp", 168, 56, 3, 1);
+
+	// weapon
+	//ImageManager::GetSingleton()->AddImage("Pickaxe", "Image/Weapon/Pickaxe.bmp", 56, 112, 1, 2);
+	ImageManager::GetSingleton()->AddImage("Pickaxe", "Image/Weapon/Pickaxe_Action.bmp", 255, 140, 3, 2);
 
 	TimeManager::GetSingleton()->Init();
 

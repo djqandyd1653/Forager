@@ -21,6 +21,7 @@ HRESULT Player::Init(tagTile* tile)
 	currFrameX = 0;
 	frameTime = 0.0f;
 	isLeft = false;
+	ableAttack = true;
 
 	state = PLAYER_STATE::IDLE;
 	
@@ -28,7 +29,7 @@ HRESULT Player::Init(tagTile* tile)
 	{
 		img[i] = new Image;
 	}
-	
+
 	img[static_cast<int>(PLAYER_STATE::IDLE)] = ImageManager::GetSingleton()->FindImage("Player_Idle");
 	img[static_cast<int>(PLAYER_STATE::RUN)] = ImageManager::GetSingleton()->FindImage("Player_Run");
 	img[static_cast<int>(PLAYER_STATE::ROLL)] = ImageManager::GetSingleton()->FindImage("Player_Roll");
@@ -66,6 +67,12 @@ void Player::Update(FPOINT cameraPos)
 	RectUpdate();
 	DirUpdate(cameraPos);
 
+	// 공격키 누르면 공격실행
+	if (KeyManager::GetSingleton()->IsStayKeyDown(VK_LBUTTON))
+	{
+		ableAttack = false;
+	}
+
 	// 경험치 테스트
 	if (KeyManager::GetSingleton()->IsStayKeyDown('P'))
 	{
@@ -88,6 +95,7 @@ void Player::Update(FPOINT cameraPos)
 		}
 	}
 
+	// 체력 테스트
 	if (KeyManager::GetSingleton()->IsOnceKeyDown('H'))
 	{
 		currLife++;
@@ -97,6 +105,7 @@ void Player::Update(FPOINT cameraPos)
 			currLife = maxLife;
 		}
 	}
+	// 체력 테스트
 	if (KeyManager::GetSingleton()->IsOnceKeyDown('J'))
 	{
 		currLife--;
@@ -106,11 +115,13 @@ void Player::Update(FPOINT cameraPos)
 			currLife = 0;
 		}
 	}
+	// 체력 테스트
 	if (KeyManager::GetSingleton()->IsOnceKeyDown('K'))
 	{
 		maxLife++;
 		currLife = maxLife;
 	}
+	// 체력 테스트
 	if (KeyManager::GetSingleton()->IsOnceKeyDown('L'))
 	{
 		maxLife--;

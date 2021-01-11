@@ -129,6 +129,7 @@
   <ItemGroup>
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="CollisionCheckor.cpp" />
     <ClCompile Include="Fruit.cpp" />
     <ClCompile Include="GameNode.cpp" />
     <ClCompile Include="Image.cpp" />
@@ -137,6 +138,7 @@
     <ClCompile Include="MainGame.cpp" />
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="ObjectFactory.cpp" />
+    <ClCompile Include="Pickaxe.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayScene.cpp" />
     <ClCompile Include="PlayUI.cpp" />
@@ -147,11 +149,14 @@
     <ClCompile Include="TileMapToolScene.cpp" />
     <ClCompile Include="TimeManager.cpp" />
     <ClCompile Include="Tree.cpp" />
+    <ClCompile Include="Weapon.cpp" />
+    <ClCompile Include="WeaponManager.cpp" />
     <ClCompile Include="WinMain.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h" />
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="CollisionCheckor.h" />
     <ClInclude Include="Fruit.h" />
     <ClInclude Include="GameNode.h" />
     <ClInclude Include="Image.h" />
@@ -161,6 +166,7 @@
     <ClInclude Include="Object.h" />
     <ClInclude Include="ObjectFactory.h" />
     <ClInclude Include="pch.h" />
+    <ClInclude Include="Pickaxe.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayScene.h" />
     <ClInclude Include="PlayUI.h" />
@@ -172,6 +178,8 @@
     <ClInclude Include="TileMapToolScene.h" />
     <ClInclude Include="TimeManager.h" />
     <ClInclude Include="Tree.h" />
+    <ClInclude Include="Weapon.h" />
+    <ClInclude Include="WeaponManager.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -22,12 +22,12 @@ private:
 	Player* player;
 	PlayUI* playUI;
 	ObjectFactory* objFactory;
+	CollisionCheckor* collisionCheckor;
 
 	HBRUSH blueBrush;
 	HBRUSH transparentBrush;
 
-	float currObjCreateTime;
-	int currObjCnt;
+	float currObjCreateTime;	// 오브젝트 생성 남은시간
 
 	// test
 	Image* img;

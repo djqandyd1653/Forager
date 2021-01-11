@@ -67,16 +67,17 @@ void TileMap::Render(HDC hdc, FPOINT cameraPos)
 		img->FrameRender(hdc, int(tile[i].rc.left - cameraPos.x), int(tile[i].rc.top - cameraPos.y), tile[i].frameX, tile[i].frameY);
 
 		// 타일 번호
-		//char c[32];
-		//wsprintf(c, "%d", tile[i].tileNum);
-		//TextOut(hdc, int(tile[i].rc.left - cameraPos.x), int(tile[i].rc.top - cameraPos.y), c, (int)strlen(c));
-
 		char c[32];
-		if (!tile[i].ableBuild)
-		{
-			wsprintf(c, "%d", 2);
-			TextOut(hdc, int(tile[i].rc.left - cameraPos.x), int(tile[i].rc.top - cameraPos.y), c, (int)strlen(c));
-		}
+		wsprintf(c, "%d", tile[i].tileNum);
+		TextOut(hdc, int(tile[i].rc.left - cameraPos.x), int(tile[i].rc.top - cameraPos.y), c, (int)strlen(c));
+
+		// 건설 불가능한 타일 표시
+		//char c[32];
+		//if (!tile[i].ableBuild)
+		//{
+		//	wsprintf(c, "%d", 2);
+		//	TextOut(hdc, int(tile[i].rc.left - cameraPos.x), int(tile[i].rc.top - cameraPos.y), c, (int)strlen(c));
+		//}
 
 		// 매인타일 격자선
 		Rectangle(hdc, 
