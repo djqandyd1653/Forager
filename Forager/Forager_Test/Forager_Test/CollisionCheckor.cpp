@@ -90,10 +90,10 @@ void CollisionCheckor::CheckCollisionMO(FPOINT cameraPos)
 				타일에 타겟 이미지 출력하도록 설정 변경
 			*/
 
-			if (KeyManager::GetSingleton()->IsOnceKeyDown(VK_LBUTTON))
+			if (KeyManager::GetSingleton()->IsStayKeyDown(VK_LBUTTON))
 			{
-				//if (player->AbleAttack())
-				//{ sqrt((x1 - x2)^2 + (y1 - y2)^2)
+				if (player->AbleAttack())
+				{ 
 					double distance = sqrt(pow((mousePoint.x - player->GetRcCenter().x), 2) + pow((mousePoint.y - player->GetRcCenter().y), 2));
 					if (distance <= 100.0f)
 					{
@@ -111,7 +111,7 @@ void CollisionCheckor::CheckCollisionMO(FPOINT cameraPos)
 							tile[tileNum].obj = nullptr;
 						}
 					}
-				//}
+				}
 			}
 		}
 	}

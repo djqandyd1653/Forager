@@ -39,7 +39,7 @@ void Pickaxe::Attack(bool &ableAttack)
 			currFrameTime = 0.0f;
 		}
 
-		if (currFrameCnt == 0)
+		if (currFrameCnt == 0 && nextFrameDir == -1)
 		{
 			nextFrameDir = 1;
 			ableAttack = true;

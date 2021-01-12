@@ -51,11 +51,11 @@ void PlayScene::Update()
 {
 	player->Update(camera->GetPos());
 	camera->Update();
+	collisionCheckor->Update(camera->GetPos());
 	tileMap->Update();
-	playUI->Update();
 	objFactory->Update();
 	tileMap->SetObject(objFactory->CreateAcObj(currObjCreateTime, 1.0f, 5, tileMap->RandGrassPos()));
-	collisionCheckor->Update(camera->GetPos());
+	playUI->Update();
 }
 
 void PlayScene::Render(HDC hdc)
