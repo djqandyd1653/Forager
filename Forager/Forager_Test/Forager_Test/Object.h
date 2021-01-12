@@ -14,6 +14,7 @@ protected:
 	int typeNum;
 	int maxHp;
 	int currHp;
+	int EXP;
 
 	// image
 	int frameCnt;
@@ -41,7 +42,7 @@ public:
 	int GetMaxHp() { return maxHp; }
 	int GetCurrHp() { return currHp; }
 	void SetCurrHp(int hp) { currHp = hp; }
-	void SetRemainHp(int damage) 
+	void GetDamage(int damage) 
 	{ 
 		currHp -= damage;
 		if (currHp < 0)
@@ -49,4 +50,6 @@ public:
 	}
 
 	void SetIsFrame(bool isFrame) { this->isFrame = isFrame; }
+
+	int GiveEXP() { return EXP; }
 };

@@ -20,6 +20,7 @@ HRESULT Player::Init(tagTile* tile)
 	currStamina = maxStamina;
 	maxEXP = 100;
 	currEXP = 0;
+	level = 1;
 	currFrameX = 0;
 	frameTime = 0.0f;
 	isLeft = false;
@@ -78,28 +79,6 @@ void Player::Update(FPOINT cameraPos)
 			ableAttack = false;
 	}
 	weaponMgr->Attack(ableAttack);
-
-	// 경험치 테스트
-	if (KeyManager::GetSingleton()->IsStayKeyDown('P'))
-	{
-		currEXP++;
-
-		if (currEXP >= maxEXP)
-		{
-			currEXP = maxEXP;
-		}
-	}
-
-	// 경험치 테스트
-	if (KeyManager::GetSingleton()->IsStayKeyDown('O'))
-	{
-		currStamina++;
-
-		if (currStamina >= maxStamina)
-		{
-			currStamina = maxStamina;
-		}
-	}
 
 	// 체력 테스트
 	if (KeyManager::GetSingleton()->IsOnceKeyDown('H'))
@@ -261,4 +240,21 @@ void Player::DirUpdate(FPOINT cameraPos)
 	}
 	else 
 		isLeft = false;
+}
+
+void Player::LevelUp()
+{
+	if (currEXP >= maxEXP)
+	{
+		int remainEXP = currEXP - maxEXP;
+		level++;
+		currEXP = remainEXP;
+		maxEXP = int(maxEXP * 1.2f);
+	}
+}
+
+void Player::GetEXP(int EXP)
+{
+	currEXP += EXP;
+	LevelUp();
 }

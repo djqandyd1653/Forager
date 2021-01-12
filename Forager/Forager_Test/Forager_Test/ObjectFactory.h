@@ -24,7 +24,6 @@ private:
 	static RockFactory	rockFactory;
 	static FruitFactory	fruitFactory;
 
-protected:
 	list<Object*> objList;			// 각각의 Object 저장 리스트
 	static list<Object*> acList;	// 실제 Update될 Object들 리스트
 	list<Object*>::iterator itOdj;	// iterator
@@ -36,8 +35,8 @@ public:
 
 	Object* newObj(OBJ_TYPE name);
 
-	virtual void CreateObjList(OBJ_TYPE name, int cnt);
-	virtual Object* PopObj(Object* obj, int num);
+	void CreateObjList(OBJ_TYPE name, int cnt);
+	Object* PopObj(Object* obj, int num);
 
 	Object* CreateAcObj(float& currTime, float createTime, int maxCnt, FPOINT tilePos);
 	void DeleteAcObj(Object* obj);

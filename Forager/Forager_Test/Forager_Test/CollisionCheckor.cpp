@@ -79,7 +79,7 @@ void CollisionCheckor::CheckCollisionPO()
 
 void CollisionCheckor::CheckCollisionMO(FPOINT cameraPos)
 {
-	POINT mousePoint = { g_ptMouse.x + cameraPos.x, g_ptMouse.y + cameraPos.y };
+	POINT mousePoint = { g_ptMouse.x + int(cameraPos.x), g_ptMouse.y + int(cameraPos.y) };
 	int tileNum = mousePoint.x / TILE_SIZE + ((mousePoint.y) / TILE_SIZE) * MAP_SIZE;
 
 	if (PtInRect(&tile[tileNum].rc, mousePoint))
@@ -90,19 +90,26 @@ void CollisionCheckor::CheckCollisionMO(FPOINT cameraPos)
 				타일에 타겟 이미지 출력하도록 설정 변경
 			*/
 
-			if (KeyManager::GetSingleton()->IsStayKeyDown(VK_LBUTTON))
+			if (KeyManager::GetSingleton()->IsOnceKeyDown(VK_LBUTTON))
 			{
 				//if (player->AbleAttack())
-				//{
-					tile[tileNum].obj->SetIsFrame(true);
-					tile[tileNum].obj->SetRemainHp(1);
-
-					if (tile[tileNum].obj->GetCurrHp() <= 0)
+				//{ sqrt((x1 - x2)^2 + (y1 - y2)^2)
+					double distance = sqrt(pow((mousePoint.x - player->GetRcCenter().x), 2) + pow((mousePoint.y - player->GetRcCenter().y), 2));
+					if (distance <= 100.0f)
 					{
-						objFactory->DeleteAcObj(tile[tileNum].obj);
-						tile[tileNum].obj->SetPos({ 0.0f, 0.0f });
-						tile[tileNum].obj->SetCurrHp(tile[tileNum].obj->GetMaxHp());
-						tile[tileNum].obj = nullptr;
+						tile[tileNum].obj->SetIsFrame(true);
+						tile[tileNum].obj->GetDamage(1);
+
+						if (tile[tileNum].obj->GetCurrHp() <= 0)
+						{
+							int exp = tile[tileNum].obj->GiveEXP();
+							player->GetEXP(exp);
+							// 아이템 드랍
+							objFactory->DeleteAcObj(tile[tileNum].obj);
+							tile[tileNum].obj->SetPos({ 0.0f, 0.0f });
+							tile[tileNum].obj->SetCurrHp(tile[tileNum].obj->GetMaxHp());
+							tile[tileNum].obj = nullptr;
+						}
 					}
 				//}
 			}
