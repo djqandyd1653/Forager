@@ -11,6 +11,7 @@ enum class PLAYER_STATE
 
 class Image;
 class Animation;
+class WeaponManager;
 
 typedef struct tagTile TILE_INFO;
 
@@ -42,6 +43,7 @@ private:
 	Image* img[static_cast<int>(PLAYER_STATE::COUNT)];
 	//Animation* anim[static_cast<int>(PLAYER_STATE::COUNT)];
 	tagTile* tile;
+	WeaponManager* weaponMgr;
 
 public:
 	virtual HRESULT Init(tagTile* tile);

@@ -2,6 +2,8 @@
 #include "Image.h"
 #include "Animation.h"
 #include "TileMapToolScene.h"
+#include "WeaponManager.h"
+#include "Pickaxe.h"
 
 HRESULT Player::Init(tagTile* tile)
 {
@@ -50,6 +52,8 @@ HRESULT Player::Init(tagTile* tile)
 	//anim[static_cast<int>(state)]->Start();
 
 	this->tile = tile;
+	weaponMgr = new WeaponManager;
+	weaponMgr->ChangeWeapon(new Pickaxe);
 
 	return S_OK;
 }
@@ -70,8 +74,10 @@ void Player::Update(FPOINT cameraPos)
 	// 공격키 누르면 공격실행
 	if (KeyManager::GetSingleton()->IsStayKeyDown(VK_LBUTTON))
 	{
-		ableAttack = false;
+		if(ableAttack)
+			ableAttack = false;
 	}
+	weaponMgr->Attack(ableAttack);
 
 	// 경험치 테스트
 	if (KeyManager::GetSingleton()->IsStayKeyDown('P'))
@@ -156,6 +162,7 @@ void Player::Render(HDC hdc, FPOINT cameraPos)
 	img[static_cast<int>(state)]->FrameRender(hdc, pos.x + cPosX, pos.y + cPosY, currFrameX, isLeft);
 	Rectangle(hdc, rc.left + cPosX, rc.top + cPosY, rc.right + cPosX, rc.bottom + cPosY);
 	//Rectangle(hdc, pos.x + cPosX, pos.y + cPosY, pos.x + 56 + cPosX, pos.y + 56 + cPosY);
+	weaponMgr->Render(hdc, pos, cameraPos, isLeft);
 }
 
 void Player::Move()
