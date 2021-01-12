@@ -52,6 +52,18 @@
     <Filter Include="Forager\Weapon">
       <UniqueIdentifier>{6e116202-1e8c-4eec-b627-250828e979d7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Collision">
+      <UniqueIdentifier>{1b09f760-b27c-42c5-8191-9297108808f8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Forager\Item">
+      <UniqueIdentifier>{d9e07036-1c9f-4ef8-9805-432e1ccef951}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Forager\Item\Consum">
+      <UniqueIdentifier>{9cff2214-d433-4c30-9198-bafea2b71a98}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Forager\Item\Etc">
+      <UniqueIdentifier>{d7801daa-47dd-4fd2-88c3-1141a3f610e6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinMain.cpp">
@@ -117,9 +129,6 @@
     <ClCompile Include="ObjectFactory.cpp">
       <Filter>Forager\Object</Filter>
     </ClCompile>
-    <ClCompile Include="CollisionCheckor.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="WeaponManager.cpp">
       <Filter>Forager\Weapon</Filter>
     </ClCompile>
@@ -128,6 +137,21 @@
     </ClCompile>
     <ClCompile Include="Pickaxe.cpp">
       <Filter>Forager\Weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="CollisionCheckor.cpp">
+      <Filter>Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="Item.cpp">
+      <Filter>Forager\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="EtcItem.cpp">
+      <Filter>Forager\Item\Etc</Filter>
+    </ClCompile>
+    <ClCompile Include="ConsumItem.cpp">
+      <Filter>Forager\Item\Consum</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemManager.cpp">
+      <Filter>Forager\Item</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -197,9 +221,6 @@
     <ClInclude Include="ObjectFactory.h">
       <Filter>Forager\Object</Filter>
     </ClInclude>
-    <ClInclude Include="CollisionCheckor.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="WeaponManager.h">
       <Filter>Forager\Weapon</Filter>
     </ClInclude>
@@ -208,6 +229,21 @@
     </ClInclude>
     <ClInclude Include="Pickaxe.h">
       <Filter>Forager\Weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionCheckor.h">
+      <Filter>Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="Item.h">
+      <Filter>Forager\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="EtcItem.h">
+      <Filter>Forager\Item\Etc</Filter>
+    </ClInclude>
+    <ClInclude Include="ConsumItem.h">
+      <Filter>Forager\Item\Consum</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemManager.h">
+      <Filter>Forager\Item</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

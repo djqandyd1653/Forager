@@ -8,6 +8,7 @@ HRESULT Fruit::Init(int typeNum)
 	this->typeNum = typeNum;
 	maxHp = 2;
 	currHp = maxHp;
+	EXP = 3;
 
 	return S_OK;
 }
@@ -25,8 +26,8 @@ void Fruit::Render(HDC hdc, FPOINT cameraPos)
 
 void Fruit::UpdateRect()
 {
-	rc.left = pos.x + 5;
-	rc.top = pos.y + 10;
-	rc.right = pos.x + 51;
-	rc.bottom = pos.y + 56;
+	rc.left = LONG(pos.x + 5);
+	rc.top = LONG(pos.y + 10);
+	rc.right = LONG(pos.x + 51);
+	rc.bottom = LONG(pos.y + 56);
 }

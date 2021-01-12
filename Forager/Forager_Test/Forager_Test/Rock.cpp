@@ -8,6 +8,7 @@ HRESULT Rock::Init(int typeNum)
 	this->typeNum = typeNum;
 	maxHp = 5;
 	currHp = maxHp;
+	EXP = 7;
 
 	return S_OK;
 }
@@ -25,8 +26,8 @@ void Rock::Render(HDC hdc, FPOINT cameraPos)
 
 void Rock::UpdateRect()
 {
-	rc.left = pos.x + 5;
-	rc.top = pos.y + 5;
-	rc.right = pos.x + 51;
-	rc.bottom = pos.y + 56;
+	rc.left = LONG(pos.x + 5);
+	rc.top = LONG(pos.y + 5);
+	rc.right = LONG(pos.x + 51);
+	rc.bottom = LONG(pos.y + 56);
 }

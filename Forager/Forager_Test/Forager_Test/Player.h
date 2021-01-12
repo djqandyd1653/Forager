@@ -32,6 +32,7 @@ private:
 	int currStamina;		// 현재 체력
 	int maxEXP;				// 최대 경험치
 	int currEXP;			// 현재 경험치
+	int level;				// 레벨
 	int currFrameX;			// x 프레임
 	float frameTime;		// 프레임 체크 타임
 	bool isLeft;			// 왼쪽을 바라보는가?
@@ -52,6 +53,7 @@ public:
 	void Move();
 	void RectUpdate();
 	void DirUpdate(FPOINT cameraPos);
+	void LevelUp();
 
 	POINT GetPos() { return pos; }
 	POINT GetRcCenter() { return rcCenter; }
@@ -68,6 +70,7 @@ public:
 
 	int GetCurrEXP() { return currEXP; }
 	int GetMaxEXP() { return maxEXP; }
+	void GetEXP(int EXP);
 
 	bool AbleAttack() { return ableAttack; }
 };

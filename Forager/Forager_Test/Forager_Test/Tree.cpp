@@ -8,6 +8,7 @@ HRESULT Tree::Init(int typeNum)
 	this->typeNum = typeNum;
 	maxHp = 5;
 	currHp = maxHp;
+	EXP = 7;
 
 	return S_OK;
 }
@@ -25,8 +26,8 @@ void Tree::Render(HDC hdc, FPOINT cameraPos)
 
 void Tree::UpdateRect()
 {
-	rc.left = pos.x + 20;
-	rc.top = pos.y + 25;
-	rc.right = pos.x + 36;
-	rc.bottom = pos.y + 56;
+	rc.left = LONG(pos.x + 20);
+	rc.top = LONG(pos.y + 25);
+	rc.right = LONG(pos.x + 36);
+	rc.bottom = LONG(pos.y + 56);
 }
