@@ -12,6 +12,7 @@ protected:
 	FPOINT pos;
 	RECT rc;
 	int typeNum;
+	int itemNum;
 	int maxHp;
 	int currHp;
 	int EXP;
@@ -38,6 +39,7 @@ public:
 
 	RECT GetRect() { return rc; }
 	int GetTypeNum() { return typeNum; }
+	int GetItemNum() { return itemNum; }
 
 	int GetMaxHp() { return maxHp; }
 	int GetCurrHp() { return currHp; }

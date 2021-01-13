@@ -1,11 +1,13 @@
 #include "Fruit.h"
 #include "Image.h"
+#include "Item.h"
 
 HRESULT Fruit::Init(int typeNum)
 {
 	Object::Init(typeNum);
 	img = ImageManager::GetSingleton()->FindImage("Fruit");
 	this->typeNum = typeNum;
+	itemNum = int(ITEM_TYPE::FRUIT);
 	maxHp = 2;
 	currHp = maxHp;
 	EXP = 3;

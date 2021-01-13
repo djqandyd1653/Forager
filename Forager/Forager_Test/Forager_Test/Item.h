@@ -4,44 +4,58 @@
 enum class ITEM_TYPE
 {
 	CONSUM = 0,
-	ETC = 100
-};
-
-enum class ITEM_NAME_LIST
-{
-	// consum
-	FRUIT = 1,
-
-	// etc
-	TREE = 101,
-	ROCK
+	FRUIT,
+	ETC = 100,
+	TREE,
+	ROCK,
 };
 
 class Item : public GameNode
 {
 protected:
 	FPOINT pos;
+	FPOINT destPos;
 	RECT rc;
+	bool isMove;
+	int dir;
+	float incline;
+	int maxHeight;
 
 	Image* img;
 	ITEM_TYPE type;
-	ITEM_NAME_LIST listNum;
+
 public:
-	virtual HRESULT Init();
+	virtual HRESULT Init(int num);
 	virtual void Release();
 	virtual void Update();
 	virtual void Render(HDC hdc, FPOINT cameraPos);
+	virtual void UseItem();
 
-	/*
-		case 0:
-		img = ImageManager::GetSingleton()->FindImage("Tree_Item_Drop");
-		break;
-	case 1:
-		img = ImageManager::GetSingleton()->FindImage("Rock_Item_Drop");
-		break;
-	case 2:
-		img = ImageManager::GetSingleton()->FindImage("Fruit_Item_Drop");
-		break;
-	*/
+	FPOINT GetPos() { return pos; }
+	void SetPos(FPOINT pos) { this->pos = pos; }
+	void SetRandParabola()
+	{
+		destPos = { pos.x + 56, pos.y + 56 };
+		incline = (rand() % 3 + 1) * 0.1f;
+		maxHeight = rand() % 30 + 45;
+		if (rand() % 2 == 0)
+			dir = 1;
+		else
+			dir = -1;
+	}
+
+	void SetIsMove(bool isMove) { this->isMove = isMove; }
+
+	ITEM_TYPE GetType() { return type; }
+
+	void SetInit()
+	{
+		pos = { 0.0f, 0.0f };
+		destPos = { 0.0f, 0.0f };
+		incline = 0.0f;
+		maxHeight = 0;
+		dir = 0;
+		isMove = false;
+	}
 };
 

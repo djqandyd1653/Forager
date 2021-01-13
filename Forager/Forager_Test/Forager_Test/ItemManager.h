@@ -2,13 +2,13 @@
 #include "pch.h"
 
 class Item;
-class ConsumFactory;
+class FruitItemFactory;
 class EtcFactory;
 
 class ItemManager
 {
 private:
-	static ConsumFactory consumFactory;
+	static FruitItemFactory fruitItemFactory;
 	static EtcFactory etcFactory;
 
 	list<Item*> itemList;
@@ -24,17 +24,14 @@ public:
 	Item* newItem(int itemListNum);
 
 	void CreateItemList(int itemListNum, int cnt);
-	//Item* CreateAcObj();
-	//void DeleteAcObj(Object* obj);
+	Item* PopItem(int itemListNum);
+	void CreateAcObj(int itemListNum, FPOINT objPos);
+	void DeleteAcObj(Item* item);
+
+	list<Item*> GetAcItemList() { return acItemList; }
 };
 
-class ConsumFactory : public ItemManager
-{
+class FruitItemFactory : public ItemManager{};
 
-};
-
-class EtcFactory : public ItemManager
-{
-
-};
+class EtcFactory : public ItemManager{};
 

@@ -147,11 +147,11 @@
     <ClCompile Include="EtcItem.cpp">
       <Filter>Forager\Item\Etc</Filter>
     </ClCompile>
-    <ClCompile Include="ConsumItem.cpp">
-      <Filter>Forager\Item\Consum</Filter>
-    </ClCompile>
     <ClCompile Include="ItemManager.cpp">
       <Filter>Forager\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="FruitItem.cpp">
+      <Filter>Forager\Item\Consum</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -239,11 +239,11 @@
     <ClInclude Include="EtcItem.h">
       <Filter>Forager\Item\Etc</Filter>
     </ClInclude>
-    <ClInclude Include="ConsumItem.h">
-      <Filter>Forager\Item\Consum</Filter>
-    </ClInclude>
     <ClInclude Include="ItemManager.h">
       <Filter>Forager\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="FruitItem.h">
+      <Filter>Forager\Item\Consum</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

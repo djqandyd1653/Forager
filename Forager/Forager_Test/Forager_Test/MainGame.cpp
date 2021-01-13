@@ -46,7 +46,7 @@ HRESULT MainGame::Init()
 
 	//Item
 	ImageManager::GetSingleton()->AddImage("Fruit_Item", "Image/Item/Fruit_Item.bmp", 56, 56);
-	ImageManager::GetSingleton()->AddImage("Fruit_Item_Drop", "Image/Item/Fruit_Drop.bmp", 56, 56);
+	ImageManager::GetSingleton()->AddImage("Fruit_Item_Drop", "Image/Item/Fruit_Item_Drop.bmp", 56, 56);
 	ImageManager::GetSingleton()->AddImage("Rock_Item", "Image/Item/Rock_Item.bmp", 56, 56);
 	ImageManager::GetSingleton()->AddImage("Rock_Item_Drop", "Image/Item/Rock_Item_Drop.bmp", 56, 56);
 	ImageManager::GetSingleton()->AddImage("Tree_Item", "Image/Item/Tree_Item.bmp", 56, 56);

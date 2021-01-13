@@ -9,6 +9,7 @@ class Player;
 class PlayUI;
 class ObjectFactory;
 class CollisionCheckor;
+class ItemManager;
 
 // test
 class Image;
@@ -23,6 +24,7 @@ private:
 	PlayUI* playUI;
 	ObjectFactory* objFactory;
 	CollisionCheckor* collisionCheckor;
+	ItemManager* itemMgr;
 
 	HBRUSH blueBrush;
 	HBRUSH transparentBrush;

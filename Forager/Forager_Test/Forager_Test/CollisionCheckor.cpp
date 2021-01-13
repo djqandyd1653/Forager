@@ -5,12 +5,15 @@
 #include "ObjectFactory.h"
 #include "Object.h"
 #include "Camera.h"
+#include "ItemManager.h"
+#include "Item.h"
 
-HRESULT CollisionCheckor::Init(Player * player, TileMap * tileMap, ObjectFactory * objFactory)
+HRESULT CollisionCheckor::Init(Player * player, TileMap * tileMap, ObjectFactory * objFactory, ItemManager* itemMgr)
 {
 	this->player = player;
 	this->tileMap = tileMap;
 	this->objFactory = objFactory;
+	this->itemMgr = itemMgr;
 
 	tile = tileMap->GetTile();
 
@@ -19,8 +22,9 @@ HRESULT CollisionCheckor::Init(Player * player, TileMap * tileMap, ObjectFactory
 
 void CollisionCheckor::Update(FPOINT cameraPos)
 {
-	CheckCollisionPO();		// 플레이어와 오브젝트 충돌검사
+	CheckCollisionPO();					// 플레이어와 오브젝트 충돌검사
 	CheckCollisionMO(cameraPos);		// 마우스와 오브젝트 충돌검사
+	CheckCollisionIPIM();				// 아이템과 플레이어 또는 아이템과 마우스
 }
 
 void CollisionCheckor::CheckCollisionPO()
@@ -104,15 +108,23 @@ void CollisionCheckor::CheckCollisionMO(FPOINT cameraPos)
 						{
 							int exp = tile[tileNum].obj->GiveEXP();
 							player->GetEXP(exp);
-							// 아이템 드랍
+							itemMgr->CreateAcObj(tile[tileNum].obj->GetItemNum(), tile[tileNum].obj->GetPos());
 							objFactory->DeleteAcObj(tile[tileNum].obj);
 							tile[tileNum].obj->SetPos({ 0.0f, 0.0f });
 							tile[tileNum].obj->SetCurrHp(tile[tileNum].obj->GetMaxHp());
 							tile[tileNum].obj = nullptr;
+							tile[tileNum].ableBuild = true;
 						}
 					}
 				}
 			}
 		}
 	}
+}
+
+void CollisionCheckor::CheckCollisionIPIM()
+{
+	list<Item*> itemList = itemMgr->GetAcItemList();
+	list<Item*>::iterator it = itemList.begin();
+	//if()
 }

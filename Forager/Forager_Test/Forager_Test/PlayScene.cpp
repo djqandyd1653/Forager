@@ -6,6 +6,7 @@
 #include "PlayUI.h"
 #include "ObjectFactory.h"
 #include "CollisionCheckor.h"
+#include "ItemManager.h"
 
 HRESULT PlayScene::Init()
 {
@@ -27,8 +28,11 @@ HRESULT PlayScene::Init()
 	objFactory = new ObjectFactory;
 	objFactory->Init();
 
+	itemMgr = new ItemManager;
+	itemMgr->Init();
+
 	collisionCheckor = new CollisionCheckor;
-	collisionCheckor->Init(player, tileMap, objFactory);
+	collisionCheckor->Init(player, tileMap, objFactory, itemMgr);
 
 	currObjCreateTime = 0.0f;
 
@@ -56,6 +60,7 @@ void PlayScene::Update()
 	objFactory->Update();
 	tileMap->SetObject(objFactory->CreateAcObj(currObjCreateTime, 1.0f, 5, tileMap->RandGrassPos()));
 	playUI->Update();
+	itemMgr->Update();
 }
 
 void PlayScene::Render(HDC hdc)
@@ -70,6 +75,7 @@ void PlayScene::Render(HDC hdc)
 	player->Render(hdc, camera->GetPos());
 	camera->Render(hdc);
 	objFactory->Render(hdc, camera->GetPos());
+	itemMgr->Render(hdc, camera->GetPos());
 	playUI->Render(hdc);
 
 	// test

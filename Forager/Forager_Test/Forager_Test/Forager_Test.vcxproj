@@ -130,9 +130,9 @@
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CollisionCheckor.cpp" />
-    <ClCompile Include="ConsumItem.cpp" />
     <ClCompile Include="EtcItem.cpp" />
     <ClCompile Include="Fruit.cpp" />
+    <ClCompile Include="FruitItem.cpp" />
     <ClCompile Include="GameNode.cpp" />
     <ClCompile Include="Image.cpp" />
     <ClCompile Include="ImageManager.cpp" />
@@ -161,9 +161,9 @@
     <ClInclude Include="Animation.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CollisionCheckor.h" />
-    <ClInclude Include="ConsumItem.h" />
     <ClInclude Include="EtcItem.h" />
     <ClInclude Include="Fruit.h" />
+    <ClInclude Include="FruitItem.h" />
     <ClInclude Include="GameNode.h" />
     <ClInclude Include="Image.h" />
     <ClInclude Include="ImageManager.h" />

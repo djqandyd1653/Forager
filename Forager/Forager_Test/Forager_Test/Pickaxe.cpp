@@ -21,7 +21,7 @@ void Pickaxe::Update()
 
 void Pickaxe::Render(HDC hdc, POINT playerPos, FPOINT cameraPos, bool isLeft)
 {
-	img->FrameRender(hdc, playerPos.x - cameraPos.x, playerPos.y - cameraPos.y, currFrameCnt, isLeft);
+	img->FrameRender(hdc, int(playerPos.x - cameraPos.x), int(playerPos.y - cameraPos.y), currFrameCnt, isLeft);
 }
 
 void Pickaxe::Attack(bool &ableAttack)
