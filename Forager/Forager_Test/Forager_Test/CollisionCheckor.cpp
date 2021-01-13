@@ -24,7 +24,7 @@ void CollisionCheckor::Update(FPOINT cameraPos)
 {
 	CheckCollisionPO();					// 플레이어와 오브젝트 충돌검사
 	CheckCollisionMO(cameraPos);		// 마우스와 오브젝트 충돌검사
-	CheckCollisionIPIM();				// 아이템과 플레이어 또는 아이템과 마우스
+	CheckCollisionIPIM(cameraPos);				// 아이템과 플레이어 또는 아이템과 마우스
 }
 
 void CollisionCheckor::CheckCollisionPO()
@@ -122,9 +122,23 @@ void CollisionCheckor::CheckCollisionMO(FPOINT cameraPos)
 	}
 }
 
-void CollisionCheckor::CheckCollisionIPIM()
+void CollisionCheckor::CheckCollisionIPIM(FPOINT cameraPos)
 {
 	list<Item*> itemList = itemMgr->GetAcItemList();
+	int a = itemList.size();
 	list<Item*>::iterator it = itemList.begin();
-	//if()
+	
+	while (it != itemList.end())
+	{
+		RECT rc1 = player->GetRect();
+		RECT rc2 = (*it)->GetRect();
+		POINT ptMouse = { g_ptMouse.x + int(cameraPos.x), g_ptMouse.y + int(cameraPos.y) };
+
+		if (PtInRect(&rc2, ptMouse))
+		{
+			itemMgr->DeleteAcObj(*it);
+			return;
+		}
+		it++;
+	}
 }

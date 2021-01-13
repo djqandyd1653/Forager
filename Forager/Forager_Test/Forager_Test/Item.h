@@ -44,6 +44,8 @@ public:
 			dir = -1;
 	}
 
+	RECT GetRect() { return rc; }
+
 	void SetIsMove(bool isMove) { this->isMove = isMove; }
 
 	ITEM_TYPE GetType() { return type; }

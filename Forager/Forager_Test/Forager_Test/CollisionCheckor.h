@@ -23,6 +23,6 @@ public:
 
 	void CheckCollisionPO();						// 플레이어와 오브젝트 충돌검사
 	void CheckCollisionMO(FPOINT cameraPos);		// 마우스와 오브젝트 충돌검사
-	void CheckCollisionIPIM();						// 아이템과 플레이어 또는 아이템과 마우스
+	void CheckCollisionIPIM(FPOINT cameraPos);						// 아이템과 플레이어 또는 아이템과 마우스
 };
 
