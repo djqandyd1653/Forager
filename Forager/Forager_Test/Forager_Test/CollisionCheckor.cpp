@@ -24,7 +24,7 @@ void CollisionCheckor::Update(FPOINT cameraPos)
 {
 	CheckCollisionPO();					// 플레이어와 오브젝트 충돌검사
 	CheckCollisionMO(cameraPos);		// 마우스와 오브젝트 충돌검사
-	CheckCollisionIPIM(cameraPos);				// 아이템과 플레이어 또는 아이템과 마우스
+	CheckCollisionIPIM(cameraPos);		// 아이템과 플레이어 또는 아이템과 마우스
 }
 
 void CollisionCheckor::CheckCollisionPO()
