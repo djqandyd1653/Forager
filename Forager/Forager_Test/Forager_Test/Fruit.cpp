@@ -10,7 +10,7 @@ HRESULT Fruit::Init(int typeNum)
 	itemType = ITEM_TYPE::FRUIT;
 	maxHp = 2;
 	currHp = maxHp;
-	EXP = 3;
+	EXP = 20; // 3
 
 	return S_OK;
 }

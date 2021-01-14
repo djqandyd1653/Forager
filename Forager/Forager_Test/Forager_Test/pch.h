@@ -34,6 +34,7 @@ using namespace std;
 extern HINSTANCE	g_hInstance;
 extern HWND			g_hWnd;
 extern POINT		g_ptMouse;
+extern LOGFONT		font;
 
 struct FPOINT
 {

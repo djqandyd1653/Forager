@@ -4,7 +4,10 @@
 
 HRESULT Inventory::Init()
 {
+	tempSlotIdx = -1;
+	relocateItem = NULL;
 	slotSize = 88;
+	isRelocateItem = false;
 
 	background = ImageManager::GetSingleton()->FindImage("Inventory_Back");
 
@@ -13,13 +16,14 @@ HRESULT Inventory::Init()
 		for (int j = 0; j < 2; j++)
 		{
 			int idx = i + 8 * j;
+			slot[idx].idx = idx;
 			slot[idx].img = ImageManager::GetSingleton()->FindImage("Inventory_Slot");
 			slot[idx].pos = { 235 + 100 * i, 262 + 100 * j };
 			slot[idx].rc.left = slot[idx].pos.x;
 			slot[idx].rc.top = slot[idx].pos.y;
 			slot[idx].rc.right = slot[idx].pos.x + slotSize;
 			slot[idx].rc.bottom = slot[idx].pos.y + slotSize;
-			slot[idx].haveItem = false;
+			slot[idx].InvenItem = NULL;
 		}
 	}
 	
@@ -73,12 +77,12 @@ void Inventory::AddItem(Item* item)
 
 		for (int i = 0; i < 16; i++)
 		{
-			if (!slot[i].haveItem)
+			if (slot[i].InvenItem == NULL)
 			{
+				slot[i].InvenItem = invenItemData[key];
 				invenItemData[key]->SetPos({ float(slot[i].pos.x + 10), float(slot[i].pos.y + 10) });
 				invenItemData[key]->SetItemCnt(1);
 				invenItemData[key]->SetInvenImg();
-				slot[i].haveItem = true;
 				break;
 			}
 		}

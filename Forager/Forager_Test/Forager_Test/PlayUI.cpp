@@ -1,10 +1,12 @@
 #include "PlayUI.h"
 #include "Image.h"
 #include "Player.h"
+#include "TextUI.h"
 
 HRESULT PlayUI::Init(Player * player)
 {
 	this->player = player;
+	levelText = new TextUI;
 
 	isBack = false;
 	lifeFrameX = 0;
@@ -47,9 +49,18 @@ void PlayUI::Render(HDC hdc)
 	EXP[0]->Render(hdc, 246, 7, 0, 0, (player->GetCurrEXP() * 792) / player->GetMaxEXP(), 22);
 
 	// level and EXP text
-	char cc[256];
-	wsprintf(cc, "레벨 %d ( %d / %d )", player->GetLevel(), player->GetCurrEXP(), player->GetMaxEXP());
-	TextOut(hdc, 580, 7, cc, strlen(cc));
+	levelText->SetText("레벨 " + to_string(player->GetLevel()) + " ( " + to_string(player->GetCurrEXP()) + " / " + to_string(player->GetMaxEXP()) + " )");
+	levelText->SetFontSize(22);
+	levelText->SetColor(RGB(0, 0, 0));
+	levelText->Render(hdc, 579, 7);
+	levelText->Render(hdc, 581, 7);
+	levelText->Render(hdc, 580, 8);
+	levelText->Render(hdc, 580, 6);
+	levelText->SetColor(RGB(255, 255, 255));
+	levelText->Render(hdc, 580, 7);
+	//char cc[256];
+	//wsprintf(cc, "레벨 %d ( %d / %d )", player->GetLevel(), player->GetCurrEXP(), player->GetMaxEXP());
+	//TextOut(hdc, 580, 7, cc, strlen(cc));
 
 	// Life
 	for (int i = 0; i < player->GetMaxLife(); i++)

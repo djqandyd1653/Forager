@@ -61,7 +61,7 @@ void PlayScene::Update()
 	if(currMode == GAME_MODE::PLAY)
 		player->Update(camera->GetPos());
 	camera->Update();
-	collisionCheckor->Update(camera->GetPos());
+	collisionCheckor->Update(camera->GetPos(), currMode);
 	tileMap->Update();
 	objFactory->Update();
 	tileMap->SetObject(objFactory->CreateAcObj(currObjCreateTime, 1.0f, 5, tileMap->RandGrassPos()));

@@ -12,6 +12,23 @@ HRESULT MainGame::Init()
 	backBuffer->Init(WINSIZE_X, WINSIZE_Y);
 	memDC = backBuffer->GetMemDC();
 	hdc = GetDC(g_hWnd);
+
+	// font
+	AddFontResource("Font/Maplestory Bold.ttf");
+	font.lfHeight = 28;
+	font.lfWidth = 0;
+	font.lfEscapement = 0;
+	font.lfOrientation = 0;
+	font.lfWeight = 0;
+	font.lfItalic = 0;
+	font.lfUnderline = 0;
+	font.lfStrikeOut = 0;
+	font.lfCharSet = HANGEUL_CHARSET;
+	font.lfOutPrecision = 0;
+	font.lfClipPrecision = 0;
+	font.lfQuality = 0;
+	font.lfPitchAndFamily = 0;
+	strcpy_s(font.lfFaceName, "Maplestory");
 	
 	// tile
 	ImageManager::GetSingleton()->AddImage("Sample_Tile", "Image/Sample_Tile.bmp", 224, 112, SAMPLE_TILE_X, SAMPLE_TILE_Y);

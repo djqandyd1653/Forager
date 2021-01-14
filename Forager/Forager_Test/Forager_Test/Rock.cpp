@@ -10,7 +10,7 @@ HRESULT Rock::Init(int typeNum)
 	itemType = ITEM_TYPE::ROCK;
 	maxHp = 5;
 	currHp = maxHp;
-	EXP = 7;
+	EXP = 30; //7
 
 	return S_OK;
 }

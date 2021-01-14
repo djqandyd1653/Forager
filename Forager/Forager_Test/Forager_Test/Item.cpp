@@ -54,6 +54,10 @@ void Item::Update()
 
 void Item::Render(HDC hdc, FPOINT cameraPos)
 {
+	// 화면 밖이면 렌더 X
+	if (pos.x - cameraPos.x > WINSIZE_X || pos.y - cameraPos.y > WINSIZE_Y || pos.x + 56 - cameraPos.x < 0 || pos.y + 56 - cameraPos.y < 0)
+		return;
+
 	img->Render(hdc, int(pos.x - cameraPos.x), int(pos.y - cameraPos.y));
 	Rectangle(hdc, int(rc.left - cameraPos.x), int(rc.top - cameraPos.y), int(rc.right - cameraPos.x), int(rc.bottom - cameraPos.y));
 }

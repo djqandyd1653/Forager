@@ -64,6 +64,9 @@
     <Filter Include="Forager\Item\Etc">
       <UniqueIdentifier>{d7801daa-47dd-4fd2-88c3-1141a3f610e6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Inventory">
+      <UniqueIdentifier>{67c9f5b2-4b59-4e89-a413-1d6cae560bc9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinMain.cpp">
@@ -154,7 +157,10 @@
       <Filter>Forager\Item\Consum</Filter>
     </ClCompile>
     <ClCompile Include="Inventory.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>Inventory</Filter>
+    </ClCompile>
+    <ClCompile Include="TextUI.cpp">
+      <Filter>UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -249,7 +255,10 @@
       <Filter>Forager\Item\Consum</Filter>
     </ClInclude>
     <ClInclude Include="Inventory.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>Inventory</Filter>
+    </ClInclude>
+    <ClInclude Include="TextUI.h">
+      <Filter>UI</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

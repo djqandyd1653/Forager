@@ -1,3 +1,4 @@
+#include "PlayScene.h"
 #include "CollisionCheckor.h"
 #include "Player.h"
 #include "TileMap.h"
@@ -22,13 +23,23 @@ HRESULT CollisionCheckor::Init(Player * player, TileMap * tileMap, ObjectFactory
 	return S_OK;
 }
 
-void CollisionCheckor::Update(FPOINT cameraPos)
+void CollisionCheckor::Update(FPOINT cameraPos, GAME_MODE currMode)
 {
-	CheckCollisionPO();					// 플레이어와 오브젝트 충돌검사
-	CheckCollisionMO(cameraPos);		// 마우스와 오브젝트 충돌검사
-	CheckCollisionIPIM(cameraPos);		// 아이템과 플레이어 또는 아이템과 마우스
+	if (currMode == GAME_MODE::PLAY)
+	{
+		CheckCollisionPO();					// 플레이어와 오브젝트 충돌검사
+		CheckCollisionMO(cameraPos);		// 마우스와 오브젝트 충돌검사
+	}
+	
+	if (currMode == GAME_MODE::INVENTORY)
+	{
+		ChekckCollisionMS(cameraPos);
+	}
+
+	CheckCollisionIPIM(cameraPos);			// 아이템과 플레이어 또는 아이템과 마우스
 }
 
+// 플레이어와 오브젝트
 void CollisionCheckor::CheckCollisionPO()
 {
 	// 플레이어 주면 8방향 타일
@@ -83,6 +94,7 @@ void CollisionCheckor::CheckCollisionPO()
 	}
 }
 
+// 마우스와 오브젝트
 void CollisionCheckor::CheckCollisionMO(FPOINT cameraPos)
 {
 	POINT mousePoint = { g_ptMouse.x + int(cameraPos.x), g_ptMouse.y + int(cameraPos.y) };
@@ -124,6 +136,7 @@ void CollisionCheckor::CheckCollisionMO(FPOINT cameraPos)
 	}
 }
 
+// 마우스와 아이템, 플레이어와 아이템
 void CollisionCheckor::CheckCollisionIPIM(FPOINT cameraPos)
 {
 	list<Item*> itemList = itemMgr->GetAcItemList();
@@ -146,4 +159,97 @@ void CollisionCheckor::CheckCollisionIPIM(FPOINT cameraPos)
 		}
 		it++;
 	}
+}
+
+// 마우스와 인벤토리 슬롯
+void CollisionCheckor::ChekckCollisionMS(FPOINT cameraPos)
+{
+	SLOT_INFO* slot = inven->GetSlot();
+
+	if (KeyManager::GetSingleton()->IsOnceKeyDown(VK_LBUTTON))
+	{
+		for (int i = 0; i < 16; i++)
+		{
+			if (slot[i].InvenItem == NULL)
+				continue;
+			if (PtInRect(&slot[i].rc, g_ptMouse))
+			{
+				inven->SetRelocateItem(slot[i].InvenItem);
+				inven->SetTempSlotIdx(slot[i].idx);
+			}
+		}
+
+	}
+
+	if (KeyManager::GetSingleton()->IsStayKeyDown(VK_LBUTTON))
+	{
+		inven->SetIsRelocateItem(true);
+	}
+
+	if (inven->GetIsRelocateItem())
+	{
+		if (!inven->GetRelocateItem())
+			return;
+		Item* item = inven->GetRelocateItem();
+		item->SetPos({ float(g_ptMouse.x), float(g_ptMouse.y) });
+	}
+
+	if (KeyManager::GetSingleton()->IsOnceKeyUp(VK_LBUTTON))
+	{
+		inven->SetIsRelocateItem(false);
+		if (inven->GetRelocateItem() == NULL)
+			return;
+
+		for (int i = 0; i < 16; i++)
+		{
+			if (PtInRect(&slot[i].rc, g_ptMouse))
+			{
+				int idx = inven->GetTempSlotIdx();
+
+				Item* tempItem = slot[i].InvenItem;
+				slot[i].InvenItem = slot[idx].InvenItem;
+				slot[idx].InvenItem = tempItem;
+				
+				if(slot[idx].InvenItem)
+					slot[idx].InvenItem->SetPos({ float(slot[idx].pos.x + 10), float(slot[idx].pos.y + 10) });
+				slot[i].InvenItem->SetPos({ float(slot[i].pos.x + 10), float(slot[i].pos.y + 10) });
+				inven->SetTempSlotIdx(-1);
+				inven->SetRelocateItem(NULL);
+				break;
+			}
+
+			if (i == 15)
+			{
+				Item* item = inven->GetRelocateItem();
+				int idx = inven->GetTempSlotIdx();
+				item->SetPos({ float(slot[idx].pos.x + 10), float(slot[idx].pos.y + 10) });
+				inven->SetTempSlotIdx(-1);
+				inven->SetRelocateItem(NULL);
+			}
+		}
+	}
+
+	//for (int i = 0; i < 16; i++)
+	//{
+	//	if (slot[i].InvenItem == NULL)
+	//		continue;
+
+	//	if (KeyManager::GetSingleton()->IsStayKeyDown(VK_LBUTTON))
+	//	{
+	//		if (PtInRect(&slot[i].rc, g_ptMouse))
+	//		{
+	//			inven->SetIsRelocateItem(true);
+	//			slot[i].InvenItem->SetPos({ float(g_ptMouse.x + 10), float(g_ptMouse.y + 10)});
+	//		}
+	//	}
+
+	//	if (KeyManager::GetSingleton()->IsOnceKeyUp(VK_LBUTTON))
+	//	{
+	//		if (PtInRect(&slot[i].rc, g_ptMouse))
+	//		{
+	//			inven->SetIsRelocateItem(false);
+	//			slot[i].InvenItem->SetPos({float(slot[i].pos.x + 10), float(slot[i].pos.y + 10)});
+	//		}
+	//	}
+	//}
 }

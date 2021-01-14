@@ -3,6 +3,7 @@
 
 class Image;
 class Player;
+class TextUI;
 
 class PlayUI : public GameNode
 {
@@ -18,6 +19,8 @@ private:
 	Image* stamina[2];
 
 	Player* player;
+
+	TextUI* levelText;
 public:
 	virtual HRESULT Init(Player* player);
 	virtual void Release();

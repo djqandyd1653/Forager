@@ -2,6 +2,8 @@
 #include "pch.h"
 
 typedef struct tagTile TILE_INFO;
+enum class GAME_MODE;
+
 class TileMap;
 class Player;
 class ObjectFactory;
@@ -21,10 +23,11 @@ private:
 
 public:
 	HRESULT Init(Player* player, TileMap* tileMap, ObjectFactory* objFactory, ItemManager* itemMgr, Inventory* inven);
-	void Update(FPOINT cameraPos);
+	void Update(FPOINT cameraPos, GAME_MODE currMode);
 
 	void CheckCollisionPO();						// 플레이어와 오브젝트 충돌검사
 	void CheckCollisionMO(FPOINT cameraPos);		// 마우스와 오브젝트 충돌검사
-	void CheckCollisionIPIM(FPOINT cameraPos);						// 아이템과 플레이어 또는 아이템과 마우스
+	void CheckCollisionIPIM(FPOINT cameraPos);		// 아이템과 플레이어 또는 아이템과 마우스 충돌검사
+	void ChekckCollisionMS(FPOINT cameraPos);		// 마우스와 인벤토리 슬롯 충돌검사
 };
 

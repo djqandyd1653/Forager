@@ -1,12 +1,13 @@
 #include "pch.h"
 #include "MainGame.h"
 
-HINSTANCE	g_hInstance;		// 프로그램 인스턴스 핸들
-HWND		g_hWnd;				// 윈도우 핸들
+HINSTANCE	g_hInstance;							// 프로그램 인스턴스 핸들
+HWND		g_hWnd;									// 윈도우 핸들
 LPSTR		g_lpszClass = (LPSTR)TEXT("Forager");
 
 MainGame*	g_mainGame = nullptr;
-POINT		g_ptMouse;			// 전역 마우스 좌표
+POINT		g_ptMouse;								// 전역 마우스 좌표
+LOGFONT		font;									// 폰트
 
 LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam);
 
