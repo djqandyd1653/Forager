@@ -6,6 +6,7 @@ class TileMap;
 class Player;
 class ObjectFactory;
 class ItemManager;
+class Inventory;
 
 class CollisionCheckor
 {
@@ -16,9 +17,10 @@ private:
 	TileMap* tileMap;
 	ObjectFactory* objFactory;
 	ItemManager* itemMgr;
+	Inventory* inven;
 
 public:
-	HRESULT Init(Player* player, TileMap* tileMap, ObjectFactory* objFactory, ItemManager* itemMgr);
+	HRESULT Init(Player* player, TileMap* tileMap, ObjectFactory* objFactory, ItemManager* itemMgr, Inventory* inven);
 	void Update(FPOINT cameraPos);
 
 	void CheckCollisionPO();						// 플레이어와 오브젝트 충돌검사

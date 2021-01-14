@@ -74,5 +74,7 @@ public:
 	int GetMaxEXP() { return maxEXP; }
 	void GetEXP(int EXP);
 
+	int GetLevel() { return level; }
+
 	bool AbleAttack() { return ableAttack; }
 };

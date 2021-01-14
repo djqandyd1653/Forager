@@ -9,9 +9,9 @@ EtcFactory ItemManager::etcFactory;
 
 HRESULT ItemManager::Init()
 {
-	CreateItemList(int(ITEM_TYPE::FRUIT), 20);
-	CreateItemList(int(ITEM_TYPE::TREE), 20);
-	CreateItemList(int(ITEM_TYPE::ROCK), 10);
+	CreateItemList(ITEM_TYPE::FRUIT, 20);
+	CreateItemList(ITEM_TYPE::TREE, 20);
+	CreateItemList(ITEM_TYPE::ROCK, 10);
 	return E_NOTIMPL;
 }
 
@@ -41,10 +41,10 @@ void ItemManager::Render(HDC hdc, FPOINT cameraPos)
 	}
 }
 
-Item * ItemManager::newItem(int itemListNum)
+Item * ItemManager::newItem(ITEM_TYPE itemType)
 {
 	
-	switch (ITEM_TYPE(itemListNum))
+	switch (ITEM_TYPE(itemType))
 	{
 	case ITEM_TYPE::FRUIT:
 		return new FruitItem;
@@ -55,17 +55,17 @@ Item * ItemManager::newItem(int itemListNum)
 	}
 }
 
-void ItemManager::CreateItemList(int itemListNum, int cnt)
+void ItemManager::CreateItemList(ITEM_TYPE itemType, int cnt)
 {
 	for (int i = 0; i < cnt; i++)
 	{
-		Item* tempItem = newItem(itemListNum);
-		tempItem->Init(itemListNum);
+		Item* tempItem = newItem(itemType);
+		tempItem->Init(itemType);
 		itemList.push_back(tempItem);
 	}
 }
 
-Item * ItemManager::PopItem(int itemListNum)
+Item * ItemManager::PopItem(ITEM_TYPE itemType)
 {
 	Item* tempItem;
 
@@ -73,8 +73,8 @@ Item * ItemManager::PopItem(int itemListNum)
 
 	if (itemList.empty())
 	{
-		tempItem = newItem(itemListNum);
-		tempItem->Init(itemListNum);
+		tempItem = newItem(itemType);
+		tempItem->Init(itemType);
 	}
 	else
 	{
@@ -85,26 +85,25 @@ Item * ItemManager::PopItem(int itemListNum)
 	return tempItem;
 }
 
-void ItemManager::CreateAcObj(int itemListNum, FPOINT objPos)
+void ItemManager::CreateAcObj(ITEM_TYPE itemType, FPOINT objPos)
 {
 	Item* tempItem;
 
-	switch (ITEM_TYPE(itemListNum))
+	switch (itemType)
 	{
 	case ITEM_TYPE::FRUIT:
-		tempItem = fruitItemFactory.PopItem(itemListNum);
+		tempItem = fruitItemFactory.PopItem(itemType);
 		break;
 	case ITEM_TYPE::TREE:
-		tempItem = etcFactory.PopItem(itemListNum);
+		tempItem = etcFactory.PopItem(itemType);
 		break;
 	case ITEM_TYPE::ROCK:
-		tempItem = etcFactory.PopItem(itemListNum);
+		tempItem = etcFactory.PopItem(itemType);
 		break;
 	}
 
 	acItemList.push_back(tempItem);
 	acItemList.back()->SetPos(objPos);
-	acItemList.back()->SetIsMove(true);
 	acItemList.back()->SetRandParabola();
 }
 

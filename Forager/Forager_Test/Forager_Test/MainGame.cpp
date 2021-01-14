@@ -44,17 +44,20 @@ HRESULT MainGame::Init()
 	ImageManager::GetSingleton()->AddImage("Bridge", "Image/Object/Bridge.bmp", 224, 56, 4, 1);
 	ImageManager::GetSingleton()->AddImage("Fish_Trap", "Image/Object/Fish_Trap.bmp", 168, 56, 3, 1);
 
-	//Item
-	ImageManager::GetSingleton()->AddImage("Fruit_Item", "Image/Item/Fruit_Item.bmp", 56, 56);
+	// Item
+	ImageManager::GetSingleton()->AddImage("Fruit_Item", "Image/Item/Fruit_Item1.bmp", 70, 70);
 	ImageManager::GetSingleton()->AddImage("Fruit_Item_Drop", "Image/Item/Fruit_Item_Drop.bmp", 56, 56);
-	ImageManager::GetSingleton()->AddImage("Rock_Item", "Image/Item/Rock_Item.bmp", 56, 56);
+	ImageManager::GetSingleton()->AddImage("Rock_Item", "Image/Item/Rock_Item1.bmp", 70, 70);
 	ImageManager::GetSingleton()->AddImage("Rock_Item_Drop", "Image/Item/Rock_Item_Drop.bmp", 56, 56);
-	ImageManager::GetSingleton()->AddImage("Tree_Item", "Image/Item/Tree_Item.bmp", 56, 56);
+	ImageManager::GetSingleton()->AddImage("Tree_Item", "Image/Item/Tree_Item1.bmp", 70, 70);
 	ImageManager::GetSingleton()->AddImage("Tree_Item_Drop", "Image/Item/Tree_Item_Drop.bmp", 56, 56);
 
 	// weapon
-	//ImageManager::GetSingleton()->AddImage("Pickaxe", "Image/Weapon/Pickaxe.bmp", 56, 112, 1, 2);
 	ImageManager::GetSingleton()->AddImage("Pickaxe", "Image/Weapon/Pickaxe_Action.bmp", 255, 140, 3, 2);
+
+	// Inventory
+	ImageManager::GetSingleton()->AddImage("Inventory_Back", "Image/GUI/Inventory/Inventory_Back.bmp", 1280, 720);
+	ImageManager::GetSingleton()->AddImage("Inventory_Slot", "Image/GUI/Inventory/Inventory_Slot.bmp", 88, 88);
 
 	TimeManager::GetSingleton()->Init();
 

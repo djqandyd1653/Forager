@@ -7,13 +7,15 @@
 #include "Camera.h"
 #include "ItemManager.h"
 #include "Item.h"
+#include "Inventory.h"
 
-HRESULT CollisionCheckor::Init(Player * player, TileMap * tileMap, ObjectFactory * objFactory, ItemManager* itemMgr)
+HRESULT CollisionCheckor::Init(Player * player, TileMap * tileMap, ObjectFactory * objFactory, ItemManager* itemMgr, Inventory* inven)
 {
 	this->player = player;
 	this->tileMap = tileMap;
 	this->objFactory = objFactory;
 	this->itemMgr = itemMgr;
+	this->inven = inven;
 
 	tile = tileMap->GetTile();
 
@@ -108,7 +110,7 @@ void CollisionCheckor::CheckCollisionMO(FPOINT cameraPos)
 						{
 							int exp = tile[tileNum].obj->GiveEXP();
 							player->GetEXP(exp);
-							itemMgr->CreateAcObj(tile[tileNum].obj->GetItemNum(), tile[tileNum].obj->GetPos());
+							itemMgr->CreateAcObj(tile[tileNum].obj->GetItemType(), tile[tileNum].obj->GetPos());
 							objFactory->DeleteAcObj(tile[tileNum].obj);
 							tile[tileNum].obj->SetPos({ 0.0f, 0.0f });
 							tile[tileNum].obj->SetCurrHp(tile[tileNum].obj->GetMaxHp());
@@ -134,9 +136,12 @@ void CollisionCheckor::CheckCollisionIPIM(FPOINT cameraPos)
 		RECT rc2 = (*it)->GetRect();
 		POINT ptMouse = { g_ptMouse.x + int(cameraPos.x), g_ptMouse.y + int(cameraPos.y) };
 
-		if (PtInRect(&rc2, ptMouse))
+		if (PtInRect(&rc2, ptMouse) || 
+			!(rc1.right < rc2.left || rc1.left > rc2.right ||
+			rc1.top > rc2.bottom || rc1.bottom < rc2.top))
 		{
 			itemMgr->DeleteAcObj(*it);
+			inven->AddItem(*it);
 			return;
 		}
 		it++;

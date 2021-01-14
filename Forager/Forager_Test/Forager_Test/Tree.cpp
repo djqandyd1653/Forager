@@ -7,7 +7,7 @@ HRESULT Tree::Init(int typeNum)
 	Object::Init(typeNum);
 	img = ImageManager::GetSingleton()->FindImage("Tree");
 	this->typeNum = typeNum;
-	itemNum = int(ITEM_TYPE::TREE);
+	itemType = ITEM_TYPE::TREE;
 	maxHp = 5;
 	currHp = maxHp;
 	EXP = 7;

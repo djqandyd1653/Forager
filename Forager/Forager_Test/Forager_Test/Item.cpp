@@ -1,20 +1,28 @@
 #include "Item.h"
 #include "Image.h"
 
-HRESULT Item::Init(int listNum)
+HRESULT Item::Init(ITEM_TYPE itemType)
 {
-	switch (ITEM_TYPE(listNum))
+	switch (itemType)
 	{
 	case ITEM_TYPE::FRUIT:
-		img = ImageManager::GetSingleton()->FindImage("Fruit_Item_Drop");
+		dropImg = ImageManager::GetSingleton()->FindImage("Fruit_Item_Drop");
+		invenImg = ImageManager::GetSingleton()->FindImage("Fruit_Item");
+		itemKey = "Fruit";
 		break;
 	case ITEM_TYPE::TREE:
-		img = ImageManager::GetSingleton()->FindImage("Tree_Item_Drop");
+		dropImg = ImageManager::GetSingleton()->FindImage("Tree_Item_Drop");
+		invenImg = ImageManager::GetSingleton()->FindImage("Tree_Item");
+		itemKey = "Tree";
 		break;
 	case ITEM_TYPE::ROCK:
-		img = ImageManager::GetSingleton()->FindImage("Rock_Item_Drop");
+		dropImg = ImageManager::GetSingleton()->FindImage("Rock_Item_Drop");
+		invenImg = ImageManager::GetSingleton()->FindImage("Rock_Item");
+		itemKey = "Rock";
 		break;
 	}
+
+	img = dropImg;
 
 	SetInit();
 

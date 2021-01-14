@@ -153,6 +153,9 @@
     <ClCompile Include="FruitItem.cpp">
       <Filter>Forager\Item\Consum</Filter>
     </ClCompile>
+    <ClCompile Include="Inventory.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -244,6 +247,9 @@
     </ClInclude>
     <ClInclude Include="FruitItem.h">
       <Filter>Forager\Item\Consum</Filter>
+    </ClInclude>
+    <ClInclude Include="Inventory.h">
+      <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

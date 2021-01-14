@@ -46,6 +46,11 @@ void PlayUI::Render(HDC hdc)
 	EXP[1]->Render(hdc, 242, 3);
 	EXP[0]->Render(hdc, 246, 7, 0, 0, (player->GetCurrEXP() * 792) / player->GetMaxEXP(), 22);
 
+	// level and EXP text
+	char cc[256];
+	wsprintf(cc, "·¹º§ %d ( %d / %d )", player->GetLevel(), player->GetCurrEXP(), player->GetMaxEXP());
+	TextOut(hdc, 580, 7, cc, strlen(cc));
+
 	// Life
 	for (int i = 0; i < player->GetMaxLife(); i++)
 	{

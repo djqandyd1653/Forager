@@ -7,6 +7,7 @@
 #include "ObjectFactory.h"
 #include "CollisionCheckor.h"
 #include "ItemManager.h"
+#include "Inventory.h"
 
 HRESULT PlayScene::Init()
 {
@@ -31,9 +32,13 @@ HRESULT PlayScene::Init()
 	itemMgr = new ItemManager;
 	itemMgr->Init();
 
-	collisionCheckor = new CollisionCheckor;
-	collisionCheckor->Init(player, tileMap, objFactory, itemMgr);
+	inven = new Inventory;
+	inven->Init();
 
+	collisionCheckor = new CollisionCheckor;
+	collisionCheckor->Init(player, tileMap, objFactory, itemMgr, inven);
+
+	currMode = GAME_MODE::PLAY;
 	currObjCreateTime = 0.0f;
 
 	//test
@@ -53,7 +58,8 @@ void PlayScene::Release()
 
 void PlayScene::Update()
 {
-	player->Update(camera->GetPos());
+	if(currMode == GAME_MODE::PLAY)
+		player->Update(camera->GetPos());
 	camera->Update();
 	collisionCheckor->Update(camera->GetPos());
 	tileMap->Update();
@@ -61,6 +67,14 @@ void PlayScene::Update()
 	tileMap->SetObject(objFactory->CreateAcObj(currObjCreateTime, 1.0f, 5, tileMap->RandGrassPos()));
 	playUI->Update();
 	itemMgr->Update();
+
+	if (KeyManager::GetSingleton()->IsOnceKeyDown(VK_ESCAPE))
+	{
+		if (currMode == GAME_MODE::PLAY)
+			currMode = GAME_MODE::INVENTORY;
+		else
+			currMode = GAME_MODE::PLAY;
+	}
 }
 
 void PlayScene::Render(HDC hdc)
@@ -77,6 +91,10 @@ void PlayScene::Render(HDC hdc)
 	objFactory->Render(hdc, camera->GetPos());
 	itemMgr->Render(hdc, camera->GetPos());
 	playUI->Render(hdc);
+	SelectObject(hdc, blueBrush);
+	if (currMode == GAME_MODE::INVENTORY)
+		inven->Render(hdc);
+	SelectObject(hdc, transparentBrush);
 
 	// test
 	//img->FrameRender(hdc, g_ptMouse.x, g_ptMouse.y, 0, 0);

@@ -7,7 +7,7 @@ HRESULT Rock::Init(int typeNum)
 	Object::Init(typeNum);
 	img = ImageManager::GetSingleton()->FindImage("Rock");
 	this->typeNum = typeNum;
-	itemNum = int(ITEM_TYPE::ROCK);
+	itemType = ITEM_TYPE::ROCK;
 	maxHp = 5;
 	currHp = maxHp;
 	EXP = 7;

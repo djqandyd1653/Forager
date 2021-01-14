@@ -5,6 +5,8 @@ class Item;
 class FruitItemFactory;
 class EtcFactory;
 
+enum class ITEM_TYPE;
+
 class ItemManager
 {
 private:
@@ -21,11 +23,11 @@ public:
 	virtual void Update();
 	virtual void Render(HDC hdc, FPOINT cameraPos);
 
-	Item* newItem(int itemListNum);
+	Item* newItem(ITEM_TYPE itemType);
 
-	void CreateItemList(int itemListNum, int cnt);
-	Item* PopItem(int itemListNum);
-	void CreateAcObj(int itemListNum, FPOINT objPos);
+	void CreateItemList(ITEM_TYPE itemType, int cnt);
+	Item* PopItem(ITEM_TYPE itemType);
+	void CreateAcObj(ITEM_TYPE itemType, FPOINT objPos);
 	void DeleteAcObj(Item* item);
 
 	list<Item*> GetAcItemList() { return acItemList; }

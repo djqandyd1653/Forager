@@ -1,6 +1,8 @@
 #pragma once
 #include "GameNode.h"
 
+enum class ITEM_TYPE;
+
 class Image;
 
 class Object : public GameNode
@@ -12,7 +14,7 @@ protected:
 	FPOINT pos;
 	RECT rc;
 	int typeNum;
-	int itemNum;
+	ITEM_TYPE itemType;
 	int maxHp;
 	int currHp;
 	int EXP;
@@ -39,7 +41,7 @@ public:
 
 	RECT GetRect() { return rc; }
 	int GetTypeNum() { return typeNum; }
-	int GetItemNum() { return itemNum; }
+	ITEM_TYPE GetItemType() { return itemType; }
 
 	int GetMaxHp() { return maxHp; }
 	int GetCurrHp() { return currHp; }
