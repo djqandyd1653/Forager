@@ -33,7 +33,5 @@ public:
 	void AddItem(Item* item);
 	Item* FindItem(string key);
 	void DeleteItem(string key, int cnt = 1);
-
-	SLOT_INFO
 };
 
