@@ -26,6 +26,7 @@ HRESULT PlayUI::Init(Player * player)
 
 void PlayUI::Release()
 {
+	delete levelText;
 }
 
 void PlayUI::Update()

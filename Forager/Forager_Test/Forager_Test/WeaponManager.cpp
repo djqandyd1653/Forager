@@ -13,6 +13,11 @@ void WeaponManager::ChangeWeapon(Weapon * weapon)
 	this->weapon->Init();
 }
 
+void WeaponManager::Release()
+{
+	delete weapon;
+}
+
 void WeaponManager::Render(HDC hdc, POINT playerPos, FPOINT cameraPos, bool isLeft)
 {
 	weapon->Render(hdc, playerPos, cameraPos, isLeft);

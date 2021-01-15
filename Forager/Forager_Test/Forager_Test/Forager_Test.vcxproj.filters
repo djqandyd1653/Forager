@@ -67,6 +67,9 @@
     <Filter Include="Inventory">
       <UniqueIdentifier>{67c9f5b2-4b59-4e89-a413-1d6cae560bc9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Forager\Building">
+      <UniqueIdentifier>{9e0fbd2f-a2c4-4df1-a885-c64a0369e57f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinMain.cpp">
@@ -161,6 +164,12 @@
     </ClCompile>
     <ClCompile Include="TextUI.cpp">
       <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Building.cpp">
+      <Filter>Forager\Building</Filter>
+    </ClCompile>
+    <ClCompile Include="BuildManager.cpp">
+      <Filter>Forager\Building</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -259,6 +268,12 @@
     </ClInclude>
     <ClInclude Include="TextUI.h">
       <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Building.h">
+      <Filter>Forager\Building</Filter>
+    </ClInclude>
+    <ClInclude Include="BuildManager.h">
+      <Filter>Forager\Building</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

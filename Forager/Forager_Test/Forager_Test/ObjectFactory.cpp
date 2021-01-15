@@ -19,7 +19,46 @@ HRESULT ObjectFactory::Init()
 
 void ObjectFactory::Release()
 {
+	for (itOdj = acList.begin(); itOdj != acList.end(); itOdj++)
+	{
+		if (*itOdj)
+		{
+			(*itOdj)->Release();
+		}
+		delete *itOdj;
+	}
 
+	for (itOdj = treeFactory.objList.begin(); itOdj != treeFactory.objList.end(); itOdj++)
+	{
+		if (*itOdj)
+		{
+			(*itOdj)->Release();
+		}
+		delete *itOdj;
+	}
+
+	for (itOdj = rockFactory.objList.begin(); itOdj != rockFactory.objList.end(); itOdj++)
+	{
+		if (*itOdj)
+		{
+			(*itOdj)->Release();
+		}
+		delete *itOdj;
+	}
+
+	for (itOdj = fruitFactory.objList.begin(); itOdj != fruitFactory.objList.end(); itOdj++)
+	{
+		if (*itOdj)
+		{
+			(*itOdj)->Release();
+		}
+		delete *itOdj;
+	}
+
+	acList.clear();
+	treeFactory.objList.clear();
+	rockFactory.objList.clear();
+	fruitFactory.objList.clear();
 }
 
 void ObjectFactory::Update()

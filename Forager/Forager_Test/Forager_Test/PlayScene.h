@@ -41,9 +41,6 @@ private:
 
 	GAME_MODE currMode;			// 게임 모드
 	float currObjCreateTime;	// 오브젝트 생성 남은시간
-	
-	// test
-	Image* img;
 
 public:
 	virtual HRESULT Init();

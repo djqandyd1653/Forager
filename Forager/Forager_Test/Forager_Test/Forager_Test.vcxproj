@@ -128,6 +128,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Animation.cpp" />
+    <ClCompile Include="Building.cpp" />
+    <ClCompile Include="BuildManager.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CollisionCheckor.cpp" />
     <ClCompile Include="EtcItem.cpp" />
@@ -161,6 +163,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h" />
+    <ClInclude Include="Building.h" />
+    <ClInclude Include="BuildManager.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CollisionCheckor.h" />
     <ClInclude Include="EtcItem.h" />

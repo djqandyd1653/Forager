@@ -41,19 +41,25 @@ HRESULT PlayScene::Init()
 	currMode = GAME_MODE::PLAY;
 	currObjCreateTime = 0.0f;
 
-	//test
-	img = ImageManager::GetSingleton()->FindImage("Sewing_Machine");
-
 	return S_OK;
 }
 
 void PlayScene::Release()
 {
 	camera->Release();
+	delete camera;
 	tileMap->Release();
+	delete tileMap;
 	player->Release();
+	delete player;
 	playUI->Release();
+	delete playUI;
 	objFactory->Release();
+	delete objFactory;
+	itemMgr->Release();
+	delete itemMgr;
+	delete collisionCheckor;
+	delete inven;
 }
 
 void PlayScene::Update()
@@ -91,13 +97,8 @@ void PlayScene::Render(HDC hdc)
 	objFactory->Render(hdc, camera->GetPos());
 	itemMgr->Render(hdc, camera->GetPos());
 	playUI->Render(hdc);
-	SelectObject(hdc, blueBrush);
 	if (currMode == GAME_MODE::INVENTORY)
 		inven->Render(hdc);
-	SelectObject(hdc, transparentBrush);
-
-	// test
-	//img->FrameRender(hdc, g_ptMouse.x, g_ptMouse.y, 0, 0);
 }
 
 PlayScene::PlayScene()

@@ -17,6 +17,36 @@ HRESULT ItemManager::Init()
 
 void ItemManager::Release()
 {
+	for (itItem = acItemList.begin(); itItem != acItemList.end(); itItem++)
+	{
+		if (*itItem)
+		{
+			(*itItem)->Release();
+		}
+		delete *itItem;
+	}
+
+	for (itItem = fruitItemFactory.itemList.begin(); itItem != fruitItemFactory.itemList.end(); itItem++)
+	{
+		if (*itItem)
+		{
+			(*itItem)->Release();
+		}
+		delete *itItem;
+	}
+
+	for (itItem = etcFactory.itemList.begin(); itItem != etcFactory.itemList.end(); itItem++)
+	{
+		if (*itItem)
+		{
+			(*itItem)->Release();
+		}
+		delete *itItem;
+	}
+
+	acItemList.clear();
+	fruitItemFactory.itemList.clear();
+	etcFactory.itemList.clear();
 }
 
 void ItemManager::Update()

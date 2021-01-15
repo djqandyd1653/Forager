@@ -63,7 +63,9 @@ void Player::Release()
 {
 	ImageManager::GetSingleton()->DeleteImg("Player_Idle");
 	ImageManager::GetSingleton()->DeleteImg("Player_Run");
-	SAFE_DELETE(tile);
+	//SAFE_DELETE(tile);
+	weaponMgr->Release();
+	delete weaponMgr;
 }
 
 void Player::Update(FPOINT cameraPos)

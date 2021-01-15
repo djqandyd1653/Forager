@@ -13,6 +13,7 @@ private:
 public:
 	void Attack(bool &ableAttack);
 	void ChangeWeapon(Weapon* weapon);
+	void Release();
 	void Render(HDC hdc, POINT playerPos, FPOINT cameraPos, bool isLeft);
 
 	WeaponManager() : weapon(nullptr) {}
