@@ -17,3 +17,7 @@ void GameNode::Update()
 void GameNode::Render(HDC hdc)
 {
 }
+
+void GameNode::Render(HDC hdc, FPOINT pos)
+{
+}

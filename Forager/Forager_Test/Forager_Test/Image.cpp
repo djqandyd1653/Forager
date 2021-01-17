@@ -153,27 +153,27 @@ void Image::Release()
 	}
 }
 
-void Image::Render(HDC hdc, int destX, int destY)
+void Image::Render(HDC hdc, int destX, int destY, float size)
 {
 	//GdiTransparentBlt: 비트맵의 특정색상을 제외하고 고속복사 해주는 함수
 	if (isTrans)
 	{
 		GdiTransparentBlt(
-			hdc,									// 복사할 장소의 DC
-			destX, destY,							// 복사될 장소의 x, y 좌표
-			imageInfo->width, imageInfo->height,	// 복사될 이미지의 가로, 세로 크기
-			imageInfo->hMemDC,						// 복사할 대상 DC
-			0, 0,									// 복사 시작 프레임(복사 시작위치)
-			imageInfo->width, imageInfo->height,	// 복사 영역 가로, 세로 크기
-			transColor								// 복사 시 제외할 색상
+			hdc,												// 복사할 장소의 DC
+			destX, destY,										// 복사될 장소의 x, y 좌표
+			int(imageInfo->width * size), int(imageInfo->height * size),	// 복사될 이미지의 가로, 세로 크기
+			imageInfo->hMemDC,									// 복사할 대상 DC
+			0, 0,												// 복사 시작 프레임(복사 시작위치)
+			imageInfo->width, imageInfo->height,				// 복사 영역 가로, 세로 크기
+			transColor											// 복사 시 제외할 색상
 		);
 	}
 	else
 	{
 		BitBlt(hdc,									// 복사할 장소의 DC
 			destX, destY,							// 복사될 장소의 x, y 좌표
-			imageInfo->width, 						// 복사될 이미지의 가로 크기 
-			imageInfo->height,						// 복사될 이미지의 세로 크기
+			int(imageInfo->width * size), 				// 복사될 이미지의 가로 크기 
+			int(imageInfo->height * size),				// 복사될 이미지의 세로 크기
 			imageInfo->hMemDC,						// 복사할 대상 DC
 			0, 0,									// 복사 시작 프레임(복사 시작위치)
 			SRCCOPY									// 복사 옵션
@@ -209,7 +209,7 @@ void Image::Render(HDC hdc, int destX, int destY, int srcX, int srcY, int srcWid
 
 }
 
-void Image::FrameRender(HDC hdc, int destX, int destY, int currFrameX, int currFrameY)
+void Image::FrameRender(HDC hdc, int destX, int destY, int currFrameX, int currFrameY, float size)
 {
 	if (imageInfo->maxFrameX < currFrameX || imageInfo->maxFrameY < currFrameY)
 	{
@@ -226,20 +226,20 @@ void Image::FrameRender(HDC hdc, int destX, int destY, int currFrameX, int currF
 	if (isTrans)
 	{
 		GdiTransparentBlt(
-			hdc,											// 복사할 장소의 DC
-			destX, destY,									// 복사될 장소의 x, y 좌표
-			imageInfo->frameWidth, imageInfo->frameHeight,	// 복사될 이미지의 가로, 세로 크기
-			imageInfo->hMemDC,								// 복사할 대상 DC
-			imageInfo->currFrameX * imageInfo->frameWidth,	// 복사 시작 프레임(가로) (복사 시작위치)
-			imageInfo->currFrameY * imageInfo->frameHeight,	// 복사 시작 프레임(세로) (복사 시작위치)
-			imageInfo->frameWidth, imageInfo->frameHeight,	// 복사 영역 가로, 세로 크기 
-			transColor										// 복사 시 제외할 색상
+			hdc,															// 복사할 장소의 DC
+			destX, destY,													// 복사될 장소의 x, y 좌표
+			int(imageInfo->frameWidth * size), int(imageInfo->frameHeight * size),	// 복사될 이미지의 가로, 세로 크기
+			imageInfo->hMemDC,												// 복사할 대상 DC
+			imageInfo->currFrameX * imageInfo->frameWidth,					// 복사 시작 프레임(가로) (복사 시작위치)
+			imageInfo->currFrameY * imageInfo->frameHeight,					// 복사 시작 프레임(세로) (복사 시작위치)
+			imageInfo->frameWidth, imageInfo->frameHeight,					// 복사 영역 가로, 세로 크기 
+			transColor														// 복사 시 제외할 색상
 		);
 	}
 	else
 	{
 		BitBlt(hdc, destX, destY,
-			imageInfo->frameWidth, imageInfo->frameHeight,
+			int(imageInfo->frameWidth * size), int(imageInfo->frameHeight * size),
 			imageInfo->hMemDC,
 			imageInfo->currFrameX * imageInfo->frameWidth,
 			imageInfo->currFrameY * imageInfo->frameHeight,
@@ -248,7 +248,7 @@ void Image::FrameRender(HDC hdc, int destX, int destY, int currFrameX, int currF
 	}
 }
 
-void Image::AlphaRender(HDC hdc, int destX, int destY, BYTE alpha)
+void Image::AlphaRender(HDC hdc, int destX, int destY, BYTE alpha, float size)
 {
 	blendFunc.SourceConstantAlpha = alpha;
 
@@ -260,8 +260,8 @@ void Image::AlphaRender(HDC hdc, int destX, int destY, BYTE alpha)
 		BitBlt(
 			imageInfo->hBlendDC,
 			0, 0,
-			imageInfo->width, 
-			imageInfo->height,
+			int(imageInfo->width * size), 
+			int(imageInfo->height * size),
 			hdc, 
 			destX, destY, 
 			SRCCOPY);
@@ -270,7 +270,7 @@ void Image::AlphaRender(HDC hdc, int destX, int destY, BYTE alpha)
 		GdiTransparentBlt(
 			imageInfo->hBlendDC,					// 복사할 장소의 DC
 			0, 0,									// 복사될 장소의 x, y 좌표
-			imageInfo->width, imageInfo->height,	// 복사될 이미지의 가로, 세로 크기
+			int(imageInfo->width * size), int(imageInfo->height * size),	// 복사될 이미지의 가로, 세로 크기
 			imageInfo->hMemDC, 						// 복사할 대상 DC
 			0, 0,									// 복사 시작 프레임 가로 세로 (복사 시작위치)
 			imageInfo->width, imageInfo->height,	// 복사 영역 가로, 세로 크기 
@@ -280,7 +280,7 @@ void Image::AlphaRender(HDC hdc, int destX, int destY, BYTE alpha)
 		AlphaBlend(
 			hdc,
 			destX, destY,
-			imageInfo->width, imageInfo->height,
+			int(imageInfo->width * size), int(imageInfo->height * size),
 			imageInfo->hBlendDC, 
 			0, 0,
 			imageInfo->width, imageInfo->height,
@@ -291,7 +291,7 @@ void Image::AlphaRender(HDC hdc, int destX, int destY, BYTE alpha)
 		AlphaBlend(
 			hdc, 
 			destX, destY, 
-			imageInfo->width, imageInfo->height,
+			int(imageInfo->width * size), int(imageInfo->height * size),
 			imageInfo->hMemDC, 
 			0, 0,
 			imageInfo->width, imageInfo->height,

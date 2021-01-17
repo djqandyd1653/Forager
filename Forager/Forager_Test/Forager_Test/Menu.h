@@ -24,10 +24,10 @@ private:
 public:
 	HRESULT Init(GAME_MODE& currMode, int& modeNum);
 	void Release();
-	void Update(GAME_MODE& currMode, int& modeNum);
+	void Update(GAME_MODE& currMode, int& modeNum, int & lastModeNum, bool & selectBuild);
 	void Render(HDC hdc, GAME_MODE& currMode);
 
-	void SelectMenu(GAME_MODE & currMode, int & modeNum);
+	void SelectMenu(GAME_MODE & currMode, int & modeNum, int & lastModeNum, bool & selectBuild);
 
 	MENU_BUTTON_INFO* GetMenuButton() { return button; }
 };

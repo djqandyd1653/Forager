@@ -35,6 +35,8 @@ extern HINSTANCE	g_hInstance;
 extern HWND			g_hWnd;
 extern POINT		g_ptMouse;
 extern LOGFONT		font;
+extern bool			changeMode;	// 게임 모드가 변했는가? (원래 playscene에 있어야함)
+extern float		renderSize;
 
 struct FPOINT
 {
@@ -63,3 +65,6 @@ inline T Lerp(T a, T b, float t)
 {
 	return a + (b - a) * t;
 }
+
+
+

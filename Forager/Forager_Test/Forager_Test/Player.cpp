@@ -140,7 +140,7 @@ void Player::Render(HDC hdc, FPOINT cameraPos)
 	int cPosX = int(-cameraPos.x);
 	int cPosY = int(-cameraPos.y);
 
-	img[static_cast<int>(state)]->FrameRender(hdc, pos.x + cPosX, pos.y + cPosY, currFrameX, isLeft);
+	img[static_cast<int>(state)]->FrameRender(hdc, pos.x + cPosX, pos.y + cPosY, currFrameX, isLeft, renderSize);
 	Rectangle(hdc, rc.left + cPosX, rc.top + cPosY, rc.right + cPosX, rc.bottom + cPosY);
 	//Rectangle(hdc, pos.x + cPosX, pos.y + cPosY, pos.x + 56 + cPosX, pos.y + 56 + cPosY);
 	weaponMgr->Render(hdc, pos, cameraPos, isLeft);

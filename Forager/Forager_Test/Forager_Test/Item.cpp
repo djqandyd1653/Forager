@@ -44,10 +44,10 @@ void Item::Update()
 		{
 			isMove = false;
 
-			rc.left = pos.x;
-			rc.top = pos.y;
-			rc.right = pos.x + 56;
-			rc.bottom = pos.y + 56;
+			rc.left = LONG(pos.x);
+			rc.top = LONG(pos.y);
+			rc.right = LONG(pos.x + 56);
+			rc.bottom = LONG(pos.y + 56);
 		}		
 	}
 }

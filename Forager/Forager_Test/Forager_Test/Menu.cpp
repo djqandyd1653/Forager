@@ -50,12 +50,12 @@ void Menu::Release()
 {
 }
 
-void Menu::Update(GAME_MODE & currMode, int & modeNum)
+void Menu::Update(GAME_MODE & currMode, int & modeNum, int & lastModeNum, bool & selectBuild)
 {
-	SelectMenu(currMode, modeNum);
+	SelectMenu(currMode, modeNum, lastModeNum, selectBuild);
 
-	button[5].pos.x += 50 * TimeManager::GetSingleton()->GetElapsedTime();
-	button[6].pos.x += 50 * TimeManager::GetSingleton()->GetElapsedTime();
+	//button[5].pos.x += int(50 * TimeManager::GetSingleton()->GetElapsedTime());
+	//button[6].pos.x += int(50 * TimeManager::GetSingleton()->GetElapsedTime());
 }
 
 void Menu::Render(HDC hdc, GAME_MODE & currMode)
@@ -73,16 +73,22 @@ void Menu::Render(HDC hdc, GAME_MODE & currMode)
 	}
 }
 
-void Menu::SelectMenu(GAME_MODE & currMode, int & modeNum)
+void Menu::SelectMenu(GAME_MODE & currMode, int & modeNum, int& lastModeNum, bool & selectBuild)
 {
 	if (KeyManager::GetSingleton()->IsOnceKeyDown(VK_ESCAPE))
 	{
 		if (currMode == GAME_MODE::PLAY)
+		{
+			lastModeNum = modeNum;
 			currMode = GAME_MODE(++modeNum);
+			changeMode = true;
+		}
 		else
 		{
+			lastModeNum = modeNum;
 			currMode = GAME_MODE::PLAY;
 			modeNum = 0;
+			changeMode = true;
 		}
 	}
 
@@ -91,14 +97,25 @@ void Menu::SelectMenu(GAME_MODE & currMode, int & modeNum)
 		if (KeyManager::GetSingleton()->IsOnceKeyDown('Q'))
 		{
 			if (modeNum > 1)
+			{
+				lastModeNum = modeNum;
 				modeNum--;
+				selectBuild = false;
+				changeMode = true;
+			}
+				
 			currMode = GAME_MODE(modeNum);
 		}
 
 		if (KeyManager::GetSingleton()->IsOnceKeyDown('E'))
 		{
-			if (modeNum < 4)
+			if (modeNum < 2)
+			{
+				lastModeNum = modeNum;
 				modeNum++;
+				changeMode = true;
+			}
+				
 			currMode = GAME_MODE(modeNum);
 		}
 	}

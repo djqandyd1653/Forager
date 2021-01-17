@@ -16,7 +16,7 @@ void TextUI::Render(HDC hdc, float posX, float posY)
 
 	hFont = CreateFontIndirect(&font);
 	hOldFont = (HFONT)SelectObject(hdc, hFont);
-	TextOut(hdc, int(posX), int(posY), text.c_str(), strlen(text.c_str()));
+	TextOut(hdc, int(posX), int(posY), text.c_str(), int(strlen(text.c_str())));
 
 	SelectObject(hdc, hOldFont);
 	DeleteObject(hFont);

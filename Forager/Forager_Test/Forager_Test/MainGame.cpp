@@ -67,10 +67,13 @@ HRESULT MainGame::Init()
 	// building
 	ImageManager::GetSingleton()->AddImage("Blast_Furnace", "Image/Object/Blast_Furnace.bmp", 336, 168, 3, 1);
 	ImageManager::GetSingleton()->AddImage("Blast_Furnace_Impossible", "Image/Object/Blast_Furnace_Impossible.bmp", 112, 160);
+	ImageManager::GetSingleton()->AddImage("Blast_Furnace_Possible", "Image/Object/Blast_Furnace_Possible.bmp", 112, 160);
 	ImageManager::GetSingleton()->AddImage("Anvil", "Image/Object/Anvil.bmp", 285, 95, 3, 1);
 	ImageManager::GetSingleton()->AddImage("Anvil_Impossible", "Image/Object/Anvil_Impossible.bmp", 100, 90);
+	ImageManager::GetSingleton()->AddImage("Anvil_Possible", "Image/Object/Anvil_Possible.bmp", 100, 90);
 	ImageManager::GetSingleton()->AddImage("Sewing_Machine", "Image/Object/Sewing_Machine.bmp", 336, 115, 3, 1);
 	ImageManager::GetSingleton()->AddImage("Sewing_Machine_Impossible", "Image/Object/Sewing_Machine_Impossible.bmp", 127, 155);
+	ImageManager::GetSingleton()->AddImage("Sewing_Machine_Possible", "Image/Object/Sewing_Machine_Possible.bmp", 127, 155);
 	ImageManager::GetSingleton()->AddImage("Bridge", "Image/Object/Bridge.bmp", 224, 56, 4, 1);
 	ImageManager::GetSingleton()->AddImage("Fish_Trap", "Image/Object/Fish_Trap.bmp", 168, 56, 3, 1);
 
@@ -81,6 +84,11 @@ HRESULT MainGame::Init()
 	ImageManager::GetSingleton()->AddImage("Rock_Item_Drop", "Image/Item/Rock_Item_Drop.bmp", 56, 56);
 	ImageManager::GetSingleton()->AddImage("Tree_Item", "Image/Item/Tree_Item1.bmp", 70, 70);
 	ImageManager::GetSingleton()->AddImage("Tree_Item_Drop", "Image/Item/Tree_Item_Drop.bmp", 56, 56);
+
+	// BuildButton
+	ImageManager::GetSingleton()->AddImage("Blast_Furnace_Button", "Image/GUI/Build/Blast_Furnace_Button.bmp", 220, 53);
+	ImageManager::GetSingleton()->AddImage("Anvil_Button", "Image/GUI/Build/Anvil_Button.bmp", 220, 50);
+	ImageManager::GetSingleton()->AddImage("Sewing_Machine_Button", "Image/GUI/Build/Sewing_Machine_Button.bmp", 220, 50);
 
 	// weapon
 	ImageManager::GetSingleton()->AddImage("Pickaxe", "Image/Weapon/Pickaxe_Action.bmp", 255, 140, 3, 2);

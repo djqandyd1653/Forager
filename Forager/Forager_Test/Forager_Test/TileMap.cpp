@@ -64,7 +64,7 @@ void TileMap::Render(HDC hdc, FPOINT cameraPos)
 			continue;
 
 		// 타일
-		img->FrameRender(hdc, int(tile[i].rc.left - cameraPos.x), int(tile[i].rc.top - cameraPos.y), tile[i].frameX, tile[i].frameY);
+		img->FrameRender(hdc, int(tile[i].rc.left - cameraPos.x), int(tile[i].rc.top - cameraPos.y), tile[i].frameX, tile[i].frameY, renderSize);
 
 		// 타일 번호
 		char c[32];

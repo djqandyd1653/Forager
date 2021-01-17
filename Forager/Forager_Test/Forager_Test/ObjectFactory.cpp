@@ -129,7 +129,7 @@ Object * ObjectFactory::PopObj(Object* obj, int num)
 	return tempObj;
 }
 
-Object* ObjectFactory::CreateAcObj(float& currTime, float createTime, int maxCnt, FPOINT tilePos)
+Object* ObjectFactory::CreateAcObj(float& currTime, float createTime, int maxCnt, FPOINT tilePos, multimap<int, GameNode*>& map)
 {
 	if (acList.size() >= maxCnt)
 		return nullptr;
@@ -161,12 +161,14 @@ Object* ObjectFactory::CreateAcObj(float& currTime, float createTime, int maxCnt
 	acList.push_back(tempObj);
 	acList.back()->SetPos(tilePos);
 	acList.back()->UpdateRect();
+	map.insert(make_pair(int(acList.back()->GetPos().y), acList.back()));
 	return acList.back();
 }
 
-void ObjectFactory::DeleteAcObj(Object* obj)
+void ObjectFactory::DeleteAcObj(Object* obj, multimap<int, GameNode*>& map)
 {
 	list<Object*>::iterator it = acList.begin();
+	multimap<int, GameNode*>::iterator itTemp = map.begin();
 
 	while (it != acList.end())
 	{
@@ -192,4 +194,15 @@ void ObjectFactory::DeleteAcObj(Object* obj)
 	}
 
 	it = acList.erase(it);
+
+	while (itTemp != map.end())
+	{
+		if (obj == (*itTemp).second)
+		{
+			map.erase(itTemp);
+			break;
+		}
+
+		itTemp++;
+	}
 }

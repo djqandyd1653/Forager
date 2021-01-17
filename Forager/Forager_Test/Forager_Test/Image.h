@@ -75,10 +75,10 @@ public:
 
 	void Release();
 
-	void Render(HDC hdc, int destX, int destY);
+	void Render(HDC hdc, int destX, int destY, float size = 1.0f);
 	void Render(HDC hdc, int destX, int destY, int srcX, int srcY, int srcWidth, int srcHeight);
-	void FrameRender(HDC hdc, int destX, int destY, int currFrameX, int currFrameY);
-	void AlphaRender(HDC hdc, int destX, int destY, BYTE alpha);
+	void FrameRender(HDC hdc, int destX, int destY, int currFrameX, int currFrameY, float size = 1.0f);
+	void AlphaRender(HDC hdc, int destX, int destY, BYTE alpha, float size = 1.0f);
 	void AlphaFrameRender(HDC hdc, int destX, int destY, int srcX, int srcY, int srcWidth, int srcHeight, BYTE alpha);
 	void AnimationRender(HDC hdc, int destX, int destY, Animation* ani);
 

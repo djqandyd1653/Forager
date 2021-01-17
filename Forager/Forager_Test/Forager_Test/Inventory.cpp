@@ -52,12 +52,12 @@ void Inventory::Render(HDC hdc, GAME_MODE& currMode)
 	while (itInvenItem != invenItemData.end())
 	{
 		Item* item = (*itInvenItem).second;
-		item->GetImg()->Render(hdc, item->GetPos().x, item->GetPos().y);
+		item->GetImg()->Render(hdc, int(item->GetPos().x), int(item->GetPos().y));
 
 		// 아이템 개수
 		char c[12];
 		wsprintf(c, "%d", item->GetItemCnt());
-		TextOut(hdc, item->GetPos().x, item->GetPos().y, c, strlen(c));
+		TextOut(hdc, int(item->GetPos().x), int(item->GetPos().y), c, int(strlen(c)));
 		itInvenItem++;
 	}
 }

@@ -8,6 +8,8 @@ LPSTR		g_lpszClass = (LPSTR)TEXT("Forager");
 MainGame*	g_mainGame = nullptr;
 POINT		g_ptMouse;								// 전역 마우스 좌표
 LOGFONT		font;									// 폰트
+bool		changeMode;
+float		renderSize;
 
 LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam);
 

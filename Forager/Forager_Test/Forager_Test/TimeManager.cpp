@@ -31,7 +31,7 @@ HRESULT TimeManager::Init()
 	currTime = 0;
 	fpsFrameCount = 0;
 	fpsTimeElapsed = 0.0f;
-	targetFps = 60.0;
+	targetFps = 120.0f;
 
 	return S_OK;
 }

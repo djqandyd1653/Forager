@@ -34,6 +34,8 @@ public:
 	Item* FindItem(string key);
 	void DeleteItem(string key, int cnt = 1);
 
+	map<string, Item*> GetInvenItDate() { return invenItemData; }
+
 	SLOT_INFO* GetSlot() { return slot; }
 
 	int GetTempSlotIdx() { return tempSlotIdx; }

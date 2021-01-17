@@ -47,8 +47,6 @@ void Camera::Update()
 
 void Camera::Render(HDC hdc)
 {
-
-
 	char c[32];
 	wsprintf(c, "%d, %d", (int)g_ptMouse.x + (int)pos.x, (int)g_ptMouse.y + (int)pos.y);
 	TextOut(hdc, g_ptMouse.x, g_ptMouse.y, c, (int)strlen(c));

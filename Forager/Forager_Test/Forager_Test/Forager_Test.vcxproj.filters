@@ -70,6 +70,9 @@
     <Filter Include="Forager\Building">
       <UniqueIdentifier>{9e0fbd2f-a2c4-4df1-a885-c64a0369e57f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Menu">
+      <UniqueIdentifier>{ace1096d-b3bf-495e-962e-85e6e8fa6a32}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinMain.cpp">
@@ -181,7 +184,7 @@
       <Filter>Forager\Building</Filter>
     </ClCompile>
     <ClCompile Include="Menu.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>Menu</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -297,7 +300,7 @@
       <Filter>Forager\Building</Filter>
     </ClInclude>
     <ClInclude Include="Menu.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>Menu</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

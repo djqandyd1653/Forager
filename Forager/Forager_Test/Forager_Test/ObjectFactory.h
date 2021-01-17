@@ -38,8 +38,8 @@ public:
 	void CreateObjList(OBJ_TYPE name, int cnt);
 	Object* PopObj(Object* obj, int num);
 
-	Object* CreateAcObj(float& currTime, float createTime, int maxCnt, FPOINT tilePos);
-	void DeleteAcObj(Object* obj);
+	Object* CreateAcObj(float& currTime, float createTime, int maxCnt, FPOINT tilePos, multimap<int, GameNode*>& map);
+	void DeleteAcObj(Object* obj, multimap<int, GameNode*>& map);
 
 	list<Object*> GetAcList() { return acList; }
 };
