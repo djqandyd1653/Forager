@@ -8,7 +8,7 @@ class TileMap;
 
 class Building : public GameNode
 {
-private:
+protected:
 	FPOINT pos;
 	RECT rc;
 

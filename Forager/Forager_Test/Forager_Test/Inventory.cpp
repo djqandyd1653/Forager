@@ -1,6 +1,7 @@
 #include "Inventory.h"
 #include "Image.h"
 #include "Item.h"
+#include "PlayScene.h"
 
 HRESULT Inventory::Init()
 {
@@ -9,8 +10,6 @@ HRESULT Inventory::Init()
 	slotSize = 88;
 	isRelocateItem = false;
 
-	background = ImageManager::GetSingleton()->FindImage("Inventory_Back");
-
 	for (int i = 0; i < 8; i++)
 	{
 		for (int j = 0; j < 2; j++)
@@ -18,7 +17,7 @@ HRESULT Inventory::Init()
 			int idx = i + 8 * j;
 			slot[idx].idx = idx;
 			slot[idx].img = ImageManager::GetSingleton()->FindImage("Inventory_Slot");
-			slot[idx].pos = { 235 + 100 * i, 262 + 100 * j };
+			slot[idx].pos = { 237 + 100 * i, 262 + 100 * j };
 			slot[idx].rc.left = slot[idx].pos.x;
 			slot[idx].rc.top = slot[idx].pos.y;
 			slot[idx].rc.right = slot[idx].pos.x + slotSize;
@@ -30,9 +29,11 @@ HRESULT Inventory::Init()
 	return S_OK;
 }
 
-void Inventory::Render(HDC hdc)
+void Inventory::Render(HDC hdc, GAME_MODE& currMode)
 {
-	background->AlphaRender(hdc, 0, 0, 170);
+	if (currMode != GAME_MODE::INVENTORY)
+		return;
+
 	for (int i = 0; i < 8; i++)
 	{
 		for (int j = 0; j < 2; j++)

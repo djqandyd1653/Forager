@@ -7,6 +7,7 @@
 #include "ObjectFactory.h"
 #include "CollisionCheckor.h"
 #include "ItemManager.h"
+#include "Menu.h"
 #include "Inventory.h"
 
 HRESULT PlayScene::Init()
@@ -32,13 +33,15 @@ HRESULT PlayScene::Init()
 	itemMgr = new ItemManager;
 	itemMgr->Init();
 
+	menu = new Menu;
+	menu->Init(currMode, modeNum);
+
 	inven = new Inventory;
 	inven->Init();
 
 	collisionCheckor = new CollisionCheckor;
-	collisionCheckor->Init(player, tileMap, objFactory, itemMgr, inven);
+	collisionCheckor->Init(player, tileMap, objFactory, itemMgr, inven, menu);
 
-	currMode = GAME_MODE::PLAY;
 	currObjCreateTime = 0.0f;
 
 	return S_OK;
@@ -59,6 +62,7 @@ void PlayScene::Release()
 	itemMgr->Release();
 	delete itemMgr;
 	delete collisionCheckor;
+	delete menu;
 	delete inven;
 }
 
@@ -67,20 +71,14 @@ void PlayScene::Update()
 	if(currMode == GAME_MODE::PLAY)
 		player->Update(camera->GetPos());
 	camera->Update();
-	collisionCheckor->Update(camera->GetPos(), currMode);
+	collisionCheckor->Update(camera->GetPos(), currMode, modeNum);
 	tileMap->Update();
 	objFactory->Update();
 	tileMap->SetObject(objFactory->CreateAcObj(currObjCreateTime, 1.0f, 5, tileMap->RandGrassPos()));
 	playUI->Update();
 	itemMgr->Update();
 
-	if (KeyManager::GetSingleton()->IsOnceKeyDown(VK_ESCAPE))
-	{
-		if (currMode == GAME_MODE::PLAY)
-			currMode = GAME_MODE::INVENTORY;
-		else
-			currMode = GAME_MODE::PLAY;
-	}
+	menu->Update(currMode, modeNum);
 }
 
 void PlayScene::Render(HDC hdc)
@@ -96,9 +94,10 @@ void PlayScene::Render(HDC hdc)
 	camera->Render(hdc);
 	objFactory->Render(hdc, camera->GetPos());
 	itemMgr->Render(hdc, camera->GetPos());
+
 	playUI->Render(hdc);
-	if (currMode == GAME_MODE::INVENTORY)
-		inven->Render(hdc);
+	menu->Render(hdc, currMode);
+	inven->Render(hdc, currMode);
 }
 
 PlayScene::PlayScene()

@@ -171,6 +171,18 @@
     <ClCompile Include="BuildManager.cpp">
       <Filter>Forager\Building</Filter>
     </ClCompile>
+    <ClCompile Include="Anvil.cpp">
+      <Filter>Forager\Building</Filter>
+    </ClCompile>
+    <ClCompile Include="BlastFurnace.cpp">
+      <Filter>Forager\Building</Filter>
+    </ClCompile>
+    <ClCompile Include="SewingMachine.cpp">
+      <Filter>Forager\Building</Filter>
+    </ClCompile>
+    <ClCompile Include="Menu.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -274,6 +286,18 @@
     </ClInclude>
     <ClInclude Include="BuildManager.h">
       <Filter>Forager\Building</Filter>
+    </ClInclude>
+    <ClInclude Include="Anvil.h">
+      <Filter>Forager\Building</Filter>
+    </ClInclude>
+    <ClInclude Include="BlastFurnace.h">
+      <Filter>Forager\Building</Filter>
+    </ClInclude>
+    <ClInclude Include="SewingMachine.h">
+      <Filter>Forager\Building</Filter>
+    </ClInclude>
+    <ClInclude Include="Menu.h">
+      <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

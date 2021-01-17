@@ -128,6 +128,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Animation.cpp" />
+    <ClCompile Include="Anvil.cpp" />
+    <ClCompile Include="BlastFurnace.cpp" />
     <ClCompile Include="Building.cpp" />
     <ClCompile Include="BuildManager.cpp" />
     <ClCompile Include="Camera.cpp" />
@@ -143,6 +145,7 @@
     <ClCompile Include="ItemManager.cpp" />
     <ClCompile Include="KeyManager.cpp" />
     <ClCompile Include="MainGame.cpp" />
+    <ClCompile Include="Menu.cpp" />
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="ObjectFactory.cpp" />
     <ClCompile Include="Pickaxe.cpp" />
@@ -151,6 +154,7 @@
     <ClCompile Include="PlayUI.cpp" />
     <ClCompile Include="Rock.cpp" />
     <ClCompile Include="SceneManager.cpp" />
+    <ClCompile Include="SewingMachine.cpp" />
     <ClCompile Include="TestScene.cpp" />
     <ClCompile Include="TextUI.cpp" />
     <ClCompile Include="TileMap.cpp" />
@@ -163,6 +167,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h" />
+    <ClInclude Include="Anvil.h" />
+    <ClInclude Include="BlastFurnace.h" />
     <ClInclude Include="Building.h" />
     <ClInclude Include="BuildManager.h" />
     <ClInclude Include="Camera.h" />
@@ -178,6 +184,7 @@
     <ClInclude Include="ItemManager.h" />
     <ClInclude Include="KeyManager.h" />
     <ClInclude Include="MainGame.h" />
+    <ClInclude Include="Menu.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="ObjectFactory.h" />
     <ClInclude Include="pch.h" />
@@ -187,6 +194,7 @@
     <ClInclude Include="PlayUI.h" />
     <ClInclude Include="Rock.h" />
     <ClInclude Include="SceneManager.h" />
+    <ClInclude Include="SewingMachine.h" />
     <ClInclude Include="Singleton.h" />
     <ClInclude Include="TestScene.h" />
     <ClInclude Include="TextUI.h" />

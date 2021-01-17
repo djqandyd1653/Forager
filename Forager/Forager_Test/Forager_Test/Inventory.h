@@ -1,6 +1,7 @@
 #pragma once
 #include "pch.h"
 
+enum class GAME_MODE;
 class Image;
 class Item;
 
@@ -19,7 +20,6 @@ private:
 	map<string, Item*> invenItemData;
 	map<string, Item*>::iterator itInvenItem;
 
-	Image* background;
 	SLOT_INFO slot[16];
 
 	int tempSlotIdx;		// 아이템 위치 바꾸는 슬롯 인덱스 임시저장 변수
@@ -28,7 +28,7 @@ private:
 	bool isRelocateItem;		// 
 public:
 	HRESULT Init();
-	void Render(HDC hdc);
+	void Render(HDC hdc, GAME_MODE& currMode);
 
 	void AddItem(Item* item);
 	Item* FindItem(string key);

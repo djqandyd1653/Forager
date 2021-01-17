@@ -49,6 +49,16 @@ HRESULT MainGame::Init()
 	ImageManager::GetSingleton()->AddImage("Object_Hp", "Image/GUI/Player_UI/Object_Hp.bmp", 44, 7);
 	ImageManager::GetSingleton()->AddImage("Object_Hp_Back", "Image/GUI/Player_UI/Object_Hp_Back.bmp", 50, 13);
 
+	// menu
+	ImageManager::GetSingleton()->AddImage("Menu_List_Icon", "Image/GUI/Menu/Menu_List_Icon.bmp", 468, 104);
+	ImageManager::GetSingleton()->AddImage("Construction_Icon", "Image/GUI/Menu/Construction_Icon.bmp", 78, 86);
+	ImageManager::GetSingleton()->AddImage("Equip_Icon", "Image/GUI/Menu/Equip_Icon.bmp", 78, 86);
+	ImageManager::GetSingleton()->AddImage("Item_Icon", "Image/GUI/Menu/Item_Icon.bmp", 78, 86);
+	ImageManager::GetSingleton()->AddImage("Purchase_Land_Icon", "Image/GUI/Menu/Purchase_Land_Icon.bmp", 105, 86);
+	ImageManager::GetSingleton()->AddImage("Setting_Icon", "Image/GUI/Menu/Setting_Icon.bmp", 64, 82);
+	ImageManager::GetSingleton()->AddImage("E_Button", "Image/GUI/Menu/E_Button.bmp", 56, 56);
+	ImageManager::GetSingleton()->AddImage("Q_Button", "Image/GUI/Menu/Q_Button.bmp", 56, 56);
+
 	// object
 	ImageManager::GetSingleton()->AddImage("Tree", "Image/Object/Tree.bmp", 280, 168, 5, 1);
 	ImageManager::GetSingleton()->AddImage("Rock", "Image/Object/Rock.bmp", 112, 56, 2, 1);

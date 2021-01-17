@@ -9,32 +9,36 @@
 #include "ItemManager.h"
 #include "Item.h"
 #include "Inventory.h"
+#include "Menu.h"
 
-HRESULT CollisionCheckor::Init(Player * player, TileMap * tileMap, ObjectFactory * objFactory, ItemManager* itemMgr, Inventory* inven)
+HRESULT CollisionCheckor::Init(Player * player, TileMap * tileMap, ObjectFactory * objFactory, ItemManager* itemMgr, Inventory* inven, Menu* menu)
 {
 	this->player = player;
 	this->tileMap = tileMap;
 	this->objFactory = objFactory;
 	this->itemMgr = itemMgr;
 	this->inven = inven;
+	this->menu = menu;
 
 	tile = tileMap->GetTile();
 
 	return S_OK;
 }
 
-void CollisionCheckor::Update(FPOINT cameraPos, GAME_MODE currMode)
+void CollisionCheckor::Update(FPOINT cameraPos, GAME_MODE& currMode, int& modeNum)
 {
 	if (currMode == GAME_MODE::PLAY)
 	{
 		CheckCollisionPO();					// 플레이어와 오브젝트 충돌검사
 		CheckCollisionMO(cameraPos);		// 마우스와 오브젝트 충돌검사
 	}
-	
+
 	if (currMode == GAME_MODE::INVENTORY)
-	{
-		ChekckCollisionMS(cameraPos);
-	}
+		ChekckCollisionMS(currMode, modeNum);
+
+	//if (currMode == GAME_MODE::BUILD)
+	//if (currMode == GAME_MODE::LAND_PURCHASSE)
+	//if (currMode == GAME_MODE::SETTING)
 
 	CheckCollisionIPIM(cameraPos);			// 아이템과 플레이어 또는 아이템과 마우스
 }
@@ -162,12 +166,14 @@ void CollisionCheckor::CheckCollisionIPIM(FPOINT cameraPos)
 }
 
 // 마우스와 인벤토리 슬롯
-void CollisionCheckor::ChekckCollisionMS(FPOINT cameraPos)
+void CollisionCheckor::ChekckCollisionMS(GAME_MODE& currMode, int& modeNum)
 {
 	SLOT_INFO* slot = inven->GetSlot();
 
 	if (KeyManager::GetSingleton()->IsOnceKeyDown(VK_LBUTTON))
 	{
+		CheckCollisionMB(currMode, modeNum);
+
 		for (int i = 0; i < 16; i++)
 		{
 			if (slot[i].InvenItem == NULL)
@@ -178,7 +184,6 @@ void CollisionCheckor::ChekckCollisionMS(FPOINT cameraPos)
 				inven->SetTempSlotIdx(slot[i].idx);
 			}
 		}
-
 	}
 
 	if (KeyManager::GetSingleton()->IsStayKeyDown(VK_LBUTTON))
@@ -228,28 +233,20 @@ void CollisionCheckor::ChekckCollisionMS(FPOINT cameraPos)
 			}
 		}
 	}
+}
 
-	//for (int i = 0; i < 16; i++)
-	//{
-	//	if (slot[i].InvenItem == NULL)
-	//		continue;
+// 마우스와 메뉴버튼 충돌검사
+void CollisionCheckor::CheckCollisionMB(GAME_MODE& currMode, int& modeNum)
+{
+	MENU_BUTTON_INFO* button = menu->GetMenuButton();
 
-	//	if (KeyManager::GetSingleton()->IsStayKeyDown(VK_LBUTTON))
-	//	{
-	//		if (PtInRect(&slot[i].rc, g_ptMouse))
-	//		{
-	//			inven->SetIsRelocateItem(true);
-	//			slot[i].InvenItem->SetPos({ float(g_ptMouse.x + 10), float(g_ptMouse.y + 10)});
-	//		}
-	//	}
-
-	//	if (KeyManager::GetSingleton()->IsOnceKeyUp(VK_LBUTTON))
-	//	{
-	//		if (PtInRect(&slot[i].rc, g_ptMouse))
-	//		{
-	//			inven->SetIsRelocateItem(false);
-	//			slot[i].InvenItem->SetPos({float(slot[i].pos.x + 10), float(slot[i].pos.y + 10)});
-	//		}
-	//	}
-	//}
+	for (int i = 1; i < 5; i++)
+	{
+		if (PtInRect(&button[i].rc, g_ptMouse))
+		{
+			currMode = GAME_MODE(i);
+			modeNum = i;
+			break;
+		}
+	}
 }
