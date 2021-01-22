@@ -1,6 +1,9 @@
 #include "BuildManager.h"
 #include "Building.h"
 #include "Image.h"
+#include "BlastFurnace.h"
+#include "Anvil.h"
+#include "SewingMachine.h"
 
 list<Building*> BuildManager::acBuildingList;
 BlastFurnaceFactory BuildManager::blastFurnaceFactory;
@@ -22,7 +25,7 @@ HRESULT BuildManager::Init()
 	button[1].img = ImageManager::GetSingleton()->FindImage("Anvil_Button");
 	button[2].img = ImageManager::GetSingleton()->FindImage("Sewing_Machine_Button");
 
-	button[0].buildingKey = "BlastFurnce";
+	button[0].buildingKey = "BlastFurnace";
 	button[1].buildingKey = "Anvil";
 	button[2].buildingKey = "SewingMachine";
 
@@ -34,6 +37,11 @@ HRESULT BuildManager::Init()
 
 	selectBuild = false;
 	selectBuildImg = nullptr;
+
+	CreateBuildingList("BlastFurnace", 20);
+	CreateBuildingList("Anvil", 20);
+	CreateBuildingList("SewingMachine", 20);
+
 	return S_OK;
 }
 
@@ -120,11 +128,31 @@ void BuildManager::Render(HDC hdc)
 	}
 }
 
+Building * BuildManager::NewBuilding(string key)
+{
+	if (key == "BlastFurnace")
+		return new BlastFurnace;
+	else if (key == "Anvil")
+		return new Anvil;
+	else if (key == "SewingMachine")
+		return new SewingMachine;
+}
+
+void BuildManager::CreateBuildingList(string key, int cnt)
+{
+	for (int i = 0; i < cnt; i++)
+	{
+		Building* tempBuilding = NewBuilding(key);
+		tempBuilding->Init();
+		buildingList.push_back(tempBuilding);
+	}
+}
+
 void BuildManager::SetSelectBuildImg()
 {
 	if (ableBuild)
 	{
-		if (buildKey == "BlastFurnce")
+		if (buildKey == "BlastFurnace")
 			selectBuildImg = ImageManager::GetSingleton()->FindImage("Blast_Furnace_Possible");
 		else if (buildKey == "Anvil")
 			selectBuildImg = ImageManager::GetSingleton()->FindImage("Anvil_Possible");
@@ -133,7 +161,7 @@ void BuildManager::SetSelectBuildImg()
 	}
 	else
 	{
-		if (buildKey == "BlastFurnce")
+		if (buildKey == "BlastFurnace")
 			selectBuildImg = ImageManager::GetSingleton()->FindImage("Blast_Furnace_Impossible");
 		else if (buildKey == "Anvil")
 			selectBuildImg = ImageManager::GetSingleton()->FindImage("Anvil_Impossible");

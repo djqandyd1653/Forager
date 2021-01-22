@@ -28,7 +28,7 @@ private:
 	bool isRelocateItem;		// 
 public:
 	HRESULT Init();
-	void Render(HDC hdc, GAME_MODE& currMode);
+	void Render(HDC hdc);
 
 	void AddItem(Item* item);
 	Item* FindItem(string key);

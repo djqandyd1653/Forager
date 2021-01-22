@@ -2,7 +2,8 @@
 
 HRESULT Anvil::Init()
 {
-	return E_NOTIMPL;
+	img = ImageManager::GetSingleton()->FindImage("Anvil_Possible");
+	return S_OK;
 }
 
 void Anvil::Release()

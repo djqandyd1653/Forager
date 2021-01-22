@@ -27,6 +27,8 @@ private:
 	list<Object*> objList;			// 각각의 Object 저장 리스트
 	static list<Object*> acList;	// 실제 Update될 Object들 리스트
 	list<Object*>::iterator itOdj;	// iterator
+
+	float currObjCreateTime;		// 오브젝트 생성시간
 public:
 	HRESULT Init();
 	void Release();
@@ -38,8 +40,8 @@ public:
 	void CreateObjList(OBJ_TYPE name, int cnt);
 	Object* PopObj(Object* obj, int num);
 
-	Object* CreateAcObj(float& currTime, float createTime, int maxCnt, FPOINT tilePos, multimap<int, GameNode*>& map);
-	void DeleteAcObj(Object* obj, multimap<int, GameNode*>& map);
+	Object* CreateAcObj(float createTime, int maxCnt, FPOINT tilePos);
+	void DeleteAcObj(Object* obj);
 
 	list<Object*> GetAcList() { return acList; }
 };

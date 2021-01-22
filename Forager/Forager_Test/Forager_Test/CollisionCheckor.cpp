@@ -12,7 +12,7 @@
 #include "Menu.h"
 #include "BuildManager.h"
 
-HRESULT CollisionCheckor::Init(Player * player, TileMap * tileMap, ObjectFactory * objFactory, ItemManager* itemMgr, Inventory* inven, Menu* menu, BuildManager* buildMgr)
+HRESULT CollisionCheckor::Init(Player * player, TileMap * tileMap, ObjectFactory * objFactory, ItemManager* itemMgr, Inventory* inven, Menu* menu, BuildManager* buildMgr, multimap<int, GameNode*>* map)
 {
 	this->player = player;
 	this->tileMap = tileMap;
@@ -21,27 +21,28 @@ HRESULT CollisionCheckor::Init(Player * player, TileMap * tileMap, ObjectFactory
 	this->inven = inven;
 	this->menu = menu;
 	this->buildMgr = buildMgr;
+	renderMap = map;
 
 	tile = tileMap->GetTile();
 
 	return S_OK;
 }
 
-void CollisionCheckor::Update(FPOINT cameraPos, GAME_MODE& currMode, int& modeNum, int& lastModeNum, multimap<int, GameNode*>& map)
+void CollisionCheckor::Update(FPOINT cameraPos)
 {
-	if (currMode == GAME_MODE::PLAY)
+	if (menu->GetCurrMode() == GAME_MODE::PLAY)
 	{
 		CheckCollisionPO();					// 플레이어와 오브젝트 충돌검사
-		CheckCollisionMO(cameraPos, map);		// 마우스와 오브젝트 충돌검사
+		CheckCollisionMO(cameraPos);		// 마우스와 오브젝트 충돌검사
 	}
 
-	if (currMode == GAME_MODE::INVENTORY)
-		ChekckCollisionMS(currMode, modeNum, lastModeNum);
+	if (menu->GetCurrMode() == GAME_MODE::INVENTORY)
+		ChekckCollisionMS();
 
-	if (currMode == GAME_MODE::BUILD)
+	if (menu->GetCurrMode() == GAME_MODE::BUILD)
 	{
-		CheckCollisionMBB(currMode, modeNum, lastModeNum);
 		CheckCollisionMT(cameraPos);
+		CheckCollisionMBB();
 	}
 		
 
@@ -107,7 +108,7 @@ void CollisionCheckor::CheckCollisionPO()
 }
 
 // 마우스와 오브젝트
-void CollisionCheckor::CheckCollisionMO(FPOINT cameraPos, multimap<int, GameNode*>& map)
+void CollisionCheckor::CheckCollisionMO(FPOINT cameraPos)
 {
 	POINT mousePoint = { g_ptMouse.x + int(cameraPos.x), g_ptMouse.y + int(cameraPos.y) };
 	int tileNum = mousePoint.x / TILE_SIZE + ((mousePoint.y) / TILE_SIZE) * MAP_SIZE;
@@ -135,7 +136,21 @@ void CollisionCheckor::CheckCollisionMO(FPOINT cameraPos, multimap<int, GameNode
 							int exp = tile[tileNum].obj->GiveEXP();
 							player->GetEXP(exp);
 							itemMgr->CreateAcObj(tile[tileNum].obj->GetItemType(), tile[tileNum].obj->GetPos());
-							objFactory->DeleteAcObj(tile[tileNum].obj, map);
+							
+							multimap<int, GameNode*>::iterator itTemp = (*renderMap).begin();
+
+							while (itTemp != (*renderMap).end())
+							{
+								if (tile[tileNum].obj == (*itTemp).second)
+								{
+									(*renderMap).erase(itTemp);
+									break;
+								}
+
+								itTemp++;
+							}
+
+							objFactory->DeleteAcObj(tile[tileNum].obj);
 							tile[tileNum].obj->SetPos({ 0.0f, 0.0f });
 							tile[tileNum].obj->SetCurrHp(tile[tileNum].obj->GetMaxHp());
 							tile[tileNum].obj = nullptr;
@@ -173,13 +188,13 @@ void CollisionCheckor::CheckCollisionIPIM(FPOINT cameraPos)
 }
 
 // 마우스와 인벤토리 슬롯
-void CollisionCheckor::ChekckCollisionMS(GAME_MODE& currMode, int& modeNum, int& lastModeNum)
+void CollisionCheckor::ChekckCollisionMS()
 {
 	SLOT_INFO* slot = inven->GetSlot();
 
 	if (KeyManager::GetSingleton()->IsOnceKeyDown(VK_LBUTTON))
 	{
-		CheckCollisionMB(currMode, modeNum, lastModeNum);
+		CheckCollisionMB();
 
 		for (int i = 0; i < 16; i++)
 		{
@@ -243,7 +258,7 @@ void CollisionCheckor::ChekckCollisionMS(GAME_MODE& currMode, int& modeNum, int&
 }
 
 // 마우스와 메뉴버튼 충돌검사
-void CollisionCheckor::CheckCollisionMB(GAME_MODE& currMode, int& modeNum, int& lastModeNum)
+void CollisionCheckor::CheckCollisionMB()
 {
 	MENU_BUTTON_INFO* button = menu->GetMenuButton();
 
@@ -251,9 +266,8 @@ void CollisionCheckor::CheckCollisionMB(GAME_MODE& currMode, int& modeNum, int& 
 	{
 		if (PtInRect(&button[i].rc, g_ptMouse))
 		{
-			lastModeNum = modeNum;
-			currMode = GAME_MODE(i);
-			modeNum = i;
+			menu->SetLastMode();
+			menu->SetCurrMode(GAME_MODE(i));
 			changeMode = true;
 			if (i == 1)
 			{
@@ -264,13 +278,14 @@ void CollisionCheckor::CheckCollisionMB(GAME_MODE& currMode, int& modeNum, int& 
 	}
 }
 
-void CollisionCheckor::CheckCollisionMBB(GAME_MODE & currMode, int & modeNum, int & lastModeNum)
+// 마우스와 건설메뉴버튼 충돌검사
+void CollisionCheckor::CheckCollisionMBB()
 {
 	BUILD_BUTTON_INFO* button = buildMgr->GetBuildButton();
 
 	if (KeyManager::GetSingleton()->IsOnceKeyDown(VK_LBUTTON))
 	{
-		CheckCollisionMB(currMode, modeNum, lastModeNum);
+		CheckCollisionMB();
 
 		for (int i = 0; i < 3; i++)
 		{
@@ -306,12 +321,13 @@ void CollisionCheckor::CheckCollisionMBB(GAME_MODE & currMode, int & modeNum, in
 	}
 }
 
+// 마우스와 타일 (건물 설치 가능지역인지 아닌지)
 void CollisionCheckor::CheckCollisionMT(FPOINT cameraPos)
 {
 	if (buildMgr->GetSelectBuild())
 	{
 		tagTile* tile = tileMap->GetTile();
-		POINT mousePoint = { g_ptMouse.x + cameraPos.x, g_ptMouse.y + cameraPos.y };
+		POINT mousePoint = { int(g_ptMouse.x + cameraPos.x), int(g_ptMouse.y + cameraPos.y) };
 		int num = mousePoint.x / TILE_SIZE + (mousePoint.y / TILE_SIZE) * MAP_SIZE;
 
 		buildMgr->SetRenderPos({ int(tile[num].rc.left - cameraPos.x), int(tile[num].rc.top - cameraPos.y) });
@@ -333,6 +349,20 @@ void CollisionCheckor::CheckCollisionMT(FPOINT cameraPos)
 		else
 		{
 			buildMgr->SetAbleBuild(false);
+		}
+	}
+}
+
+void CollisionCheckor::CheckCreateBuilding()
+{
+	if (buildMgr->GetAbleBuild())
+	{
+		if (KeyManager::GetSingleton()->IsOnceKeyDown(VK_LBUTTON))
+		{
+			// 건물생성 (create함수)
+			// 건물 렌더맵에 추가
+			// 타일 건설불가지역으로 지정
+			// 메뉴 끄기
 		}
 	}
 }

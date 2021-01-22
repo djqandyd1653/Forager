@@ -1,7 +1,7 @@
 #include "Inventory.h"
 #include "Image.h"
 #include "Item.h"
-#include "PlayScene.h"
+#include "Menu.h"
 
 HRESULT Inventory::Init()
 {
@@ -29,11 +29,8 @@ HRESULT Inventory::Init()
 	return S_OK;
 }
 
-void Inventory::Render(HDC hdc, GAME_MODE& currMode)
+void Inventory::Render(HDC hdc)
 {
-	if (currMode != GAME_MODE::INVENTORY)
-		return;
-
 	for (int i = 0; i < 8; i++)
 	{
 		for (int j = 0; j < 2; j++)

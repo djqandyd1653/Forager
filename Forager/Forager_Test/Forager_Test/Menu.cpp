@@ -2,10 +2,9 @@
 #include "PlayScene.h"
 #include "Image.h"
 
-HRESULT Menu::Init(GAME_MODE & currMode, int & modeNum)
+HRESULT Menu::Init()
 {
 	currMode = GAME_MODE::PLAY;
-	modeNum = 0;
 	background = ImageManager::GetSingleton()->FindImage("Inventory_Back");
 	menuList = ImageManager::GetSingleton()->FindImage("Menu_List_Icon");
 
@@ -50,15 +49,15 @@ void Menu::Release()
 {
 }
 
-void Menu::Update(GAME_MODE & currMode, int & modeNum, int & lastModeNum, bool & selectBuild)
+void Menu::Update(bool & selectBuild)
 {
-	SelectMenu(currMode, modeNum, lastModeNum, selectBuild);
+	SelectMenu(selectBuild);
 
 	//button[5].pos.x += int(50 * TimeManager::GetSingleton()->GetElapsedTime());
 	//button[6].pos.x += int(50 * TimeManager::GetSingleton()->GetElapsedTime());
 }
 
-void Menu::Render(HDC hdc, GAME_MODE & currMode)
+void Menu::Render(HDC hdc)
 {
 	if (currMode != GAME_MODE::PLAY)
 	{
@@ -73,50 +72,47 @@ void Menu::Render(HDC hdc, GAME_MODE & currMode)
 	}
 }
 
-void Menu::SelectMenu(GAME_MODE & currMode, int & modeNum, int& lastModeNum, bool & selectBuild)
+void Menu::SelectMenu(bool & selectBuild)
 {
 	if (KeyManager::GetSingleton()->IsOnceKeyDown(VK_ESCAPE))
 	{
 		if (currMode == GAME_MODE::PLAY)
 		{
-			lastModeNum = modeNum;
-			currMode = GAME_MODE(++modeNum);
+			lastMode = currMode;
+			currMode = GAME_MODE::INVENTORY;
 			changeMode = true;
 		}
 		else
 		{
-			lastModeNum = modeNum;
+			lastMode = currMode;
 			currMode = GAME_MODE::PLAY;
-			modeNum = 0;
 			changeMode = true;
 		}
 	}
 
 	if (currMode != GAME_MODE::PLAY)
 	{
+		int modeNum = int(currMode);
+
 		if (KeyManager::GetSingleton()->IsOnceKeyDown('Q'))
 		{
 			if (modeNum > 1)
 			{
-				lastModeNum = modeNum;
-				modeNum--;
+				lastMode = currMode;
+				currMode = GAME_MODE(--modeNum);
 				selectBuild = false;
 				changeMode = true;
 			}
-				
-			currMode = GAME_MODE(modeNum);
 		}
 
 		if (KeyManager::GetSingleton()->IsOnceKeyDown('E'))
 		{
 			if (modeNum < 2)
 			{
-				lastModeNum = modeNum;
-				modeNum++;
+				lastMode = currMode;
+				currMode = GAME_MODE(++modeNum);
 				changeMode = true;
 			}
-				
-			currMode = GAME_MODE(modeNum);
 		}
 	}
 }

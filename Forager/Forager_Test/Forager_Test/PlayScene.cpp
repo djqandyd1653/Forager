@@ -6,6 +6,7 @@
 #include "Player.h"
 #include "PlayUI.h"
 #include "ObjectFactory.h"
+#include "Object.h"
 #include "CollisionCheckor.h"
 #include "ItemManager.h"
 #include "Menu.h"
@@ -36,7 +37,7 @@ HRESULT PlayScene::Init()
 	itemMgr->Init();
 
 	menu = new Menu;
-	menu->Init(currMode, modeNum);
+	menu->Init();
 
 	inven = new Inventory;
 	inven->Init();
@@ -45,9 +46,8 @@ HRESULT PlayScene::Init()
 	buildMgr->Init();
 
 	collisionCheckor = new CollisionCheckor;
-	collisionCheckor->Init(player, tileMap, objFactory, itemMgr, inven, menu, buildMgr);
+	collisionCheckor->Init(player, tileMap, objFactory, itemMgr, inven, menu, buildMgr, &renderMap);
 
-	currObjCreateTime = 0.0f;
 	changeMode = false;
 	renderSize = 1.0f;
 
@@ -80,21 +80,26 @@ void PlayScene::Update()
 	if (changeMode)
 		changeMode = false;
 
-	if (currMode == GAME_MODE::PLAY)
+	if (menu->GetCurrMode() == GAME_MODE::PLAY)
 	{
 		player->Update(camera->GetPos());
-		tileMap->SetObject(objFactory->CreateAcObj(currObjCreateTime, 1.0f, 5, tileMap->RandGrassPos(), renderMap));
+		Object* tempObj = objFactory->CreateAcObj(1.0f, 5, tileMap->RandGrassPos());
+		if (tempObj != nullptr)
+		{
+			tileMap->SetObject(tempObj);
+			renderMap.insert(make_pair(int(tempObj->GetPos().y), tempObj));
+		}
 		tileMap->Update();
 	}
 		
 	camera->Update();
-	collisionCheckor->Update(camera->GetPos(), currMode, modeNum, lastModeNum, renderMap);
+	collisionCheckor->Update(camera->GetPos());
 	objFactory->Update();
 	playUI->Update();
 	itemMgr->Update();
 	buildMgr->Update();
 	bool isSelectBuild = buildMgr->GetSelectBuild();
-	menu->Update(currMode, modeNum, lastModeNum, isSelectBuild);
+	menu->Update(isSelectBuild);
 	buildMgr->SetSelectBuild(isSelectBuild);
 
 	//if (changeMode)
@@ -134,10 +139,12 @@ void PlayScene::Render(HDC hdc)
 	itemMgr->Render(hdc, camera->GetPos());
 
 	playUI->Render(hdc);
-	menu->Render(hdc, currMode);
-	inven->Render(hdc, currMode);
+	menu->Render(hdc);
 
-	if (currMode == GAME_MODE::BUILD)
+	if(menu->GetCurrMode() == GAME_MODE::INVENTORY)
+		inven->Render(hdc);
+
+	if (menu->GetCurrMode() == GAME_MODE::BUILD)
 		buildMgr->Render(hdc);
 
 	char c[32];
@@ -145,81 +152,81 @@ void PlayScene::Render(HDC hdc)
 	TextOut(hdc, 200, 200, c, (int)strlen(c));
 }
 
-void PlayScene::ChangeInfo()
-{
-	tile = tileMap->GetTile();
-
-	if ((lastModeNum == 1 || lastModeNum == 4) && modeNum == 2)
-	{
-		renderSize = 0.8f;
-		for (int i = 0; i < MAP_SIZE * MAP_SIZE; i++)
-		{
-			tile[i].rc.left *= renderSize;
-			tile[i].rc.top *= renderSize;
-			tile[i].rc.right *= renderSize;
-			tile[i].rc.bottom *= renderSize;
-		}
-
-		player->SetPosX(player->GetPos().x * renderSize);
-		player->SetPosY(player->GetPos().y * renderSize);
-	}
-	else if ((lastModeNum == 1 || lastModeNum == 4) && modeNum == 3)
-	{
-		renderSize = 0.5f;
-		for (int i = 0; i < MAP_SIZE * MAP_SIZE; i++)
-		{
-			tile[i].rc.left *= renderSize;
-			tile[i].rc.top *= renderSize;
-			tile[i].rc.right *= renderSize;
-			tile[i].rc.bottom *= renderSize;
-		}
-
-		player->SetPosX(player->GetPos().x * renderSize);
-		player->SetPosY(player->GetPos().y * renderSize);
-	}
-	else if (lastModeNum == 2 && modeNum == 3)
-	{
-
-	}
-	else if (lastModeNum == 3 && modeNum == 2)
-	{
-
-	}
-	else if(lastModeNum == 2)
-	{
-		renderSize = 1.0f;
-		for (int i = 0; i < MAP_SIZE; i++)
-		{
-			for (int j = 0; j < MAP_SIZE; j++)
-			{
-				SetRect(&tile[i * MAP_SIZE + j].rc,
-					j * TILE_SIZE,
-					i * TILE_SIZE,
-					(j + 1) * TILE_SIZE,
-					(i + 1) * TILE_SIZE);
-			}
-		}
-		player->SetPosX(player->GetPos().x * 1.25f);
-		player->SetPosY(player->GetPos().y * 1.25f);
-	}
-	else if (lastModeNum == 3)
-	{
-		renderSize = 1.0f;
-		for (int i = 0; i < MAP_SIZE; i++)
-		{
-			for (int j = 0; j < MAP_SIZE; j++)
-			{
-				SetRect(&tile[i * MAP_SIZE + j].rc,
-					j * TILE_SIZE,
-					i * TILE_SIZE,
-					(j + 1) * TILE_SIZE,
-					(i + 1) * TILE_SIZE);
-			}
-		}
-		player->SetPosX(player->GetPos().x * 1.25f);
-		player->SetPosY(player->GetPos().y * 1.25f);
-	}
-}
+//void PlayScene::ChangeInfo()
+//{
+//	tile = tileMap->GetTile();
+//	
+//	if ((lastModeNum == 1 || lastModeNum == 4) && modeNum == 2)
+//	{
+//		renderSize = 0.8f;
+//		for (int i = 0; i < MAP_SIZE * MAP_SIZE; i++)
+//		{
+//			tile[i].rc.left *= renderSize;
+//			tile[i].rc.top *= renderSize;
+//			tile[i].rc.right *= renderSize;
+//			tile[i].rc.bottom *= renderSize;
+//		}
+//
+//		player->SetPosX(player->GetPos().x * renderSize);
+//		player->SetPosY(player->GetPos().y * renderSize);
+//	}
+//	else if ((lastModeNum == 1 || lastModeNum == 4) && modeNum == 3)
+//	{
+//		renderSize = 0.5f;
+//		for (int i = 0; i < MAP_SIZE * MAP_SIZE; i++)
+//		{
+//			tile[i].rc.left *= renderSize;
+//			tile[i].rc.top *= renderSize;
+//			tile[i].rc.right *= renderSize;
+//			tile[i].rc.bottom *= renderSize;
+//		}
+//
+//		player->SetPosX(player->GetPos().x * renderSize);
+//		player->SetPosY(player->GetPos().y * renderSize);
+//	}
+//	else if (lastModeNum == 2 && modeNum == 3)
+//	{
+//
+//	}
+//	else if (lastModeNum == 3 && modeNum == 2)
+//	{
+//
+//	}
+//	else if(lastModeNum == 2)
+//	{
+//		renderSize = 1.0f;
+//		for (int i = 0; i < MAP_SIZE; i++)
+//		{
+//			for (int j = 0; j < MAP_SIZE; j++)
+//			{
+//				SetRect(&tile[i * MAP_SIZE + j].rc,
+//					j * TILE_SIZE,
+//					i * TILE_SIZE,
+//					(j + 1) * TILE_SIZE,
+//					(i + 1) * TILE_SIZE);
+//			}
+//		}
+//		player->SetPosX(player->GetPos().x * 1.25f);
+//		player->SetPosY(player->GetPos().y * 1.25f);
+//	}
+//	else if (lastModeNum == 3)
+//	{
+//		renderSize = 1.0f;
+//		for (int i = 0; i < MAP_SIZE; i++)
+//		{
+//			for (int j = 0; j < MAP_SIZE; j++)
+//			{
+//				SetRect(&tile[i * MAP_SIZE + j].rc,
+//					j * TILE_SIZE,
+//					i * TILE_SIZE,
+//					(j + 1) * TILE_SIZE,
+//					(i + 1) * TILE_SIZE);
+//			}
+//		}
+//		player->SetPosX(player->GetPos().x * 1.25f);
+//		player->SetPosY(player->GetPos().y * 1.25f);
+//	}
+//}
 
 PlayScene::PlayScene()
 {

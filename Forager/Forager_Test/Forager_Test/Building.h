@@ -1,10 +1,7 @@
 #pragma once
 #include "GameNode.h"
 
-typedef struct tagTile TILE_INFO;
-
 class Image;
-class TileMap;
 
 class Building : public GameNode
 {
@@ -13,8 +10,6 @@ protected:
 	RECT rc;
 
 	Image* img;
-	TileMap* tileMap;
-	tagTile* tile;
 	
 public:
 	virtual HRESULT Init();

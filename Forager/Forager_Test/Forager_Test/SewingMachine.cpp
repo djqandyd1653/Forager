@@ -2,7 +2,8 @@
 
 HRESULT SewingMachine::Init()
 {
-	return E_NOTIMPL;
+	img = ImageManager::GetSingleton()->FindImage("Sewing_Machine_Possible");
+	return S_OK;
 }
 
 void SewingMachine::Release()

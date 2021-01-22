@@ -14,6 +14,8 @@ HRESULT ObjectFactory::Init()
 	treeFactory.CreateObjList(OBJ_TYPE::TREE, 30);
 	rockFactory.CreateObjList(OBJ_TYPE::ROCK, 30);
 	fruitFactory.CreateObjList(OBJ_TYPE::FRUIT, 30);
+
+	currObjCreateTime = 0.0f;
 	return S_OK;
 }
 
@@ -129,17 +131,17 @@ Object * ObjectFactory::PopObj(Object* obj, int num)
 	return tempObj;
 }
 
-Object* ObjectFactory::CreateAcObj(float& currTime, float createTime, int maxCnt, FPOINT tilePos, multimap<int, GameNode*>& map)
+Object* ObjectFactory::CreateAcObj(float createTime, int maxCnt, FPOINT tilePos)
 {
 	if (acList.size() >= maxCnt)
 		return nullptr;
 
-	currTime += TimeManager::GetSingleton()->GetElapsedTime();
+	currObjCreateTime += TimeManager::GetSingleton()->GetElapsedTime();
 
-	if (currTime < createTime)
+	if (currObjCreateTime < createTime)
 		return nullptr;
 
-	currTime = 0;
+	currObjCreateTime = 0;
 
 	int randNum = rand() % int(OBJ_TYPE::COUNT);
 
@@ -161,14 +163,13 @@ Object* ObjectFactory::CreateAcObj(float& currTime, float createTime, int maxCnt
 	acList.push_back(tempObj);
 	acList.back()->SetPos(tilePos);
 	acList.back()->UpdateRect();
-	map.insert(make_pair(int(acList.back()->GetPos().y), acList.back()));
 	return acList.back();
 }
 
-void ObjectFactory::DeleteAcObj(Object* obj, multimap<int, GameNode*>& map)
+void ObjectFactory::DeleteAcObj(Object* obj)
 {
 	list<Object*>::iterator it = acList.begin();
-	multimap<int, GameNode*>::iterator itTemp = map.begin();
+	//multimap<int, GameNode*>::iterator itTemp = map.begin();
 
 	while (it != acList.end())
 	{
@@ -195,14 +196,14 @@ void ObjectFactory::DeleteAcObj(Object* obj, multimap<int, GameNode*>& map)
 
 	it = acList.erase(it);
 
-	while (itTemp != map.end())
-	{
-		if (obj == (*itTemp).second)
-		{
-			map.erase(itTemp);
-			break;
-		}
+	//while (itTemp != map.end())
+	//{
+	//	if (obj == (*itTemp).second)
+	//	{
+	//		map.erase(itTemp);
+	//		break;
+	//	}
 
-		itTemp++;
-	}
+	//	itTemp++;
+	//}
 }

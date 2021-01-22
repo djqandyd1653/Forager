@@ -28,8 +28,8 @@ private:
 	list<Building*>::iterator itBuilding;
 
 	BUILD_BUTTON_INFO button[3];
-	bool selectBuild;
-	bool ableBuild;
+	bool selectBuild;				// 건설할 건물을 선택했는가?
+	bool ableBuild;					// 건물을 건설할 수 있는가?
 	Image* selectBuildImg;
 	POINT renderPos;
 	string buildKey;
@@ -39,12 +39,12 @@ public:
 	virtual void Update();
 	virtual void Render(HDC hdc);
 
-	//Building* newItem(ITEM_TYPE itemType);
+	Building* NewBuilding(string key);
 
-	//void CreateItemList(ITEM_TYPE itemType, int cnt);
-	//Building* PopItem(ITEM_TYPE itemType);
-	//void CreateAcObj(ITEM_TYPE itemType, FPOINT objPos);
-	//void DeleteAcObj(Building* item);
+	void CreateBuildingList(string key, int cnt);
+	Building* PopItem(ITEM_TYPE itemType);
+	void CreateAcObj(ITEM_TYPE itemType, FPOINT objPos);
+	void DeleteAcObj(Building* item);
 
 	list<Building*> GetAcItemList() { return acBuildingList; }
 	BUILD_BUTTON_INFO* GetBuildButton() { return button; }
@@ -59,6 +59,8 @@ public:
 	void SetRenderPos(POINT pos) { renderPos = pos; }
 
 	void SetBuildKey(string key) { buildKey = key; }
+
+	bool GetAbleBuild() { return ableBuild; }
 };
 
 class BlastFurnaceFactory : public BuildManager {};

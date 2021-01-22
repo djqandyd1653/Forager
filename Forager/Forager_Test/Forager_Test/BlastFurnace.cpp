@@ -2,7 +2,8 @@
 
 HRESULT BlastFurnace::Init()
 {
-	return E_NOTIMPL;
+	img = ImageManager::GetSingleton()->FindImage("Blast_Furnace_Possible");
+	return S_OK;
 }
 
 void BlastFurnace::Release()
