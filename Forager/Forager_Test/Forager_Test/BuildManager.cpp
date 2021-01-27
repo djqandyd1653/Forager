@@ -38,9 +38,9 @@ HRESULT BuildManager::Init()
 	selectBuild = false;
 	selectBuildImg = nullptr;
 
-	CreateBuildingList("BlastFurnace", 20);
-	CreateBuildingList("Anvil", 20);
-	CreateBuildingList("SewingMachine", 20);
+	blastFurnaceFactory.CreateBuildingList("BlastFurnace", 20);
+	anvilFactory.CreateBuildingList("Anvil", 20);
+	sewingMachineFactory.CreateBuildingList("SewingMachine", 20);
 
 	return S_OK;
 }
@@ -148,6 +148,43 @@ void BuildManager::CreateBuildingList(string key, int cnt)
 	}
 }
 
+Building * BuildManager::PopBuilding(string key)
+{
+	Building* tempBuilding;
+
+	itBuilding = buildingList.begin();
+
+	if (buildingList.empty())
+	{
+		tempBuilding = NewBuilding(key);
+		tempBuilding->Init();
+	}
+	else
+	{
+		tempBuilding = *itBuilding;
+		itBuilding = buildingList.erase(itBuilding);
+	}
+
+	return tempBuilding;
+}
+
+GameNode * BuildManager::CreateAcBuilding()
+{
+	Building* tempBuilding;
+	
+	if (buildKey == "BlastFurnace")
+		tempBuilding = blastFurnaceFactory.PopBuilding(buildKey);
+	else if (buildKey == "Anvil")
+		tempBuilding = anvilFactory.PopBuilding(buildKey);
+	else if (buildKey == "SewingMachine")
+		tempBuilding = sewingMachineFactory.PopBuilding(buildKey);
+
+	//buildKey = nullptr;
+
+	acBuildingList.push_back(tempBuilding);
+	return acBuildingList.back();
+}
+
 void BuildManager::SetSelectBuildImg()
 {
 	if (ableBuild)
@@ -168,5 +205,4 @@ void BuildManager::SetSelectBuildImg()
 		else if (buildKey == "SewingMachine")
 			selectBuildImg = ImageManager::GetSingleton()->FindImage("Sewing_Machine_Impossible");
 	}
-
 }

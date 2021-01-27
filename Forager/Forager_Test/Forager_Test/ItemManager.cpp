@@ -5,13 +5,14 @@
 
 list<Item*> ItemManager::acItemList;
 FruitItemFactory ItemManager::fruitItemFactory;
-EtcFactory ItemManager::etcFactory;
+TreeItemFactory ItemManager::treeItemFactory;
+RockItemFactory ItemManager::rockItemFactory;
 
 HRESULT ItemManager::Init()
 {
-	CreateItemList(ITEM_TYPE::FRUIT, 20);
-	CreateItemList(ITEM_TYPE::TREE, 20);
-	CreateItemList(ITEM_TYPE::ROCK, 10);
+	fruitItemFactory.CreateItemList(ITEM_TYPE::FRUIT, 20);
+	treeItemFactory.CreateItemList(ITEM_TYPE::TREE, 20);
+	rockItemFactory.CreateItemList(ITEM_TYPE::ROCK, 10);
 	return E_NOTIMPL;
 }
 
@@ -35,7 +36,16 @@ void ItemManager::Release()
 		delete *itItem;
 	}
 
-	for (itItem = etcFactory.itemList.begin(); itItem != etcFactory.itemList.end(); itItem++)
+	for (itItem = treeItemFactory.itemList.begin(); itItem != treeItemFactory.itemList.end(); itItem++)
+	{
+		if (*itItem)
+		{
+			(*itItem)->Release();
+		}
+		delete *itItem;
+	}
+
+	for (itItem = rockItemFactory.itemList.begin(); itItem != rockItemFactory.itemList.end(); itItem++)
 	{
 		if (*itItem)
 		{
@@ -46,7 +56,8 @@ void ItemManager::Release()
 
 	acItemList.clear();
 	fruitItemFactory.itemList.clear();
-	etcFactory.itemList.clear();
+	treeItemFactory.itemList.clear();
+	rockItemFactory.itemList.clear();
 }
 
 void ItemManager::Update()
@@ -109,7 +120,7 @@ Item * ItemManager::PopItem(ITEM_TYPE itemType)
 	else
 	{
 		tempItem = *itItem;
-		itItem = acItemList.erase(itItem);
+		itItem = itemList.erase(itItem);
 	}
 
 	return tempItem;
@@ -125,10 +136,10 @@ void ItemManager::CreateAcObj(ITEM_TYPE itemType, FPOINT objPos)
 		tempItem = fruitItemFactory.PopItem(itemType);
 		break;
 	case ITEM_TYPE::TREE:
-		tempItem = etcFactory.PopItem(itemType);
+		tempItem = treeItemFactory.PopItem(itemType);
 		break;
 	case ITEM_TYPE::ROCK:
-		tempItem = etcFactory.PopItem(itemType);
+		tempItem = rockItemFactory.PopItem(itemType);
 		break;
 	}
 
@@ -153,8 +164,10 @@ void ItemManager::DeleteAcObj(Item * item)
 	{
 	case ITEM_TYPE::FRUIT:
 		fruitItemFactory.itemList.push_back(*itItem);
-	case ITEM_TYPE::ETC:
-		etcFactory.itemList.push_back(*itItem);
+	case ITEM_TYPE::TREE:
+		treeItemFactory.itemList.push_back(*itItem);
+	case ITEM_TYPE::ROCK:
+		rockItemFactory.itemList.push_back(*itItem);
 	default:
 		break;
 	}

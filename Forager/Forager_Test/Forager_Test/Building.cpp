@@ -5,6 +5,7 @@
 
 HRESULT Building::Init()
 {
+	return S_OK;
 }
 
 void Building::Release()

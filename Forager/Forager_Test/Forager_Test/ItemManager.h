@@ -3,7 +3,8 @@
 
 class Item;
 class FruitItemFactory;
-class EtcFactory;
+class TreeItemFactory;
+class RockItemFactory;
 
 enum class ITEM_TYPE;
 
@@ -11,7 +12,8 @@ class ItemManager
 {
 private:
 	static FruitItemFactory fruitItemFactory;
-	static EtcFactory etcFactory;
+	static TreeItemFactory treeItemFactory;
+	static RockItemFactory rockItemFactory;
 
 	list<Item*> itemList;
 	static list<Item*> acItemList;
@@ -35,5 +37,7 @@ public:
 
 class FruitItemFactory : public ItemManager{};
 
-class EtcFactory : public ItemManager{};
+class TreeItemFactory : public ItemManager{};
+
+class RockItemFactory : public ItemManager {};
 

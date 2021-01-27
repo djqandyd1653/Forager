@@ -42,9 +42,9 @@ public:
 	Building* NewBuilding(string key);
 
 	void CreateBuildingList(string key, int cnt);
-	Building* PopItem(ITEM_TYPE itemType);
-	void CreateAcObj(ITEM_TYPE itemType, FPOINT objPos);
-	void DeleteAcObj(Building* item);
+	Building* PopBuilding(string key);
+	GameNode* CreateAcBuilding();
+	//void DeleteAcObj(Building* item);
 
 	list<Building*> GetAcItemList() { return acBuildingList; }
 	BUILD_BUTTON_INFO* GetBuildButton() { return button; }

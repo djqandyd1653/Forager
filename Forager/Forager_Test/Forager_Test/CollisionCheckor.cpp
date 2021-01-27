@@ -1,4 +1,5 @@
 #include "PlayScene.h"
+#include "GameNode.h"
 #include "CollisionCheckor.h"
 #include "Player.h"
 #include "TileMap.h"
@@ -41,6 +42,7 @@ void CollisionCheckor::Update(FPOINT cameraPos)
 
 	if (menu->GetCurrMode() == GAME_MODE::BUILD)
 	{
+		CheckCreateBuilding();
 		CheckCollisionMT(cameraPos);
 		CheckCollisionMBB();
 	}
@@ -360,8 +362,10 @@ void CollisionCheckor::CheckCreateBuilding()
 		if (KeyManager::GetSingleton()->IsOnceKeyDown(VK_LBUTTON))
 		{
 			// 건물생성 (create함수)
+			(*renderMap).insert(make_pair(4, buildMgr->CreateAcBuilding()));
 			// 건물 렌더맵에 추가
 			// 타일 건설불가지역으로 지정
+			buildMgr->SetAbleBuild(false);
 			// 메뉴 끄기
 		}
 	}
