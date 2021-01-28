@@ -43,7 +43,7 @@ public:
 
 	void CreateBuildingList(string key, int cnt);
 	Building* PopBuilding(string key);
-	GameNode* CreateAcBuilding();
+	GameNode* CreateAcBuilding(POINT pos);
 	//void DeleteAcObj(Building* item);
 
 	list<Building*> GetAcItemList() { return acBuildingList; }

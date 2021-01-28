@@ -36,6 +36,6 @@ public:
 	void CheckCollisionMB();						// 마우스와 메뉴버튼 충돌검사
 	void CheckCollisionMBB();						// 마우스와 건설메뉴버튼 충돌검사
 	void CheckCollisionMT(FPOINT cameraPos);		// 마우스와 타일 (건물 설치 가능지역인지 아닌지)
-	void CheckCreateBuilding();						// 건물생성 검사
+	void CheckCreateBuilding(FPOINT cameraPos);						// 건물생성 검사
 };
 

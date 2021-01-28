@@ -117,6 +117,8 @@ void PlayScene::Render(HDC hdc)
 	SelectObject(hdc, transparentBrush);
 
 	tileMap->Render(hdc, camera->GetPos());
+
+	SelectObject(hdc, blueBrush);
 	
 	itRender = renderMap.begin();
 	while (itRender != renderMap.end())
@@ -134,6 +136,8 @@ void PlayScene::Render(HDC hdc)
 		(*itRender).second->Render(hdc, camera->GetPos());
 		itRender++;
 	}
+
+	SelectObject(hdc, transparentBrush);
 
 	camera->Render(hdc);
 	itemMgr->Render(hdc, camera->GetPos());

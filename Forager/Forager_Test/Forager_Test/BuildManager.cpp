@@ -168,7 +168,7 @@ Building * BuildManager::PopBuilding(string key)
 	return tempBuilding;
 }
 
-GameNode * BuildManager::CreateAcBuilding()
+GameNode * BuildManager::CreateAcBuilding(POINT pos)
 {
 	Building* tempBuilding;
 	
@@ -182,6 +182,8 @@ GameNode * BuildManager::CreateAcBuilding()
 	//buildKey = nullptr;
 
 	acBuildingList.push_back(tempBuilding);
+	acBuildingList.back()->SetPos(pos);
+	acBuildingList.back()->SetRect();
 	return acBuildingList.back();
 }
 

@@ -42,7 +42,7 @@ void CollisionCheckor::Update(FPOINT cameraPos)
 
 	if (menu->GetCurrMode() == GAME_MODE::BUILD)
 	{
-		CheckCreateBuilding();
+		CheckCreateBuilding(cameraPos);
 		CheckCollisionMT(cameraPos);
 		CheckCollisionMBB();
 	}
@@ -355,17 +355,32 @@ void CollisionCheckor::CheckCollisionMT(FPOINT cameraPos)
 	}
 }
 
-void CollisionCheckor::CheckCreateBuilding()
+void CollisionCheckor::CheckCreateBuilding(FPOINT cameraPos)
 {
 	if (buildMgr->GetAbleBuild())
 	{
 		if (KeyManager::GetSingleton()->IsOnceKeyDown(VK_LBUTTON))
 		{
+			tagTile* tile = tileMap->GetTile();
+			POINT mousePoint = { int(g_ptMouse.x + cameraPos.x), int(g_ptMouse.y + cameraPos.y) };
+			int num = mousePoint.x / TILE_SIZE + (mousePoint.y / TILE_SIZE) * MAP_SIZE;
+
 			// 건물생성 (create함수)
-			(*renderMap).insert(make_pair(4, buildMgr->CreateAcBuilding()));
+			GameNode* building = buildMgr->CreateAcBuilding( {tile[num].rc.left, tile[num].rc.top});
+
 			// 건물 렌더맵에 추가
+			(*renderMap).insert(make_pair(tile[num].rc.top, building));
+
 			// 타일 건설불가지역으로 지정
+			tile[num].ableBuild = false;
+			tile[num + 1].ableBuild = false;
+			tile[num + MAP_SIZE].ableBuild = false;
+			tile[num + MAP_SIZE + 1].ableBuild = false;
+
 			buildMgr->SetAbleBuild(false);
+			buildMgr->SetSelectBuild(false);
+
+			// 인벤토리 아이템 제거
 			// 메뉴 끄기
 		}
 	}
