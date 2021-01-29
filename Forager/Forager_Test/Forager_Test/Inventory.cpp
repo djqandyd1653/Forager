@@ -2,11 +2,14 @@
 #include "Image.h"
 #include "Item.h"
 #include "Menu.h"
+#include "TextUI.h"
 
 HRESULT Inventory::Init()
 {
-	tempSlotIdx = -1;
 	relocateItem = NULL;
+	itemCntTxt = new TextUI;
+
+	tempSlotIdx = -1;
 	slotSize = 88;
 	isRelocateItem = false;
 
@@ -52,9 +55,12 @@ void Inventory::Render(HDC hdc)
 		item->GetImg()->Render(hdc, int(item->GetPos().x), int(item->GetPos().y));
 
 		// 아이템 개수
-		char c[12];
-		wsprintf(c, "%d", item->GetItemCnt());
-		TextOut(hdc, int(item->GetPos().x), int(item->GetPos().y), c, int(strlen(c)));
+		itemCntTxt->SetText(to_string(item->GetItemCnt()));
+		itemCntTxt->SetFontSize(27);
+		itemCntTxt->SetAlign(TA_RIGHT);
+		itemCntTxt->SetColor(RGB(255, 255, 255));
+		itemCntTxt->Render(hdc, item->GetPos().x + 65, item->GetPos().y + 25);
+
 		itInvenItem++;
 	}
 }

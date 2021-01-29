@@ -17,8 +17,8 @@ void BlastFurnace::Update()
 
 void BlastFurnace::Render(HDC hdc, FPOINT cameraPos)
 {
-	img->Render(hdc, pos.x - cameraPos.x, pos.y - cameraPos.y);
-	Rectangle(hdc, rc.left - cameraPos.x, rc.top - cameraPos.y, rc.right - cameraPos.x, rc.bottom - cameraPos.y);
+	img->Render(hdc, pos.x - cameraPos.x, pos.y - cameraPos.y - 56);
+	Rectangle(hdc, rc.left - cameraPos.x, rc.top - cameraPos.y, rc.right - cameraPos.x, rc.bottom - cameraPos.y - 56);
 }
 
 void BlastFurnace::SetRect()

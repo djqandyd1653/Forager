@@ -381,6 +381,7 @@ void CollisionCheckor::CheckCreateBuilding(FPOINT cameraPos)
 			buildMgr->SetSelectBuild(false);
 
 			// 인벤토리 아이템 제거
+
 			// 메뉴 끄기
 		}
 	}

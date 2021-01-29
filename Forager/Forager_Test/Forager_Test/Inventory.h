@@ -4,6 +4,7 @@
 enum class GAME_MODE;
 class Image;
 class Item;
+class TextUI;
 
 typedef struct tagSlot
 {
@@ -22,10 +23,14 @@ private:
 
 	SLOT_INFO slot[16];
 
-	int tempSlotIdx;		// 아이템 위치 바꾸는 슬롯 인덱스 임시저장 변수
 	Item* relocateItem;		// 슬롯 위치 바꾸는 아이템
+	TextUI* itemCntTxt;		// 아이템 갯수 텍스트
+
+	int tempSlotIdx;		// 아이템 위치 바꾸는 슬롯 인덱스 임시저장 변수
 	int slotSize;			// 슬롯 크기
-	bool isRelocateItem;		// 
+	bool isRelocateItem;	// 아이템 위치가 바뀌었는가
+
+	
 public:
 	HRESULT Init();
 	void Render(HDC hdc);

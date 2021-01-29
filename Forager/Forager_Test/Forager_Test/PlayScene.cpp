@@ -117,8 +117,6 @@ void PlayScene::Render(HDC hdc)
 	SelectObject(hdc, transparentBrush);
 
 	tileMap->Render(hdc, camera->GetPos());
-
-	SelectObject(hdc, blueBrush);
 	
 	itRender = renderMap.begin();
 	while (itRender != renderMap.end())
@@ -137,8 +135,6 @@ void PlayScene::Render(HDC hdc)
 		itRender++;
 	}
 
-	SelectObject(hdc, transparentBrush);
-
 	camera->Render(hdc);
 	itemMgr->Render(hdc, camera->GetPos());
 
@@ -151,9 +147,10 @@ void PlayScene::Render(HDC hdc)
 	if (menu->GetCurrMode() == GAME_MODE::BUILD)
 		buildMgr->Render(hdc);
 
-	char c[32];
-	wsprintf(c, "%d", renderMap.size());
-	TextOut(hdc, 200, 200, c, (int)strlen(c));
+	// renderMap Å©±â
+	//char c[32];
+	//wsprintf(c, "%d", renderMap.size());
+	//TextOut(hdc, 200, 200, c, (int)strlen(c));
 }
 
 //void PlayScene::ChangeInfo()
