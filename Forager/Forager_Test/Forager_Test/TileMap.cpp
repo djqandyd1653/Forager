@@ -33,11 +33,11 @@ void TileMap::Release()
 
 void TileMap::Update()
 {
-	if (KeyManager::GetSingleton()->IsOnceKeyDown(VK_NUMPAD1))
+	if (KeyManager::GetSingleton()->IsOnceKeyDown(VK_INSERT))
 		LoadMap(1, 1);
-	if (KeyManager::GetSingleton()->IsOnceKeyDown(VK_NUMPAD2))
+	if (KeyManager::GetSingleton()->IsOnceKeyDown(VK_HOME))
 		LoadMap(1, 2);
-	if (KeyManager::GetSingleton()->IsOnceKeyDown(VK_NUMPAD3))
+	if (KeyManager::GetSingleton()->IsOnceKeyDown(VK_DELETE))
 		LoadMap(1, 3);
 	if (KeyManager::GetSingleton()->IsOnceKeyDown(VK_NUMPAD4))
 		LoadMap(1, 4);
